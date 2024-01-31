@@ -11,6 +11,12 @@ part 'sections/menu_info_card_ingredients.dart';
 class MenuInfoPage extends StatelessWidget {
   const MenuInfoPage({super.key});
 
+  static Route<void> route() {
+    return MaterialPageRoute(
+      builder: (context) => const MenuInfoPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/presenter/pages/menu_list/menu_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -48,9 +49,15 @@ class HomePage extends StatelessWidget {
                 children: [
                   ...category.map(
                     (e) => Card(
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(e),
+                      clipBehavior: Clip.antiAlias,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(MenuListPage.route());
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(e),
+                        ),
                       ),
                     ),
                   ),

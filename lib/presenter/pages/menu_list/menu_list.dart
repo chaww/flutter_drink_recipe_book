@@ -8,6 +8,12 @@ part 'sections/menu_list_tabs.dart';
 class MenuListPage extends StatelessWidget {
   const MenuListPage({super.key});
 
+  static Route<void> route() {
+    return MaterialPageRoute(
+      builder: (context) => const MenuListPage(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return const _MenuListTabs();

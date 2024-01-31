@@ -3,6 +3,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_info.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({super.key});
@@ -16,22 +17,27 @@ class ItemCard extends StatelessWidget {
 
         return Card(
           clipBehavior: Clip.antiAlias,
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Placeholder(
-                    fallbackHeight: height * 0.7,
-                    // fallbackWidth: 100,
-                  ),
-                  Spacer(),
-                  Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Text('ชื่อเมนู'),
-                  ),
-                ],
-              ),
-            ],
+          child: InkWell(
+            onTap: () {
+              Navigator.of(context).push(MenuInfoPage.route());
+            },
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Placeholder(
+                      fallbackHeight: height * 0.7,
+                      // fallbackWidth: 100,
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text('ชื่อเมนู'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             // children: [
             //   Row(
             //     children: [
