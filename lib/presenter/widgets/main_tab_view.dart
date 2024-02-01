@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MainTabData {
   final Widget child;
-  final String label;
+  final Widget label;
 
   const MainTabData({
     required this.label,
@@ -62,8 +62,9 @@ class MainTabView extends StatelessWidget {
       labelPadding: const EdgeInsets.symmetric(vertical: 16),
       indicatorSize: TabBarIndicatorSize.label,
       indicatorWeight: 2,
-      indicatorColor: Colors.amber,
-      tabs: tabs.map((tab) => Text(tab.label)).toList(),
+      // indicatorColor: Colors.grey,
+      dividerColor: Colors.transparent,
+      tabs: tabs.map((tab) => tab.label).toList(),
     );
   }
 

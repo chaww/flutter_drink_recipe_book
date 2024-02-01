@@ -1,11 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/presenter/themes/colors.dart';
+import 'package:flutter_drink_recipe_book/presenter/themes/typography.dart';
 
 class AppTheme extends ThemeExtension<AppTheme> {
-  const AppTheme();
+  final String name;
+  final Brightness brightness;
+  final AppThemeColors colors;
+  final AppThemeTypography typographies;
+
+  const AppTheme({
+    required this.name,
+    required this.brightness,
+    required this.colors,
+    this.typographies = const AppThemeTypography(),
+  });
+
+  ColorScheme get baseColorScheme => brightness == Brightness.light
+      ? const ColorScheme.light()
+      : const ColorScheme.dark();
+
+  ThemeData get themeData => ThemeData(
+        useMaterial3: false,
+        platform: TargetPlatform.iOS,
+        extensions: [this],
+        brightness: brightness,
+        primarySwatch: colors.primarySwatch,
+        primaryColor: colors.primary,
+        colorScheme: baseColorScheme.copyWith(
+          primary: colors.primary,
+        ),
+        appBarTheme: AppBarTheme(
+          elevation: 0,
+          titleTextStyle: typographies.body,
+          centerTitle: true,
+          color: Colors.transparent,
+        ),
+      );
 
   @override
-  AppTheme copyWith() {
-    return const AppTheme();
+  AppTheme copyWith({
+    String? name,
+    Brightness? brightness,
+    AppThemeColors? colors,
+    AppThemeTypography? typographies,
+  }) {
+    return AppTheme(
+      brightness: brightness ?? this.brightness,
+      name: name ?? this.name,
+      colors: colors ?? this.colors,
+      typographies: typographies ?? this.typographies,
+    );
   }
 
   @override
@@ -13,6 +57,11 @@ class AppTheme extends ThemeExtension<AppTheme> {
     if (other is! AppTheme) {
       return this;
     }
-    return const AppTheme();
+    return AppTheme(
+      name: name,
+      brightness: brightness,
+      colors: colors.lerp(other.colors, t),
+      typographies: typographies.lerp(other.typographies, t),
+    );
   }
 }

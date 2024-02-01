@@ -32,7 +32,10 @@ class ItemCard extends StatelessWidget {
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.all(16),
-                      child: Text('ชื่อเมนู'),
+                      child: Text(
+                        'Menu Name',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
                   ],
                 ),

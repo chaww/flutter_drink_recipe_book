@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/home/home.dart';
 
 class DrinkRecipeBookApp extends StatelessWidget {
@@ -6,10 +7,13 @@ class DrinkRecipeBookApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Drink Recipe Book',
-      home: HomePage(),
+    return SettingsThemeSelector(
+      builder: (theme) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: theme.themeData,
+        title: 'Drink Recipe Book',
+        home: const HomePage(),
+      ),
     );
   }
 }

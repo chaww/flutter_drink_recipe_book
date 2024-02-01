@@ -8,17 +8,17 @@ class _MenuListTabs extends StatefulWidget {
 }
 
 class _MenuListTabsState extends State<_MenuListTabs> {
-  final category = ['ทั้งหมด', 'ชา', 'กาแฟ', 'สมูทตี้', 'โซดา', 'อื่นๆ'];
+  final categories = ['All', 'Tea', 'Coffee', 'Smoothies', 'Soda', 'Others'];
 
   @override
   Widget build(BuildContext context) {
     final sizeWidth = MediaQuery.sizeOf(context).width;
     return DefaultTabController(
       initialIndex: 0,
-      length: category.length,
+      length: categories.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('รายการเมนู'),
+          title: const Text('List of Menu'),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
@@ -27,13 +27,17 @@ class _MenuListTabsState extends State<_MenuListTabs> {
             ),
           ],
           bottom: TabBar(
-            isScrollable: sizeWidth <= (category.length + 1) * 120,
+            isScrollable: sizeWidth <= (categories.length + 1) * 120,
             tabs: [
               ...List.generate(
-                category.length,
+                categories.length,
                 (index) => Tab(
                   child: Text(
-                    category[index],
+                    categories[index],
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
@@ -43,7 +47,7 @@ class _MenuListTabsState extends State<_MenuListTabs> {
         body: TabBarView(
           children: <Widget>[
             ...List.generate(
-              category.length,
+              categories.length,
               (index) => const _MenuListGrid(),
             ),
           ],
