@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_drink_recipe_book/data/source/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_event.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector.dart';
@@ -27,7 +28,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categories = ['All', 'Tea', 'Coffee', 'Smoothies', 'Soda', 'Others'];
+    final categories = [
+      context.l10n.drinkCategorieAll,
+      context.l10n.drinkCategorieTea,
+      context.l10n.drinkCategorieCoffee,
+      context.l10n.drinkCategorieSmoothies,
+      context.l10n.drinkCategorieSoda,
+      context.l10n.drinkCategorieOthers,
+    ];
 
     return Scaffold(
       // backgroundColor: context.appTheme.colors.backgroundDark,
@@ -56,8 +64,8 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(height: 120, width: 240),
               ),
               const SizedBox(height: 64),
-              const Text(
-                'Drink Recipe',
+              Text(
+                context.l10n.appTitle,
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.w900,
@@ -75,7 +83,7 @@ class HomePage extends StatelessWidget {
               // ),
               Center(
                 child: Text(
-                  'Categories',
+                  context.l10n.drinkCategories,
                   // style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   style: context.typographies.title,
                 ),

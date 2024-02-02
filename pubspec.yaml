@@ -16,6 +16,8 @@ dependencies:
   json_annotation: ^4.8.1
   sliding_up_panel: ^2.0.0+1
   injectable: ^2.3.2
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -26,3 +28,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true

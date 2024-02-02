@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "appTitle": "Drink Recipe",
+  "menuListAppBarTitle": "List of Menu",
+  "drinkCategories": "Categories",
+  "drinkCategorieAll": "All",
+  "drinkCategorieTea": "Tea",
+  "drinkCategorieCoffee": "Coffee",
+  "drinkCategorieSmoothies": "Smoothies",
+  "drinkCategorieSoda": "Soda",
+  "drinkCategorieOthers": "Others",
+  "drinkType": "Type",
+  "drinkTypeHot": "Hot",
+  "drinkTypeIce": "Ice",
+  "drinkTypeFrappe": "Frappe"
+}

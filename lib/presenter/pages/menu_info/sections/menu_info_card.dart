@@ -19,19 +19,19 @@ class _MenuInfoCard extends StatelessWidget {
           tabs: [
             MainTabData(
               label: Text(
-                'Hot',
+                context.l10n.drinkTypeHot,
               ),
               child: _MenuInfoCardIngredients(),
             ),
             MainTabData(
               label: Text(
-                'Ice',
+                context.l10n.drinkTypeIce,
               ),
               child: _MenuInfoCardIngredients(),
             ),
             MainTabData(
               label: Text(
-                'Frappe',
+                context.l10n.drinkTypeFrappe,
               ),
               child: _MenuInfoCardIngredients(),
             ),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/data/source/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/main_tab_view.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';

@@ -8,17 +8,24 @@ class _MenuListTabs extends StatefulWidget {
 }
 
 class _MenuListTabsState extends State<_MenuListTabs> {
-  final categories = ['All', 'Tea', 'Coffee', 'Smoothies', 'Soda', 'Others'];
-
   @override
   Widget build(BuildContext context) {
+    final categories = [
+      context.l10n.drinkCategorieAll,
+      context.l10n.drinkCategorieTea,
+      context.l10n.drinkCategorieCoffee,
+      context.l10n.drinkCategorieSmoothies,
+      context.l10n.drinkCategorieSoda,
+      context.l10n.drinkCategorieOthers,
+    ];
     final sizeWidth = MediaQuery.sizeOf(context).width;
+
     return DefaultTabController(
       initialIndex: 0,
       length: categories.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('List of Menu'),
+          title: Text(context.l10n.menuListAppBarTitle),
           foregroundColor: context.colors.text,
           titleTextStyle: context.typographies.title.copyWith(
             color: context.colors.text,

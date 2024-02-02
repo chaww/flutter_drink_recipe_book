@@ -1,0 +1,16 @@
+{
+  "@@locale": "th",
+  "appTitle": "สูตรเครื่องดื่ม",
+  "menuListAppBarTitle": "รายการเมนู",
+  "drinkCategories": "ประเภทเครื่องดื่ม",
+  "drinkCategorieAll": "ทั้งหมด",
+  "drinkCategorieTea": "ชา",
+  "drinkCategorieCoffee": "กาแฟ",
+  "drinkCategorieSmoothies": "สมูทตี้",
+  "drinkCategorieSoda": "โซดา",
+  "drinkCategorieOthers": "อื่นๆ",
+  "drinkType": "ประเภท",
+  "drinkTypeHot": "ร้อน",
+  "drinkTypeIce": "เย็น",
+  "drinkTypeFrappe": "ปั่น"
+}
