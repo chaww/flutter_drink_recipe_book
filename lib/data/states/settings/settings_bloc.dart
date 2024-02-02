@@ -7,10 +7,16 @@ import 'package:flutter_drink_recipe_book/data/states/settings/settings_state.da
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc() : super(const SettingsState()) {
     on<SettingsThemeChanged>(_onThemeChanged);
+    on<SettingsLocaleChanged>(_onLocaleChanged);
   }
 
   void _onThemeChanged(
       SettingsThemeChanged event, Emitter<SettingsState> emit) async {
     emit(state.copyWith(theme: event.theme));
+  }
+
+  void _onLocaleChanged(
+      SettingsLocaleChanged event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(locale: event.locale));
   }
 }

@@ -8,4 +8,7 @@ part 'settings_event.freezed.dart';
 class SettingsEvent with _$SettingsEvent {
   const factory SettingsEvent.themeChanged(AppTheme theme) =
       SettingsThemeChanged;
+
+  const factory SettingsEvent.localeChanged(String locale) =
+      SettingsLocaleChanged;
 }

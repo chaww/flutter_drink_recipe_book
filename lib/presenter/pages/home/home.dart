@@ -10,7 +10,8 @@ import 'package:flutter_drink_recipe_book/presenter/pages/menu_list/menu_list.da
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.light.dart';
-import 'package:flutter_drink_recipe_book/presenter/widgets/button.dart';
+import 'package:flutter_drink_recipe_book/presenter/widgets/locale_switcher_button.dart';
+import 'package:flutter_drink_recipe_book/presenter/widgets/theme_switcher_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,6 +25,15 @@ class HomePage extends StatelessWidget {
           ? const DarkAppTheme()
           : const LightAppTheme(),
     ));
+  }
+
+  void _onLocaleSwitcherPressed(BuildContext context) {
+    final settingsBloc = context.read<SettingsBloc>();
+    final currentLocale = settingsBloc.state.locale;
+
+    settingsBloc.add(
+      SettingsLocaleChanged(currentLocale == 'en' ? 'th' : 'en'),
+    );
   }
 
   @override
@@ -47,7 +57,6 @@ class HomePage extends StatelessWidget {
               SizedBox(height: 26),
               Row(
                 children: [
-                  const Spacer(),
                   Transform.translate(
                     offset: const Offset(0, 0),
                     child: SettingsThemeSelector(
@@ -55,6 +64,14 @@ class HomePage extends StatelessWidget {
                         isDarkTheme: theme is DarkAppTheme,
                         onPressed: () => _onThemeSwitcherPressed(context),
                       ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Transform.translate(
+                    offset: const Offset(0, 0),
+                    child: LocaleSwitcherButton(
+                      locale: context.watch<SettingsBloc>().state.locale,
+                      onPressed: () => _onLocaleSwitcherPressed(context),
                     ),
                   ),
                 ],

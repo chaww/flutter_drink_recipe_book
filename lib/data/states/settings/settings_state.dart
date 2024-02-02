@@ -10,5 +10,6 @@ part 'settings_state.freezed.dart';
 class SettingsState with _$SettingsState {
   const factory SettingsState({
     @Default(LightAppTheme()) AppTheme theme,
+    @Default('en') String locale,
   }) = _SettingsState;
 }

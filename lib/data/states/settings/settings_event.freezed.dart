@@ -16,42 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SettingsEvent {
-  AppTheme get theme => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppTheme theme) themeChanged,
+    required TResult Function(String locale) localeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppTheme theme)? themeChanged,
+    TResult? Function(String locale)? localeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppTheme theme)? themeChanged,
+    TResult Function(String locale)? localeChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsThemeChanged value) themeChanged,
+    required TResult Function(SettingsLocaleChanged value) localeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsThemeChanged value)? themeChanged,
+    TResult? Function(SettingsLocaleChanged value)? localeChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsThemeChanged value)? themeChanged,
+    TResult Function(SettingsLocaleChanged value)? localeChanged,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $SettingsEventCopyWith<SettingsEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -60,8 +61,6 @@ abstract class $SettingsEventCopyWith<$Res> {
   factory $SettingsEventCopyWith(
           SettingsEvent value, $Res Function(SettingsEvent) then) =
       _$SettingsEventCopyWithImpl<$Res, SettingsEvent>;
-  @useResult
-  $Res call({AppTheme theme});
 }
 
 /// @nodoc
@@ -73,28 +72,13 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? theme = null,
-  }) {
-    return _then(_value.copyWith(
-      theme: null == theme
-          ? _value.theme
-          : theme // ignore: cast_nullable_to_non_nullable
-              as AppTheme,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$SettingsThemeChangedImplCopyWith<$Res>
-    implements $SettingsEventCopyWith<$Res> {
+abstract class _$$SettingsThemeChangedImplCopyWith<$Res> {
   factory _$$SettingsThemeChangedImplCopyWith(_$SettingsThemeChangedImpl value,
           $Res Function(_$SettingsThemeChangedImpl) then) =
       __$$SettingsThemeChangedImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({AppTheme theme});
 }
@@ -167,6 +151,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(AppTheme theme) themeChanged,
+    required TResult Function(String locale) localeChanged,
   }) {
     return themeChanged(theme);
   }
@@ -175,6 +160,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(AppTheme theme)? themeChanged,
+    TResult? Function(String locale)? localeChanged,
   }) {
     return themeChanged?.call(theme);
   }
@@ -183,6 +169,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(AppTheme theme)? themeChanged,
+    TResult Function(String locale)? localeChanged,
     required TResult orElse(),
   }) {
     if (themeChanged != null) {
@@ -195,6 +182,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsThemeChanged value) themeChanged,
+    required TResult Function(SettingsLocaleChanged value) localeChanged,
   }) {
     return themeChanged(this);
   }
@@ -203,6 +191,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsThemeChanged value)? themeChanged,
+    TResult? Function(SettingsLocaleChanged value)? localeChanged,
   }) {
     return themeChanged?.call(this);
   }
@@ -211,6 +200,7 @@ class _$SettingsThemeChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsThemeChanged value)? themeChanged,
+    TResult Function(SettingsLocaleChanged value)? localeChanged,
     required TResult orElse(),
   }) {
     if (themeChanged != null) {
@@ -224,10 +214,154 @@ abstract class SettingsThemeChanged implements SettingsEvent {
   const factory SettingsThemeChanged(final AppTheme theme) =
       _$SettingsThemeChangedImpl;
 
-  @override
   AppTheme get theme;
-  @override
   @JsonKey(ignore: true)
   _$$SettingsThemeChangedImplCopyWith<_$SettingsThemeChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SettingsLocaleChangedImplCopyWith<$Res> {
+  factory _$$SettingsLocaleChangedImplCopyWith(
+          _$SettingsLocaleChangedImpl value,
+          $Res Function(_$SettingsLocaleChangedImpl) then) =
+      __$$SettingsLocaleChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String locale});
+}
+
+/// @nodoc
+class __$$SettingsLocaleChangedImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsLocaleChangedImpl>
+    implements _$$SettingsLocaleChangedImplCopyWith<$Res> {
+  __$$SettingsLocaleChangedImplCopyWithImpl(_$SettingsLocaleChangedImpl _value,
+      $Res Function(_$SettingsLocaleChangedImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? locale = null,
+  }) {
+    return _then(_$SettingsLocaleChangedImpl(
+      null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SettingsLocaleChangedImpl
+    with DiagnosticableTreeMixin
+    implements SettingsLocaleChanged {
+  const _$SettingsLocaleChangedImpl(this.locale);
+
+  @override
+  final String locale;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SettingsEvent.localeChanged(locale: $locale)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SettingsEvent.localeChanged'))
+      ..add(DiagnosticsProperty('locale', locale));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SettingsLocaleChangedImpl &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, locale);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SettingsLocaleChangedImplCopyWith<_$SettingsLocaleChangedImpl>
+      get copyWith => __$$SettingsLocaleChangedImplCopyWithImpl<
+          _$SettingsLocaleChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(AppTheme theme) themeChanged,
+    required TResult Function(String locale) localeChanged,
+  }) {
+    return localeChanged(locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(AppTheme theme)? themeChanged,
+    TResult? Function(String locale)? localeChanged,
+  }) {
+    return localeChanged?.call(locale);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(AppTheme theme)? themeChanged,
+    TResult Function(String locale)? localeChanged,
+    required TResult orElse(),
+  }) {
+    if (localeChanged != null) {
+      return localeChanged(locale);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(SettingsThemeChanged value) themeChanged,
+    required TResult Function(SettingsLocaleChanged value) localeChanged,
+  }) {
+    return localeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(SettingsThemeChanged value)? themeChanged,
+    TResult? Function(SettingsLocaleChanged value)? localeChanged,
+  }) {
+    return localeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SettingsThemeChanged value)? themeChanged,
+    TResult Function(SettingsLocaleChanged value)? localeChanged,
+    required TResult orElse(),
+  }) {
+    if (localeChanged != null) {
+      return localeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SettingsLocaleChanged implements SettingsEvent {
+  const factory SettingsLocaleChanged(final String locale) =
+      _$SettingsLocaleChangedImpl;
+
+  String get locale;
+  @JsonKey(ignore: true)
+  _$$SettingsLocaleChangedImplCopyWith<_$SettingsLocaleChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

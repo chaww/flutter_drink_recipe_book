@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SettingsState {
   AppTheme get theme => throw _privateConstructorUsedError;
+  String get locale => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SettingsStateCopyWith<SettingsState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SettingsStateCopyWith<$Res> {
           SettingsState value, $Res Function(SettingsState) then) =
       _$SettingsStateCopyWithImpl<$Res, SettingsState>;
   @useResult
-  $Res call({AppTheme theme});
+  $Res call({AppTheme theme, String locale});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   @override
   $Res call({
     Object? theme = null,
+    Object? locale = null,
   }) {
     return _then(_value.copyWith(
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as AppTheme,
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$SettingsStateImplCopyWith<$Res>
       __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AppTheme theme});
+  $Res call({AppTheme theme, String locale});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? theme = null,
+    Object? locale = null,
   }) {
     return _then(_$SettingsStateImpl(
       theme: null == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
               as AppTheme,
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -94,15 +105,19 @@ class __$$SettingsStateImplCopyWithImpl<$Res>
 class _$SettingsStateImpl
     with DiagnosticableTreeMixin
     implements _SettingsState {
-  const _$SettingsStateImpl({this.theme = const LightAppTheme()});
+  const _$SettingsStateImpl(
+      {this.theme = const LightAppTheme(), this.locale = 'en'});
 
   @override
   @JsonKey()
   final AppTheme theme;
+  @override
+  @JsonKey()
+  final String locale;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(theme: $theme)';
+    return 'SettingsState(theme: $theme, locale: $locale)';
   }
 
   @override
@@ -110,7 +125,8 @@ class _$SettingsStateImpl
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'SettingsState'))
-      ..add(DiagnosticsProperty('theme', theme));
+      ..add(DiagnosticsProperty('theme', theme))
+      ..add(DiagnosticsProperty('locale', locale));
   }
 
   @override
@@ -118,11 +134,12 @@ class _$SettingsStateImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SettingsStateImpl &&
-            (identical(other.theme, theme) || other.theme == theme));
+            (identical(other.theme, theme) || other.theme == theme) &&
+            (identical(other.locale, locale) || other.locale == locale));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, theme);
+  int get hashCode => Object.hash(runtimeType, theme, locale);
 
   @JsonKey(ignore: true)
   @override
@@ -132,10 +149,13 @@ class _$SettingsStateImpl
 }
 
 abstract class _SettingsState implements SettingsState {
-  const factory _SettingsState({final AppTheme theme}) = _$SettingsStateImpl;
+  const factory _SettingsState({final AppTheme theme, final String locale}) =
+      _$SettingsStateImpl;
 
   @override
   AppTheme get theme;
+  @override
+  String get locale;
   @override
   @JsonKey(ignore: true)
   _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
