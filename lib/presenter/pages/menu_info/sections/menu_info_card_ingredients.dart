@@ -28,10 +28,11 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 5,
                 (int index) {
                   return ChoiceChip(
-                    // backgroundColor: Colors.transparent,
-                    // selectedColor: Colors.transparent,
+                    backgroundColor: Colors.transparent,
+                    selectedColor: context.colors.primary,
                     label: Text(
                       'Option Name ${index + 1}',
+                      style: context.appTheme.typographies.body,
                     ),
                     selected: _value == index,
                     onSelected: (bool selected) {
@@ -57,10 +58,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                     // Icon(Icons.water_drop_outlined),
                     Text(
                       'Syrup',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: context.appTheme.typographies.body,
                     ),
                   ],
                 ),
@@ -69,18 +67,12 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                   children: [
                     Text(
                       '15',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: context.appTheme.typographies.body,
                     ),
                     SizedBox(width: 16),
                     Text(
                       'ML',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: context.appTheme.typographies.body,
                     ),
                   ],
                 ),

@@ -30,17 +30,18 @@ class HomePage extends StatelessWidget {
     final categories = ['All', 'Tea', 'Coffee', 'Smoothies', 'Soda', 'Others'];
 
     return Scaffold(
-      backgroundColor: context.appTheme.colors.primary,
+      // backgroundColor: context.appTheme.colors.backgroundDark,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Column(
             children: [
+              SizedBox(height: 26),
               Row(
                 children: [
                   const Spacer(),
                   Transform.translate(
-                    offset: const Offset(-12, 0),
+                    offset: const Offset(0, 0),
                     child: SettingsThemeSelector(
                       builder: (theme) => ThemeSwitcherButton(
                         isDarkTheme: theme is DarkAppTheme,
@@ -48,13 +49,9 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // IconButton(
-                  //   onPressed: () {},
-                  //   icon: const Icon(Icons.wb_sunny_outlined),
-                  // )
                 ],
               ),
-              const SizedBox(height: 64),
+              const SizedBox(height: 32),
               const Placeholder(
                 child: SizedBox(height: 120, width: 240),
               ),
@@ -79,7 +76,8 @@ class HomePage extends StatelessWidget {
               Center(
                 child: Text(
                   'Categories',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  // style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: context.typographies.title,
                 ),
               ),
               GridView(

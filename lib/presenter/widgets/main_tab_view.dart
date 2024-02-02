@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 
 class MainTabData {
   final Widget child;
@@ -27,16 +28,16 @@ class MainTabView extends StatelessWidget {
       initialIndex: 0,
       child: Container(
         width: MediaQuery.sizeOf(context).width,
-        decoration: const BoxDecoration(
-          color: Colors.black12,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        decoration: BoxDecoration(
+          color: context.colors.background,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildTopAnimatedPadding(),
-            _buildTabBar(),
+            _buildTabBar(context: context),
             _buildTabContent(),
           ],
         ),
@@ -57,12 +58,14 @@ class MainTabView extends StatelessWidget {
     );
   }
 
-  Widget _buildTabBar() {
+  Widget _buildTabBar({required BuildContext context}) {
     return TabBar(
       labelPadding: const EdgeInsets.symmetric(vertical: 16),
       indicatorSize: TabBarIndicatorSize.label,
       indicatorWeight: 2,
-      // indicatorColor: Colors.grey,
+      indicatorColor: context.colors.primary,
+      labelColor: context.colors.text,
+      labelStyle: context.typographies.bodyHeader,
       dividerColor: Colors.transparent,
       tabs: tabs.map((tab) => tab.label).toList(),
     );

@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_info.dart';
+import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({super.key});
@@ -34,7 +35,7 @@ class ItemCard extends StatelessWidget {
                       padding: EdgeInsets.all(16),
                       child: Text(
                         'Menu Name',
-                        style: TextStyle(fontSize: 16),
+                        style: context.typographies.body,
                       ),
                     ),
                   ],

@@ -24,7 +24,6 @@ class AppTheme extends ThemeExtension<AppTheme> {
         platform: TargetPlatform.iOS,
         extensions: [this],
         brightness: brightness,
-        primarySwatch: colors.primarySwatch,
         primaryColor: colors.primary,
         colorScheme: baseColorScheme.copyWith(
           primary: colors.primary,

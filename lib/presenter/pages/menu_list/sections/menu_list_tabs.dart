@@ -19,6 +19,10 @@ class _MenuListTabsState extends State<_MenuListTabs> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('List of Menu'),
+          foregroundColor: context.colors.text,
+          titleTextStyle: context.typographies.title.copyWith(
+            color: context.colors.text,
+          ),
           actions: [
             IconButton(
               icon: const Icon(Icons.add),
@@ -28,16 +32,15 @@ class _MenuListTabsState extends State<_MenuListTabs> {
           ],
           bottom: TabBar(
             isScrollable: sizeWidth <= (categories.length + 1) * 120,
+            indicatorColor: context.colors.primary,
+            labelColor: context.colors.text,
+            labelStyle: context.typographies.bodyHeader,
             tabs: [
               ...List.generate(
                 categories.length,
                 (index) => Tab(
                   child: Text(
                     categories[index],
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
                   ),
                 ),
               ),

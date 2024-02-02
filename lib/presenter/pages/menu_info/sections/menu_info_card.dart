@@ -20,21 +20,18 @@ class _MenuInfoCard extends StatelessWidget {
             MainTabData(
               label: Text(
                 'Hot',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               child: _MenuInfoCardIngredients(),
             ),
             MainTabData(
               label: Text(
                 'Ice',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               child: _MenuInfoCardIngredients(),
             ),
             MainTabData(
               label: Text(
                 'Frappe',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
               child: _MenuInfoCardIngredients(),
             ),
