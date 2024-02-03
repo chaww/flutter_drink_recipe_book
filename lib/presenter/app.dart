@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_drink_recipe_book/data/source/locale/l10n.dart';
+import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/home/home.dart';
