@@ -85,7 +85,7 @@ class HomePage extends StatelessWidget {
                 context.l10n.appTitle,
                 style: TextStyle(
                   fontSize: 36,
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(height: 64),
@@ -127,10 +127,7 @@ class HomePage extends StatelessWidget {
                           alignment: Alignment.center,
                           child: Text(
                             e,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: context.typographies.body,
                           ),
                         ),
                       ),

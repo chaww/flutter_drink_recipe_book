@@ -1,3 +1,3 @@
-# flutter_drink_recipe_book
+# Drink Recipe Book
 
-A new Flutter project.
+แอปบันทึกสูตรเครื่องดื่มสำหรับร้านคาเฟ่แห่งหนึ่ง

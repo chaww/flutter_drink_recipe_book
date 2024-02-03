@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/colors.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/typography.dart';
+import 'package:flutter_drink_recipe_book/presenter/fonts.gen.dart';
 
 class AppTheme extends ThemeExtension<AppTheme> {
   final String name;
+  final String fontFamily;
   final Brightness brightness;
   final AppThemeColors colors;
   final AppThemeTypography typographies;
@@ -13,6 +15,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
     required this.brightness,
     required this.colors,
     this.typographies = const AppThemeTypography(),
+    this.fontFamily = FontFamily.prompt,
   });
 
   ColorScheme get baseColorScheme => brightness == Brightness.light
@@ -24,6 +27,7 @@ class AppTheme extends ThemeExtension<AppTheme> {
         platform: TargetPlatform.iOS,
         extensions: [this],
         brightness: brightness,
+        fontFamily: fontFamily,
         primaryColor: colors.primary,
         colorScheme: baseColorScheme.copyWith(
           primary: colors.primary,
