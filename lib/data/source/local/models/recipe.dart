@@ -1,10 +1,16 @@
-import 'package:flutter_drink_recipe_book/data/source/local/models/ingredient.dart';
+import 'package:hive/hive.dart';
 
-class Recipe {
-  const Recipe({
-    this.optionName = '',
-    this.ingredients = const [],
-  });
-  final String optionName;
-  final List<Ingredient> ingredients;
+import 'ingredient.dart';
+
+part 'recipe.g.dart';
+
+@HiveType(typeId: 3)
+class RecipeHiveModel extends HiveObject {
+  static const String boxKey = 'recipe';
+
+  @HiveField(0)
+  late String optionName;
+
+  @HiveField(1)
+  late List<IngredientHiveModel> ingredients;
 }
