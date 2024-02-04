@@ -1,20 +1,23 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_info.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 
 class ItemCard extends StatelessWidget {
-  const ItemCard({super.key});
+  const ItemCard({
+    super.key,
+    required this.menu,
+  });
+
+  final Menu menu;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final height = constraints.maxHeight;
-        log('$height');
 
         return Card(
           clipBehavior: Clip.antiAlias,
@@ -34,7 +37,7 @@ class ItemCard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
-                        'Menu Name',
+                        menu.name,
                         style: context.typographies.body,
                       ),
                     ),

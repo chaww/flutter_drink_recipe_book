@@ -10,7 +10,7 @@ class _MenuListTabs extends StatefulWidget {
 class _MenuListTabsState extends State<_MenuListTabs> {
   @override
   Widget build(BuildContext context) {
-    final categories = [
+    final categoriesText = [
       context.l10n.drinkCategorieAll,
       context.l10n.drinkCategorieTea,
       context.l10n.drinkCategorieCoffee,
@@ -18,11 +18,19 @@ class _MenuListTabsState extends State<_MenuListTabs> {
       context.l10n.drinkCategorieSoda,
       context.l10n.drinkCategorieOthers,
     ];
+    final categoriesValue = [
+      'all',
+      'tea',
+      'coffee',
+      'smoothies',
+      'soda',
+      'others',
+    ];
     final sizeWidth = MediaQuery.sizeOf(context).width;
 
     return DefaultTabController(
       initialIndex: 0,
-      length: categories.length,
+      length: categoriesText.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text(context.l10n.menuListAppBarTitle),
@@ -38,16 +46,16 @@ class _MenuListTabsState extends State<_MenuListTabs> {
             ),
           ],
           bottom: TabBar(
-            isScrollable: sizeWidth <= (categories.length + 1) * 120,
+            isScrollable: sizeWidth <= (categoriesText.length + 1) * 120,
             indicatorColor: context.colors.primary,
             labelColor: context.colors.text,
             labelStyle: context.typographies.bodyHeader,
             tabs: [
               ...List.generate(
-                categories.length,
+                categoriesText.length,
                 (index) => Tab(
                   child: Text(
-                    categories[index],
+                    categoriesText[index],
                   ),
                 ),
               ),
@@ -57,8 +65,8 @@ class _MenuListTabsState extends State<_MenuListTabs> {
         body: TabBarView(
           children: <Widget>[
             ...List.generate(
-              categories.length,
-              (index) => const _MenuListGrid(),
+              categoriesText.length,
+              (index) => _MenuListGrid(filterCategory: categoriesValue[index]),
             ),
           ],
         ),
