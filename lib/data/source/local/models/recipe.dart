@@ -4,7 +4,7 @@ import 'ingredient.dart';
 
 part 'recipe.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 2)
 class RecipeHiveModel extends HiveObject {
   static const String boxKey = 'recipe';
 

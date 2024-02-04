@@ -15,7 +15,7 @@ class MenuHiveModel extends HiveObject {
   late String imageSrc;
 
   @HiveField(2)
-  late MenuCategoriesHiveModel category;
+  late String category;
 
   @HiveField(3)
   late List<RecipeHiveModel> recipesHot;
@@ -25,22 +25,4 @@ class MenuHiveModel extends HiveObject {
 
   @HiveField(5)
   late List<RecipeHiveModel> recipesFrappe;
-}
-
-@HiveType(typeId: 2)
-enum MenuCategoriesHiveModel {
-  @HiveField(0)
-  tea,
-
-  @HiveField(1)
-  coffee,
-
-  @HiveField(2)
-  smoothies,
-
-  @HiveField(3)
-  soda,
-
-  @HiveField(4)
-  others,
 }

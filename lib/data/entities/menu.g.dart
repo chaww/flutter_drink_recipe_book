@@ -7,9 +7,10 @@ part of 'menu.dart';
 // **************************************************************************
 
 _$MenuImpl _$$MenuImplFromJson(Map<String, dynamic> json) => _$MenuImpl(
+      id: json['id'] as String,
       name: json['name'] as String,
       imageSrc: json['imageSrc'] as String,
-      category: $enumDecode(_$MenuCategoriesEnumMap, json['category']),
+      category: json['category'] as String,
       recipesHot: (json['recipesHot'] as List<dynamic>)
           .map((e) => Recipe.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -23,18 +24,11 @@ _$MenuImpl _$$MenuImplFromJson(Map<String, dynamic> json) => _$MenuImpl(
 
 Map<String, dynamic> _$$MenuImplToJson(_$MenuImpl instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'name': instance.name,
       'imageSrc': instance.imageSrc,
-      'category': _$MenuCategoriesEnumMap[instance.category]!,
+      'category': instance.category,
       'recipesHot': instance.recipesHot,
       'recipesIce': instance.recipesIce,
       'recipesFrappe': instance.recipesFrappe,
     };
-
-const _$MenuCategoriesEnumMap = {
-  MenuCategories.tea: 'tea',
-  MenuCategories.coffee: 'coffee',
-  MenuCategories.smoothies: 'smoothies',
-  MenuCategories.soda: 'soda',
-  MenuCategories.others: 'others',
-};

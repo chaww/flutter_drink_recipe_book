@@ -16,7 +16,7 @@ class MenuMockRepository extends MenuRepository {
       id: '1',
       name: 'อเมริกาโน่',
       imageSrc: '',
-      category: MenuCategories.coffee,
+      category: 'coffee',
       recipesHot: [
         Recipe(
           optionName: 'กาแฟอ่อน',
@@ -55,7 +55,7 @@ class MenuMockRepository extends MenuRepository {
       id: '2',
       name: 'ชาพีช',
       imageSrc: '',
-      category: MenuCategories.tea,
+      category: 'tea',
       recipesHot: [
         Recipe(
           optionName: 'ปกติ',

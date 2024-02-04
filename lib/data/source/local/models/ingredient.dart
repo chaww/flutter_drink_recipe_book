@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'ingredient.g.dart';
 
-@HiveType(typeId: 4)
+@HiveType(typeId: 3)
 class IngredientHiveModel extends HiveObject {
   static const String boxKey = 'ingredient';
 

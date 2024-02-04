@@ -19,7 +19,7 @@ class MenuHiveModelAdapter extends TypeAdapter<MenuHiveModel> {
     return MenuHiveModel()
       ..name = fields[0] as String
       ..imageSrc = fields[1] as String
-      ..category = fields[2] as MenuCategoriesHiveModel
+      ..category = fields[2] as String
       ..recipesHot = (fields[3] as List).cast<RecipeHiveModel>()
       ..recipesIce = (fields[4] as List).cast<RecipeHiveModel>()
       ..recipesFrappe = (fields[5] as List).cast<RecipeHiveModel>();
@@ -50,61 +50,6 @@ class MenuHiveModelAdapter extends TypeAdapter<MenuHiveModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MenuHiveModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class MenuCategoriesHiveModelAdapter
-    extends TypeAdapter<MenuCategoriesHiveModel> {
-  @override
-  final int typeId = 2;
-
-  @override
-  MenuCategoriesHiveModel read(BinaryReader reader) {
-    switch (reader.readByte()) {
-      case 0:
-        return MenuCategoriesHiveModel.tea;
-      case 1:
-        return MenuCategoriesHiveModel.coffee;
-      case 2:
-        return MenuCategoriesHiveModel.smoothies;
-      case 3:
-        return MenuCategoriesHiveModel.soda;
-      case 4:
-        return MenuCategoriesHiveModel.others;
-      default:
-        return MenuCategoriesHiveModel.tea;
-    }
-  }
-
-  @override
-  void write(BinaryWriter writer, MenuCategoriesHiveModel obj) {
-    switch (obj) {
-      case MenuCategoriesHiveModel.tea:
-        writer.writeByte(0);
-        break;
-      case MenuCategoriesHiveModel.coffee:
-        writer.writeByte(1);
-        break;
-      case MenuCategoriesHiveModel.smoothies:
-        writer.writeByte(2);
-        break;
-      case MenuCategoriesHiveModel.soda:
-        writer.writeByte(3);
-        break;
-      case MenuCategoriesHiveModel.others:
-        writer.writeByte(4);
-        break;
-    }
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MenuCategoriesHiveModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

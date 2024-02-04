@@ -9,21 +9,14 @@ part 'menu.g.dart';
 @freezed
 class Menu with _$Menu {
   const factory Menu({
+    required String id,
     required String name,
     required String imageSrc,
-    required MenuCategories category,
+    required String category,
     required List<Recipe> recipesHot,
     required List<Recipe> recipesIce,
     required List<Recipe> recipesFrappe,
   }) = _Menu;
 
   factory Menu.fromJson(Map<String, Object?> json) => _$MenuFromJson(json);
-}
-
-enum MenuCategories {
-  tea,
-  coffee,
-  smoothies,
-  soda,
-  others,
 }

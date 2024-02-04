@@ -8,7 +8,7 @@ part of 'recipe.dart';
 
 class RecipeHiveModelAdapter extends TypeAdapter<RecipeHiveModel> {
   @override
-  final int typeId = 3;
+  final int typeId = 2;
 
   @override
   RecipeHiveModel read(BinaryReader reader) {
