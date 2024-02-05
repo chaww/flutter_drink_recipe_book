@@ -33,6 +33,13 @@ class MenuMockRepository extends MenuRepository {
             Ingredient(name: 'น้ำร้อน', value: '4', unit: 'ML'),
           ],
         ),
+        Recipe(
+          optionName: 'กาแฟคั่วเข้ม',
+          ingredients: [
+            Ingredient(name: 'กาแฟคั่วเข้ม', value: '3', unit: 'ML'),
+            Ingredient(name: 'น้ำร้อน', value: '4', unit: 'ML'),
+          ],
+        ),
       ],
       recipesIce: [
         Recipe(
