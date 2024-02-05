@@ -20,21 +20,21 @@ class MenuMockRepository extends MenuRepository {
       category: 'coffee',
       recipesHot: [
         Recipe(
-          optionName: 'กาแฟอ่อน',
+          optionName: 'คั่วอ่อน',
           ingredients: [
             Ingredient(name: 'กาแฟอ่อน', value: '1', unit: 'ML'),
             Ingredient(name: 'น้ำร้อน', value: '2', unit: 'ML'),
           ],
         ),
         Recipe(
-          optionName: 'กาแฟคั่วกลาง',
+          optionName: 'คั่วกลาง',
           ingredients: [
             Ingredient(name: 'กาแฟคั่วกลาง', value: '3', unit: 'ML'),
             Ingredient(name: 'น้ำร้อน', value: '4', unit: 'ML'),
           ],
         ),
         Recipe(
-          optionName: 'กาแฟคั่วเข้ม',
+          optionName: 'คั่วเข้ม',
           ingredients: [
             Ingredient(name: 'กาแฟคั่วเข้ม', value: '3', unit: 'ML'),
             Ingredient(name: 'น้ำร้อน', value: '4', unit: 'ML'),
@@ -43,14 +43,14 @@ class MenuMockRepository extends MenuRepository {
       ],
       recipesIce: [
         Recipe(
-          optionName: 'กาแฟอ่อน',
+          optionName: 'คั่วอ่อน',
           ingredients: [
             Ingredient(name: 'กาแฟอ่อน', value: '1', unit: 'ML'),
             Ingredient(name: 'น้ำแข็ง', value: '2', unit: 'ML'),
           ],
         ),
         Recipe(
-          optionName: 'กาแฟคั่วกลาง',
+          optionName: 'คั่วกลาง',
           ingredients: [
             Ingredient(name: 'กาแฟคั่วกลาง', value: '3', unit: 'ML'),
             Ingredient(name: 'น้ำแข็ง', value: '4', unit: 'ML'),
