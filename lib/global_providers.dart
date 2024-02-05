@@ -22,7 +22,6 @@ class GlobalBlocProviders extends StatelessWidget {
           create: (context) => SettingsBloc(),
         ),
         BlocProvider<MenuBloc>(
-          lazy: false,
           create: (context) => MenuBloc(
             menuRepository: context.read<MenuMockRepository>(),
           )..add(const SubscriptionMenuList()),
