@@ -12,5 +12,6 @@
   "drinkType": "ประเภท",
   "drinkTypeHot": "ร้อน",
   "drinkTypeIce": "เย็น",
-  "drinkTypeFrappe": "ปั่น"
+  "drinkTypeFrappe": "ปั่น",
+  "menuInfoAddIngredient": "เพิ่มวัตถุดิบใหม่"
 }

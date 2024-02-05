@@ -12,5 +12,6 @@
   "drinkType": "Type",
   "drinkTypeHot": "Hot",
   "drinkTypeIce": "Ice",
-  "drinkTypeFrappe": "Frappe"
+  "drinkTypeFrappe": "Frappe",
+  "menuInfoAddIngredient": "Add Ingredient"
 }
