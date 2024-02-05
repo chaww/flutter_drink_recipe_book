@@ -25,4 +25,8 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
       default:
     }
   }
+
+  void setShowEditButton(bool value) {
+    emit(state.copyWith(showEditButton: value));
+  }
 }

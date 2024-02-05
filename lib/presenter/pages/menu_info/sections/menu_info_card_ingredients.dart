@@ -18,6 +18,7 @@ class _MenuInfoCardIngredients extends StatefulWidget {
 class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<MenuInfoCubit>();
     return Column(
       children: [
         SizedBox(height: 16),
@@ -27,12 +28,28 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Wrap(
               spacing: 5.0,
-              children: _buildListOptionChoiceChip(context),
+              children: [
+                ..._buildListOptionChoiceChip(context),
+                if (cubit.state.showEditButton)
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.add),
+                  ),
+              ],
             ),
           ),
         ),
         SizedBox(height: 16),
         ..._buildIngredients(context),
+        if (cubit.state.showEditButton && widget.recipeList.isNotEmpty)
+          FilledButton.tonalIcon(
+            onPressed: () {},
+            icon: const Icon(Icons.add),
+            label: Text(
+              context.l10n.menuInfoAddIngredient,
+              style: context.typographies.bodySmall,
+            ),
+          ),
       ],
     );
   }
@@ -59,16 +76,33 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
         return ChoiceChip(
           backgroundColor: Colors.transparent,
           selectedColor: context.colors.primary,
-          label: Text(
-            widget.recipeList[index].optionName,
-            style: context.appTheme.typographies.body,
+          label: Row(
+            children: [
+              Text(
+                widget.recipeList[index].optionName,
+                style: context.appTheme.typographies.body,
+              ),
+              if (state.showEditButton && optionFocus == index)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4),
+                  child: Icon(Icons.edit, size: 20),
+                ),
+            ],
           ),
           selected: optionFocus == index,
           onSelected: (bool selected) {
-            cubit.setOptionFocus(
-              type: widget.type,
-              value: selected ? index : 0,
-            );
+            if (state.showEditButton) {
+              if (optionFocus == index) {
+                log('can edit optionName');
+              }
+            } else {
+              if (selected) {
+                cubit.setOptionFocus(
+                  type: widget.type,
+                  value: index,
+                );
+              }
+            }
           },
         );
       },
@@ -124,11 +158,16 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                     ingredient.unit,
                     style: context.appTheme.typographies.body,
                   ),
-                  if (false)
-                    IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.edit, size: 22),
-                    )
+                  if (state.showEditButton)
+                    InkWell(
+                      onTap: () {
+                        log('message');
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                        child: Icon(Icons.edit, size: 20),
+                      ),
+                    ),
                 ],
               ),
             ],

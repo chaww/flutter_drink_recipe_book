@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
@@ -33,30 +35,48 @@ class MenuInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => MenuInfoCubit(menu: menu),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(menu.nameTh),
-          foregroundColor: context.colors.text,
-          titleTextStyle: context.typographies.title.copyWith(
-            color: context.colors.text,
+      child: MenuInfoPageScaffold(),
+    );
+  }
+}
+
+class MenuInfoPageScaffold extends StatelessWidget {
+  const MenuInfoPageScaffold({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final cubit = context.watch<MenuInfoCubit>();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(cubit.state.menu.nameTh),
+        foregroundColor: context.colors.text,
+        titleTextStyle: context.typographies.title.copyWith(
+          color: context.colors.text,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            color: cubit.state.showEditButton ? context.colors.primary : null,
+            onPressed: () {
+              cubit.setShowEditButton(!cubit.state.showEditButton);
+            },
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: const Icon(Icons.more_vert),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        body: Stack(
-          children: [
-            _MenuInfoImage(),
-            _MenuInfoCard(),
-          ],
-        ),
+          IconButton(
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Column(
+            children: [
+              // Text(cubit.state.menu.nameTh),
+              _MenuInfoImage(),
+            ],
+          ),
+          _MenuInfoCard(),
+        ],
       ),
     );
   }
