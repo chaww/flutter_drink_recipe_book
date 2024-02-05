@@ -23,7 +23,7 @@ class ItemCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           child: InkWell(
             onTap: () {
-              Navigator.of(context).push(MenuInfoPage.route());
+              Navigator.of(context).push(MenuInfoPage.route(menu: menu));
             },
             child: Stack(
               children: [
@@ -35,10 +35,18 @@ class ItemCard extends StatelessWidget {
                     ),
                     Spacer(),
                     Padding(
-                      padding: EdgeInsets.all(16),
-                      child: Text(
-                        menu.name,
-                        style: context.typographies.body,
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Text(
+                            menu.nameTh,
+                            style: context.typographies.body,
+                          ),
+                          Text(
+                            '(${menu.nameEn})',
+                            style: context.typographies.body,
+                          )
+                        ],
                       ),
                     ),
                   ],

@@ -11,12 +11,12 @@ class _MenuListGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     var crossAxisCount = MediaQuery.sizeOf(context).width ~/ 160;
     if (crossAxisCount == 0) crossAxisCount = 1;
-
     final menuList = context.watch<MenuBloc>().state.menuList;
     final menuListFiltered = menuList.where(
       (e) {
         final isAll = filterCategory.toLowerCase() == 'all';
-        final isEqual = e.category.toLowerCase() == filterCategory.toLowerCase();
+        final filterText = filterCategory.toLowerCase();
+        final isEqual = e.category.toLowerCase() == filterText;
         return isAll || isEqual;
       },
     );
@@ -24,7 +24,7 @@ class _MenuListGrid extends StatelessWidget {
     return GridView.count(
       // childAspectRatio: 408 / 612,
       crossAxisCount: crossAxisCount,
-      childAspectRatio: 1 / 1.2,
+      childAspectRatio: 1 / 1.4,
       primary: false,
       padding: const EdgeInsets.all(4),
       children: <Widget>[
