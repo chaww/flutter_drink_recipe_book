@@ -17,29 +17,32 @@ class MenuHiveModelAdapter extends TypeAdapter<MenuHiveModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return MenuHiveModel()
-      ..name = fields[0] as String
-      ..imageSrc = fields[1] as String
-      ..category = fields[2] as String
-      ..recipesHot = (fields[3] as List).cast<RecipeHiveModel>()
-      ..recipesIce = (fields[4] as List).cast<RecipeHiveModel>()
-      ..recipesFrappe = (fields[5] as List).cast<RecipeHiveModel>();
+      ..nameTh = fields[0] as String
+      ..nameEn = fields[1] as String
+      ..imageSrc = fields[2] as String
+      ..category = fields[3] as String
+      ..recipesHot = (fields[4] as List).cast<RecipeHiveModel>()
+      ..recipesIce = (fields[5] as List).cast<RecipeHiveModel>()
+      ..recipesFrappe = (fields[6] as List).cast<RecipeHiveModel>();
   }
 
   @override
   void write(BinaryWriter writer, MenuHiveModel obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
-      ..write(obj.name)
+      ..write(obj.nameTh)
       ..writeByte(1)
-      ..write(obj.imageSrc)
+      ..write(obj.nameEn)
       ..writeByte(2)
-      ..write(obj.category)
+      ..write(obj.imageSrc)
       ..writeByte(3)
-      ..write(obj.recipesHot)
+      ..write(obj.category)
       ..writeByte(4)
-      ..write(obj.recipesIce)
+      ..write(obj.recipesHot)
       ..writeByte(5)
+      ..write(obj.recipesIce)
+      ..writeByte(6)
       ..write(obj.recipesFrappe);
   }
 
