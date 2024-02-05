@@ -3,8 +3,12 @@
 part of '../menu_info.dart';
 
 class _MenuInfoCardIngredients extends StatefulWidget {
-  const _MenuInfoCardIngredients({required this.recipeList});
+  const _MenuInfoCardIngredients({
+    required this.type,
+    required this.recipeList,
+  });
 
+  final MenuType type;
   final List<Recipe> recipeList;
 
   @override
@@ -12,8 +16,6 @@ class _MenuInfoCardIngredients extends StatefulWidget {
 }
 
 class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
-  int _optionFocus = 0;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,6 +38,21 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
   }
 
   List<Widget> _buildListOptionChoiceChip(BuildContext context) {
+    late int optionFocus = 0;
+    final cubit = context.read<MenuInfoCubit>();
+    final state = cubit.state;
+    switch (widget.type) {
+      case MenuType.hot:
+        optionFocus = state.hotOptionFocus;
+        break;
+      case MenuType.ice:
+        optionFocus = state.iceOptionFocus;
+        break;
+      case MenuType.frappe:
+        optionFocus = state.frappeOptionFocus;
+        break;
+      default:
+    }
     return List<Widget>.generate(
       widget.recipeList.length,
       (int index) {
@@ -46,11 +63,12 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
             widget.recipeList[index].optionName,
             style: context.appTheme.typographies.body,
           ),
-          selected: _optionFocus == index,
+          selected: optionFocus == index,
           onSelected: (bool selected) {
-            setState(() {
-              _optionFocus = selected ? index : 0;
-            });
+            cubit.setOptionFocus(
+              type: widget.type,
+              value: selected ? index : 0,
+            );
           },
         );
       },
@@ -58,22 +76,36 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
   }
 
   List<Widget> _buildIngredients(BuildContext context) {
+    late int optionFocus = 0;
+    final state = context.watch<MenuInfoCubit>().state;
+    switch (widget.type) {
+      case MenuType.hot:
+        optionFocus = state.hotOptionFocus;
+        break;
+      case MenuType.ice:
+        optionFocus = state.iceOptionFocus;
+        break;
+      case MenuType.frappe:
+        optionFocus = state.frappeOptionFocus;
+        break;
+      default:
+    }
+
     int ingredientsLength = 0;
     if (widget.recipeList.isNotEmpty) {
-      ingredientsLength = widget.recipeList[_optionFocus].ingredients.length;
+      ingredientsLength = widget.recipeList[optionFocus].ingredients.length;
     }
 
     return List<Widget>.generate(
       ingredientsLength,
       (int index) {
-        final ingredient = widget.recipeList[_optionFocus].ingredients[index];
+        final ingredient = widget.recipeList[optionFocus].ingredients[index];
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
           child: Row(
             children: [
               Row(
                 children: [
-                  // Icon(Icons.water_drop_outlined),
                   Text(
                     ingredient.name,
                     style: context.appTheme.typographies.body,
@@ -92,6 +124,11 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                     ingredient.unit,
                     style: context.appTheme.typographies.body,
                   ),
+                  if (false)
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.edit, size: 22),
+                    )
                 ],
               ),
             ],

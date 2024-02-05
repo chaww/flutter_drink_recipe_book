@@ -3,9 +3,7 @@
 part of '../menu_info.dart';
 
 class _MenuInfoCard extends StatelessWidget {
-  const _MenuInfoCard({required this.menu});
-
-  final Menu menu;
+  const _MenuInfoCard();
 
   Widget _buildSlidingUpPanel({
     required BuildContext context,
@@ -29,6 +27,8 @@ class _MenuInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final menu = context.watch<MenuInfoCubit>().state.menu;
+
     return _buildSlidingUpPanel(
       context: context,
       child: Container(
@@ -43,19 +43,28 @@ class _MenuInfoCard extends StatelessWidget {
               label: Text(
                 context.l10n.drinkTypeHot,
               ),
-              child: _MenuInfoCardIngredients(recipeList: menu.recipesHot),
+              child: _MenuInfoCardIngredients(
+                type: MenuType.hot,
+                recipeList: menu.recipesHot,
+              ),
             ),
             MainTabData(
               label: Text(
                 context.l10n.drinkTypeIce,
               ),
-              child: _MenuInfoCardIngredients(recipeList: menu.recipesIce),
+              child: _MenuInfoCardIngredients(
+                type: MenuType.ice,
+                recipeList: menu.recipesIce,
+              ),
             ),
             MainTabData(
               label: Text(
                 context.l10n.drinkTypeFrappe,
               ),
-              child: _MenuInfoCardIngredients(recipeList: menu.recipesFrappe),
+              child: _MenuInfoCardIngredients(
+                type: MenuType.frappe,
+                recipeList: menu.recipesFrappe,
+              ),
             ),
           ],
         ),
