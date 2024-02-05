@@ -3,43 +3,9 @@
 part of '../menu_info.dart';
 
 class _MenuInfoCard extends StatelessWidget {
-  const _MenuInfoCard();
+  const _MenuInfoCard({required this.menu});
 
-  @override
-  Widget build(BuildContext context) {
-    return _buildSlidingUpPanel(
-      context: context,
-      child: Container(
-        width: MediaQuery.sizeOf(context).width,
-        decoration: BoxDecoration(
-          color: Colors.black12,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-        ),
-        child: MainTabView(
-          tabs: [
-            MainTabData(
-              label: Text(
-                context.l10n.drinkTypeHot,
-              ),
-              child: _MenuInfoCardIngredients(),
-            ),
-            MainTabData(
-              label: Text(
-                context.l10n.drinkTypeIce,
-              ),
-              child: _MenuInfoCardIngredients(),
-            ),
-            MainTabData(
-              label: Text(
-                context.l10n.drinkTypeFrappe,
-              ),
-              child: _MenuInfoCardIngredients(),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  final Menu menu;
 
   Widget _buildSlidingUpPanel({
     required BuildContext context,
@@ -58,6 +24,42 @@ class _MenuInfoCard extends StatelessWidget {
       boxShadow: null,
       color: Colors.transparent,
       panel: child,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildSlidingUpPanel(
+      context: context,
+      child: Container(
+        width: MediaQuery.sizeOf(context).width,
+        decoration: BoxDecoration(
+          color: Colors.black12,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+        ),
+        child: MainTabView(
+          tabs: [
+            MainTabData(
+              label: Text(
+                context.l10n.drinkTypeHot,
+              ),
+              child: _MenuInfoCardIngredients(recipeList: menu.recipesHot),
+            ),
+            MainTabData(
+              label: Text(
+                context.l10n.drinkTypeIce,
+              ),
+              child: _MenuInfoCardIngredients(recipeList: menu.recipesIce),
+            ),
+            MainTabData(
+              label: Text(
+                context.l10n.drinkTypeFrappe,
+              ),
+              child: _MenuInfoCardIngredients(recipeList: menu.recipesFrappe),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
