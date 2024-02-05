@@ -10,7 +10,8 @@ part 'menu.g.dart';
 class Menu with _$Menu {
   const factory Menu({
     required String id,
-    required String name,
+    required String nameTh,
+    required String nameEn,
     required String imageSrc,
     required String category,
     required List<Recipe> recipesHot,

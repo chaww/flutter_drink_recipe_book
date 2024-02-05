@@ -8,7 +8,8 @@ part of 'menu.dart';
 
 _$MenuImpl _$$MenuImplFromJson(Map<String, dynamic> json) => _$MenuImpl(
       id: json['id'] as String,
-      name: json['name'] as String,
+      nameTh: json['nameTh'] as String,
+      nameEn: json['nameEn'] as String,
       imageSrc: json['imageSrc'] as String,
       category: json['category'] as String,
       recipesHot: (json['recipesHot'] as List<dynamic>)
@@ -25,7 +26,8 @@ _$MenuImpl _$$MenuImplFromJson(Map<String, dynamic> json) => _$MenuImpl(
 Map<String, dynamic> _$$MenuImplToJson(_$MenuImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'name': instance.name,
+      'nameTh': instance.nameTh,
+      'nameEn': instance.nameEn,
       'imageSrc': instance.imageSrc,
       'category': instance.category,
       'recipesHot': instance.recipesHot,

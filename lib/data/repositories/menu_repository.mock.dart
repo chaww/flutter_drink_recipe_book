@@ -14,7 +14,8 @@ class MenuMockRepository extends MenuRepository {
   final menuList = <Menu>[
     Menu(
       id: '1',
-      name: 'อเมริกาโน่',
+      nameTh: 'อเมริกาโน่',
+      nameEn: 'Americano',
       imageSrc: '',
       category: 'coffee',
       recipesHot: [
@@ -53,7 +54,8 @@ class MenuMockRepository extends MenuRepository {
     ),
     Menu(
       id: '2',
-      name: 'ชาพีช',
+      nameTh: 'ชาพีช',
+      nameEn: 'Peach Tea',
       imageSrc: '',
       category: 'tea',
       recipesHot: [

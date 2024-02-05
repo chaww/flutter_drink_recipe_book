@@ -14,7 +14,6 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     required MenuRepository menuRepository,
   })  : _menuRepository = menuRepository,
         super(const MenuState()) {
-    log('MenuBloc');
     on<SubscriptionMenuList>(_onSubscriptionMenuList);
   }
 
@@ -22,11 +21,9 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     SubscriptionMenuList event,
     Emitter<MenuState> emit,
   ) async {
-    log('_onSubscriptionMenuList');
     await emit.forEach(
       _menuRepository.getMenuList(),
       onData: (menuList) {
-        log('$menuList');
         return state.copyWith(menuList: menuList);
       },
     );

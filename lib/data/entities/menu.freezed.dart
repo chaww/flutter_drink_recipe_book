@@ -21,7 +21,8 @@ Menu _$MenuFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Menu {
   String get id => throw _privateConstructorUsedError;
-  String get name => throw _privateConstructorUsedError;
+  String get nameTh => throw _privateConstructorUsedError;
+  String get nameEn => throw _privateConstructorUsedError;
   String get imageSrc => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   List<Recipe> get recipesHot => throw _privateConstructorUsedError;
@@ -40,7 +41,8 @@ abstract class $MenuCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
+      String nameTh,
+      String nameEn,
       String imageSrc,
       String category,
       List<Recipe> recipesHot,
@@ -62,7 +64,8 @@ class _$MenuCopyWithImpl<$Res, $Val extends Menu>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? nameTh = null,
+    Object? nameEn = null,
     Object? imageSrc = null,
     Object? category = null,
     Object? recipesHot = null,
@@ -74,9 +77,13 @@ class _$MenuCopyWithImpl<$Res, $Val extends Menu>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      nameTh: null == nameTh
+          ? _value.nameTh
+          : nameTh // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameEn: null == nameEn
+          ? _value.nameEn
+          : nameEn // ignore: cast_nullable_to_non_nullable
               as String,
       imageSrc: null == imageSrc
           ? _value.imageSrc
@@ -111,7 +118,8 @@ abstract class _$$MenuImplCopyWith<$Res> implements $MenuCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String name,
+      String nameTh,
+      String nameEn,
       String imageSrc,
       String category,
       List<Recipe> recipesHot,
@@ -130,7 +138,8 @@ class __$$MenuImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? name = null,
+    Object? nameTh = null,
+    Object? nameEn = null,
     Object? imageSrc = null,
     Object? category = null,
     Object? recipesHot = null,
@@ -142,9 +151,13 @@ class __$$MenuImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      nameTh: null == nameTh
+          ? _value.nameTh
+          : nameTh // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameEn: null == nameEn
+          ? _value.nameEn
+          : nameEn // ignore: cast_nullable_to_non_nullable
               as String,
       imageSrc: null == imageSrc
           ? _value.imageSrc
@@ -175,7 +188,8 @@ class __$$MenuImplCopyWithImpl<$Res>
 class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
   const _$MenuImpl(
       {required this.id,
-      required this.name,
+      required this.nameTh,
+      required this.nameEn,
       required this.imageSrc,
       required this.category,
       required final List<Recipe> recipesHot,
@@ -191,7 +205,9 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
   @override
   final String id;
   @override
-  final String name;
+  final String nameTh;
+  @override
+  final String nameEn;
   @override
   final String imageSrc;
   @override
@@ -222,7 +238,7 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Menu(id: $id, name: $name, imageSrc: $imageSrc, category: $category, recipesHot: $recipesHot, recipesIce: $recipesIce, recipesFrappe: $recipesFrappe)';
+    return 'Menu(id: $id, nameTh: $nameTh, nameEn: $nameEn, imageSrc: $imageSrc, category: $category, recipesHot: $recipesHot, recipesIce: $recipesIce, recipesFrappe: $recipesFrappe)';
   }
 
   @override
@@ -231,7 +247,8 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
     properties
       ..add(DiagnosticsProperty('type', 'Menu'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('nameTh', nameTh))
+      ..add(DiagnosticsProperty('nameEn', nameEn))
       ..add(DiagnosticsProperty('imageSrc', imageSrc))
       ..add(DiagnosticsProperty('category', category))
       ..add(DiagnosticsProperty('recipesHot', recipesHot))
@@ -245,7 +262,8 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
         (other.runtimeType == runtimeType &&
             other is _$MenuImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.nameTh, nameTh) || other.nameTh == nameTh) &&
+            (identical(other.nameEn, nameEn) || other.nameEn == nameEn) &&
             (identical(other.imageSrc, imageSrc) ||
                 other.imageSrc == imageSrc) &&
             (identical(other.category, category) ||
@@ -263,7 +281,8 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      name,
+      nameTh,
+      nameEn,
       imageSrc,
       category,
       const DeepCollectionEquality().hash(_recipesHot),
@@ -287,7 +306,8 @@ class _$MenuImpl with DiagnosticableTreeMixin implements _Menu {
 abstract class _Menu implements Menu {
   const factory _Menu(
       {required final String id,
-      required final String name,
+      required final String nameTh,
+      required final String nameEn,
       required final String imageSrc,
       required final String category,
       required final List<Recipe> recipesHot,
@@ -299,7 +319,9 @@ abstract class _Menu implements Menu {
   @override
   String get id;
   @override
-  String get name;
+  String get nameTh;
+  @override
+  String get nameEn;
   @override
   String get imageSrc;
   @override
