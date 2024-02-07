@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,4 +30,34 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
   void setShowEditButton(bool value) {
     emit(state.copyWith(showEditButton: value));
   }
+
+  void saveMenuName({
+    required String nameTh,
+    required String nameEn,
+  }) {
+    emit(
+      state.copyWith(
+        menu: state.menu.copyWith(
+          nameTh: nameTh,
+          nameEn: nameEn,
+        ),
+      ),
+    );
+  }
+
+  void saveCategory({
+    required String category,
+  }) {}
+
+  void saveOptionName({
+    required MenuType type,
+    required int recipeIndex,
+    required String optionName,
+  }) {}
+
+  void saveIngredient({
+    required MenuType type,
+    required int recipeIndex,
+    required Ingredient ingredient,
+  }) {}
 }

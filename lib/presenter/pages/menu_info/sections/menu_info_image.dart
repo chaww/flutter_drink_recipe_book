@@ -11,10 +11,42 @@ class _MenuInfoImage extends StatelessWidget {
 
     final areaMinHeight = screenHeight * 0.5 - appBarHeight - safeArea.top;
 
-    return Placeholder(
-      child: SizedBox(
-        height: areaMinHeight,
-        width: double.infinity,
+    final cubit = context.watch<MenuInfoCubit>();
+
+    return SizedBox(
+      height: areaMinHeight,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Placeholder(),
+          if (cubit.state.showEditButton)
+            Center(
+              heightFactor: areaMinHeight,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (cubit.state.menu.imageSrc.isEmpty)
+                    FilledButton.tonalIcon(
+                      onPressed: () {},
+                      icon: Icon(Icons.add_photo_alternate),
+                      label: Text('เพิ่มรูปภาพ'),
+                    ),
+                  if (cubit.state.menu.imageSrc.isNotEmpty)
+                    FilledButton.tonalIcon(
+                      onPressed: () {},
+                      icon: Icon(Icons.photo),
+                      label: Text('เปลี่ยนรูปภาพ'),
+                    ),
+                  if (cubit.state.menu.imageSrc.isNotEmpty)
+                    FilledButton.tonalIcon(
+                      onPressed: () {},
+                      icon: Icon(Icons.delete_forever),
+                      label: Text('ลบรูปภาพ'),
+                    ),
+                ],
+              ),
+            ),
+        ],
       ),
     );
   }

@@ -28,12 +28,19 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: Wrap(
               spacing: 5.0,
+              // crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 ..._buildListOptionChoiceChip(context),
                 if (cubit.state.showEditButton)
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.add),
+                  Material(
+                    child: InkWell(
+                      onTap: () {},
+                      child: SizedBox(
+                        width: 36,
+                        height: 36,
+                        child: Icon(Icons.add),
+                      ),
+                    ),
                   ),
               ],
             ),
@@ -73,37 +80,76 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
     return List<Widget>.generate(
       widget.recipeList.length,
       (int index) {
-        return ChoiceChip(
-          backgroundColor: Colors.transparent,
-          selectedColor: context.colors.primary,
-          label: Row(
-            children: [
-              Text(
-                widget.recipeList[index].optionName,
-                style: context.appTheme.typographies.body,
-              ),
-              if (state.showEditButton && optionFocus == index)
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4),
-                  child: Icon(Icons.edit, size: 20),
+        final isShowButtonMore = state.showEditButton && index == optionFocus;
+        final isSelect = index == optionFocus;
+        const itemHeight = 36.0;
+        return Row(
+          children: [
+            Container(
+              height: itemHeight,
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: isSelect ? context.colors.primary : null,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(itemHeight),
+                  bottomLeft: Radius.circular(itemHeight),
+                  topRight: Radius.circular(isShowButtonMore ? 0 : itemHeight),
+                  bottomRight: Radius.circular(isShowButtonMore ? 0 : itemHeight),
                 ),
-            ],
-          ),
-          selected: optionFocus == index,
-          onSelected: (bool selected) {
-            if (state.showEditButton) {
-              if (optionFocus == index) {
-                log('can edit optionName');
-              }
-            } else {
-              if (selected) {
-                cubit.setOptionFocus(
-                  type: widget.type,
-                  value: index,
-                );
-              }
-            }
-          },
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: () {
+                    cubit.setOptionFocus(
+                      type: widget.type,
+                      value: index,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      SizedBox(width: itemHeight / 2),
+                      Text(
+                        widget.recipeList[index].optionName,
+                        style: context.appTheme.typographies.body,
+                      ),
+                      if (!isShowButtonMore) SizedBox(width: itemHeight / 2),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            if (state.showEditButton && index == optionFocus)
+              PopupMenuButton<int>(
+                onSelected: (item) {
+                  switch (item) {
+                    case 0:
+                      break;
+                    case 1:
+                      break;
+                    default:
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem<int>(value: 0, child: Text('Edit')),
+                  PopupMenuItem<int>(value: 1, child: Text('Delete')),
+                ],
+                child: Container(
+                  padding: EdgeInsets.all((itemHeight - 24) / 2),
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    color: context.colors.primary,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(state.showEditButton ? 0 : itemHeight),
+                      bottomLeft: Radius.circular(state.showEditButton ? 0 : itemHeight),
+                      topRight: Radius.circular(itemHeight),
+                      bottomRight: Radius.circular(itemHeight),
+                    ),
+                  ),
+                  child: Icon(Icons.more_vert),
+                ),
+              )
+          ],
         );
       },
     ).toList();
@@ -135,9 +181,10 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
       (int index) {
         final ingredient = widget.recipeList[optionFocus].ingredients[index];
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Row(
             children: [
+              SizedBox(width: 32),
               Row(
                 children: [
                   Text(
@@ -147,29 +194,33 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 ],
               ),
               Spacer(),
-              Row(
-                children: [
-                  Text(
-                    ingredient.value,
-                    style: context.appTheme.typographies.body,
-                  ),
-                  SizedBox(width: 16),
-                  Text(
-                    ingredient.unit,
-                    style: context.appTheme.typographies.body,
-                  ),
-                  if (state.showEditButton)
-                    InkWell(
-                      onTap: () {
-                        log('message');
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                        child: Icon(Icons.edit, size: 20),
-                      ),
-                    ),
-                ],
+              Text(
+                ingredient.value,
+                style: context.appTheme.typographies.body,
               ),
+              SizedBox(width: 16, height: 48),
+              Text(
+                ingredient.unit,
+                style: context.appTheme.typographies.body,
+              ),
+              if (state.showEditButton)
+                PopupMenuButton<int>(
+                  padding: EdgeInsets.all(0),
+                  onSelected: (item) {
+                    switch (item) {
+                      case 0:
+                        break;
+                      case 1:
+                        break;
+                      default:
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem<int>(value: 0, child: Text('Edit')),
+                    PopupMenuItem<int>(value: 1, child: Text('Delete')),
+                  ],
+                ),
+              SizedBox(width: state.showEditButton ? 12 : 32)
             ],
           ),
         );

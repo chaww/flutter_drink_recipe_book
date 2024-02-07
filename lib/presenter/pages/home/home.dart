@@ -21,9 +21,7 @@ class HomePage extends StatelessWidget {
     final currentTheme = settingsBloc.state.theme;
 
     settingsBloc.add(SettingsThemeChanged(
-      currentTheme is LightAppTheme
-          ? const DarkAppTheme()
-          : const LightAppTheme(),
+      currentTheme is LightAppTheme ? const DarkAppTheme() : const LightAppTheme(),
     ));
   }
 
@@ -102,7 +100,7 @@ class HomePage extends StatelessWidget {
                 child: Text(
                   context.l10n.drinkCategories,
                   // style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  style: context.typographies.title,
+                  style: context.typographies.headingSmall,
                 ),
               ),
               GridView(
