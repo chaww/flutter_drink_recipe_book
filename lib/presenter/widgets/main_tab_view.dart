@@ -65,7 +65,7 @@ class MainTabView extends StatelessWidget {
       indicatorWeight: 2,
       indicatorColor: context.colors.primary,
       labelColor: context.colors.text,
-      labelStyle: context.typographies.bodyHeader,
+      labelStyle: context.typographies.bodyLarge,
       dividerColor: Colors.transparent,
       tabs: tabs.map((tab) => tab.label).toList(),
     );

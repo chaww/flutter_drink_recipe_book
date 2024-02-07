@@ -24,7 +24,7 @@ class _MenuListGrid extends StatelessWidget {
     return GridView.count(
       // childAspectRatio: 408 / 612,
       crossAxisCount: crossAxisCount,
-      childAspectRatio: 1 / 1.4,
+      childAspectRatio: 1 / 1.52,
       primary: false,
       padding: const EdgeInsets.all(4),
       children: <Widget>[
