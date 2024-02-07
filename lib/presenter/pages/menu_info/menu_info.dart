@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
@@ -17,6 +18,9 @@ part 'sections/menu_info_image.dart';
 part 'sections/menu_info_card.dart';
 part 'sections/menu_info_card_ingredients.dart';
 part 'widgets/icon_button_size.dart';
+part 'modals/modal_edit_ingredient.dart';
+part 'modals/modal_edit_name.dart';
+part 'modals/modal_edit_option_name.dart';
 
 class MenuInfoPage extends StatelessWidget {
   const MenuInfoPage({

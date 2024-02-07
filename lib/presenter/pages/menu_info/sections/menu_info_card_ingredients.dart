@@ -30,7 +30,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               spacing: 5.0,
               // crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                ..._buildListOptionChoiceChip(context),
+                ..._buildListOptionName(context),
                 if (cubit.state.showEditButton)
                   _IconButtonSize(
                     size: 36,
@@ -56,7 +56,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
     );
   }
 
-  List<Widget> _buildListOptionChoiceChip(BuildContext context) {
+  List<Widget> _buildListOptionName(BuildContext context) {
     late int optionFocus = 0;
     final cubit = context.read<MenuInfoCubit>();
     final state = cubit.state;
@@ -201,9 +201,17 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               if (state.showEditButton)
                 PopupMenuButton<int>(
                   padding: EdgeInsets.all(0),
-                  onSelected: (item) {
-                    switch (item) {
+                  onSelected: (value) {
+                    switch (value) {
                       case 0:
+                        showDialog<String>(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (_) => _EditIngredientDialog(
+                            ingredient: ingredient,
+                            onSave: (data) {},
+                          ),
+                        );
                         break;
                       case 1:
                         break;
