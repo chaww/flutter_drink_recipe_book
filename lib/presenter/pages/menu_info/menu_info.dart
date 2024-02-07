@@ -46,35 +46,60 @@ class MenuInfoPageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<MenuInfoCubit>();
+    if (cubit.state.menu.id.isEmpty) cubit.setShowEditButton(true);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(cubit.state.menu.nameTh),
+        title: Column(
+          children: [
+            Text(
+              cubit.state.menu.nameTh,
+            ),
+            Text(
+              cubit.state.menu.nameEn.isNotEmpty ? '(${cubit.state.menu.nameEn})' : '',
+            ),
+          ],
+        ),
         foregroundColor: context.colors.text,
-        titleTextStyle: context.typographies.title.copyWith(
+        titleTextStyle: context.typographies.headingSmall.copyWith(
           color: context.colors.text,
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            color: cubit.state.showEditButton ? context.colors.primary : null,
-            onPressed: () {
-              cubit.setShowEditButton(!cubit.state.showEditButton);
+          if (cubit.state.showEditButton)
+            IconButton(
+              icon: const Icon(Icons.edit),
+              onPressed: () {},
+            ),
+          PopupMenuButton<int>(
+            onSelected: (item) {
+              switch (item) {
+                case 0:
+                  cubit.setShowEditButton(!cubit.state.showEditButton);
+                  break;
+                case 1:
+                  break;
+                default:
+              }
             },
-          ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () {},
+            itemBuilder: (context) => [
+              PopupMenuItem<int>(value: 0, child: Text('Edit')),
+              PopupMenuItem<int>(value: 1, child: Text('Delete')),
+            ],
           ),
         ],
       ),
+      floatingActionButton: cubit.state.showEditButton
+          ? FloatingActionButton(
+              onPressed: () {
+                cubit.setShowEditButton(!cubit.state.showEditButton);
+              },
+              shape: const CircleBorder(),
+              child: const Icon(Icons.done),
+            )
+          : null,
       body: Stack(
         children: [
-          Column(
-            children: [
-              // Text(cubit.state.menu.nameTh),
-              _MenuInfoImage(),
-            ],
-          ),
+          _MenuInfoImage(),
           _MenuInfoCard(),
         ],
       ),
