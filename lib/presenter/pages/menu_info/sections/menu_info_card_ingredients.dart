@@ -32,16 +32,11 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               children: [
                 ..._buildListOptionChoiceChip(context),
                 if (cubit.state.showEditButton)
-                  Material(
-                    child: InkWell(
-                      onTap: () {},
-                      child: SizedBox(
-                        width: 36,
-                        height: 36,
-                        child: Icon(Icons.add),
-                      ),
-                    ),
-                  ),
+                  _IconButtonSize(
+                    size: 36,
+                    onTap: () {},
+                    child: Icon(Icons.add),
+                  )
               ],
             ),
           ),

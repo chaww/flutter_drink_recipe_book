@@ -16,6 +16,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 part 'sections/menu_info_image.dart';
 part 'sections/menu_info_card.dart';
 part 'sections/menu_info_card_ingredients.dart';
+part 'widgets/icon_button_size.dart';
 
 class MenuInfoPage extends StatelessWidget {
   const MenuInfoPage({
