@@ -9,6 +9,7 @@ class DarkAppTheme extends AppTheme {
           brightness: Brightness.dark,
           colors: const AppThemeColors(
             primary: Color(0xFF13A262),
+            secondary: Color(0xFF6C9582),
             background: Color(0xFF25272A),
             backgroundDark: Color(0xFF303030),
             text: Color(0xFFFFFFFF),

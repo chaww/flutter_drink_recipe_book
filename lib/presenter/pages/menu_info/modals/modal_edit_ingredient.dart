@@ -2,7 +2,7 @@ part of '../menu_info.dart';
 
 class _EditIngredientDialog extends StatefulWidget {
   const _EditIngredientDialog({
-    this.ingredient = const Ingredient(name: '', value: '', unit: ''),
+    required this.ingredient,
     required this.onSave,
   });
 
@@ -102,7 +102,9 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                     },
                     child: Text(
                       'ยกเลิก',
-                      style: context.typographies.headingSmall,
+                      style: context.typographies.headingSmall.copyWith(
+                        color: context.colors.text,
+                      ),
                     ),
                   ),
                 ),

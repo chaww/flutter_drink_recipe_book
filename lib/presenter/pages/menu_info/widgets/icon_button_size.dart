@@ -14,6 +14,7 @@ class _IconButtonSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         child: SizedBox(

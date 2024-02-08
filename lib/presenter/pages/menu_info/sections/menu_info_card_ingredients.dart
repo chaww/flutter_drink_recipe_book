@@ -19,6 +19,20 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<MenuInfoCubit>();
+    final state = cubit.state;
+    late int isSelected;
+    switch (widget.type) {
+      case MenuType.hot:
+        isSelected = state.hotOptionFocus;
+        break;
+      case MenuType.ice:
+        isSelected = state.iceOptionFocus;
+        break;
+      case MenuType.frappe:
+        isSelected = state.frappeOptionFocus;
+        break;
+      default:
+    }
     return Column(
       children: [
         SizedBox(height: 16),
@@ -30,11 +44,41 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               spacing: 5.0,
               // crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                ..._buildListOptionName(context),
+                ..._buildListOptionName(
+                  context,
+                  isSelected: isSelected,
+                  onSelect: (index) {
+                    cubit.setOptionFocus(
+                      type: widget.type,
+                      value: index,
+                    );
+                  },
+                  onActionEdit: (index) {
+                    final optionName = widget.recipeList[isSelected].optionName;
+                    showDialog<String>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (_) => _EditOptionNameDialog(
+                        optionName: optionName,
+                        onSave: (data) {},
+                      ),
+                    );
+                  },
+                  onActionDelete: (index) {},
+                ),
                 if (cubit.state.showEditButton)
                   _IconButtonSize(
                     size: 36,
-                    onTap: () {},
+                    onTap: () {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (_) => _EditOptionNameDialog(
+                          optionName: '',
+                          onSave: (data) {},
+                        ),
+                      );
+                    },
                     child: Icon(Icons.add),
                   )
               ],
@@ -42,10 +86,34 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
           ),
         ),
         SizedBox(height: 16),
-        ..._buildIngredients(context),
+        ..._buildIngredients(
+          context,
+          isSelected: isSelected,
+          onActionEdit: (index) {
+            final ingredient = widget.recipeList[isSelected].ingredients[index];
+            showDialog<String>(
+              barrierDismissible: false,
+              context: context,
+              builder: (_) => _EditIngredientDialog(
+                ingredient: ingredient,
+                onSave: (data) {},
+              ),
+            );
+          },
+          onActionDelete: (index) {},
+        ),
         if (cubit.state.showEditButton && widget.recipeList.isNotEmpty)
           FilledButton.tonalIcon(
-            onPressed: () {},
+            onPressed: () {
+              showDialog<String>(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) => _EditIngredientDialog(
+                  ingredient: const Ingredient(name: '', value: '', unit: ''),
+                  onSave: (data) {},
+                ),
+              );
+            },
             icon: const Icon(Icons.add),
             label: Text(
               context.l10n.menuInfoAddIngredient,
@@ -56,27 +124,19 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
     );
   }
 
-  List<Widget> _buildListOptionName(BuildContext context) {
-    late int optionFocus = 0;
-    final cubit = context.read<MenuInfoCubit>();
-    final state = cubit.state;
-    switch (widget.type) {
-      case MenuType.hot:
-        optionFocus = state.hotOptionFocus;
-        break;
-      case MenuType.ice:
-        optionFocus = state.iceOptionFocus;
-        break;
-      case MenuType.frappe:
-        optionFocus = state.frappeOptionFocus;
-        break;
-      default:
-    }
+  List<Widget> _buildListOptionName(
+    BuildContext context, {
+    required int isSelected,
+    required void Function(int index) onSelect,
+    required void Function(int index) onActionEdit,
+    required void Function(int index) onActionDelete,
+  }) {
+    final state = context.read<MenuInfoCubit>().state;
     return List<Widget>.generate(
       widget.recipeList.length,
       (int index) {
-        final isShowButtonMore = state.showEditButton && index == optionFocus;
-        final isSelect = index == optionFocus;
+        final isShowButtonMore = state.showEditButton && index == isSelected;
+        final isSelect = index == isSelected;
         const itemHeight = 36.0;
         return Row(
           children: [
@@ -95,12 +155,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {
-                    cubit.setOptionFocus(
-                      type: widget.type,
-                      value: index,
-                    );
-                  },
+                  onTap: () => onSelect(index),
                   child: Row(
                     children: [
                       SizedBox(width: itemHeight / 2),
@@ -114,15 +169,13 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 ),
               ),
             ),
-            if (state.showEditButton && index == optionFocus)
+            if (state.showEditButton && index == isSelected)
               PopupMenuButton<int>(
-                onSelected: (item) {
-                  switch (item) {
-                    case 0:
-                      break;
-                    case 1:
-                      break;
-                    default:
+                onSelected: (value) {
+                  if (value == 0) {
+                    onActionEdit(index);
+                  } else if (value == 1) {
+                    onActionDelete(index);
                   }
                 },
                 itemBuilder: (context) => [
@@ -143,38 +196,29 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                   ),
                   child: Icon(Icons.more_vert),
                 ),
-              )
+              ),
           ],
         );
       },
     ).toList();
   }
 
-  List<Widget> _buildIngredients(BuildContext context) {
-    late int optionFocus = 0;
+  List<Widget> _buildIngredients(
+    BuildContext context, {
+    required int isSelected,
+    required void Function(int index) onActionEdit,
+    required void Function(int index) onActionDelete,
+  }) {
     final state = context.watch<MenuInfoCubit>().state;
-    switch (widget.type) {
-      case MenuType.hot:
-        optionFocus = state.hotOptionFocus;
-        break;
-      case MenuType.ice:
-        optionFocus = state.iceOptionFocus;
-        break;
-      case MenuType.frappe:
-        optionFocus = state.frappeOptionFocus;
-        break;
-      default:
-    }
-
     int ingredientsLength = 0;
     if (widget.recipeList.isNotEmpty) {
-      ingredientsLength = widget.recipeList[optionFocus].ingredients.length;
+      ingredientsLength = widget.recipeList[isSelected].ingredients.length;
     }
 
     return List<Widget>.generate(
       ingredientsLength,
       (int index) {
-        final ingredient = widget.recipeList[optionFocus].ingredients[index];
+        final ingredient = widget.recipeList[isSelected].ingredients[index];
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           child: Row(
@@ -202,20 +246,10 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 PopupMenuButton<int>(
                   padding: EdgeInsets.all(0),
                   onSelected: (value) {
-                    switch (value) {
-                      case 0:
-                        showDialog<String>(
-                          barrierDismissible: false,
-                          context: context,
-                          builder: (_) => _EditIngredientDialog(
-                            ingredient: ingredient,
-                            onSave: (data) {},
-                          ),
-                        );
-                        break;
-                      case 1:
-                        break;
-                      default:
+                    if (value == 0) {
+                      onActionEdit(index);
+                    } else if (value == 1) {
+                      onActionDelete(index);
                     }
                   },
                   itemBuilder: (context) => [

@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
@@ -18,6 +16,7 @@ part 'sections/menu_info_image.dart';
 part 'sections/menu_info_card.dart';
 part 'sections/menu_info_card_ingredients.dart';
 part 'widgets/icon_button_size.dart';
+part 'modals/modal_edit_category.dart';
 part 'modals/modal_edit_ingredient.dart';
 part 'modals/modal_edit_name.dart';
 part 'modals/modal_edit_option_name.dart';
@@ -51,17 +50,18 @@ class MenuInfoPageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.watch<MenuInfoCubit>();
-    if (cubit.state.menu.id.isEmpty) cubit.setShowEditButton(true);
+    final state = cubit.state;
+    if (state.menu.id.isEmpty) cubit.setShowEditButton(true);
 
     return Scaffold(
       appBar: AppBar(
         title: Column(
           children: [
             Text(
-              cubit.state.menu.nameTh,
+              state.menu.nameTh,
             ),
             Text(
-              cubit.state.menu.nameEn.isNotEmpty ? '(${cubit.state.menu.nameEn})' : '',
+              state.menu.nameEn.isNotEmpty ? '(${state.menu.nameEn})' : '',
             ),
           ],
         ),
@@ -70,16 +70,26 @@ class MenuInfoPageScaffold extends StatelessWidget {
           color: context.colors.text,
         ),
         actions: [
-          if (cubit.state.showEditButton)
+          if (state.showEditButton)
             IconButton(
               icon: const Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                showDialog<String>(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (_) => _EditNameDialog(
+                    nameTh: state.menu.nameTh,
+                    nameEn: state.menu.nameEn,
+                    onSave: (data) {},
+                  ),
+                );
+              },
             ),
           PopupMenuButton<int>(
             onSelected: (item) {
               switch (item) {
                 case 0:
-                  cubit.setShowEditButton(!cubit.state.showEditButton);
+                  cubit.setShowEditButton(!state.showEditButton);
                   break;
                 case 1:
                   break;
@@ -93,10 +103,10 @@ class MenuInfoPageScaffold extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: cubit.state.showEditButton
+      floatingActionButton: state.showEditButton
           ? FloatingActionButton(
               onPressed: () {
-                cubit.setShowEditButton(!cubit.state.showEditButton);
+                cubit.setShowEditButton(!state.showEditButton);
               },
               shape: const CircleBorder(),
               child: const Icon(Icons.done),

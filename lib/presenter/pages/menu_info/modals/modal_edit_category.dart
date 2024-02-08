@@ -1,28 +1,34 @@
 part of '../menu_info.dart';
 
-class _EditNameDialog extends StatefulWidget {
-  const _EditNameDialog({
-    required this.nameTh,
-    required this.nameEn,
+class _EditCategoryDialog extends StatefulWidget {
+  const _EditCategoryDialog({
+    // ignore: unused_element
+    required this.category,
     required this.onSave,
   });
 
-  final String nameTh;
-  final String nameEn;
+  final String category;
   final void Function(Ingredient data) onSave;
 
   @override
-  State<_EditNameDialog> createState() => _EditNameDialogState();
+  State<_EditCategoryDialog> createState() => _EditCategoryDialogState();
 }
 
-class _EditNameDialogState extends State<_EditNameDialog> {
-  late String nameTh;
-  late String nameEn;
-
+class _EditCategoryDialogState extends State<_EditCategoryDialog> {
+  late String category;
+  final categoriesValue = [
+    'tea',
+    'coffee',
+    'smoothies',
+    'soda',
+    'others',
+  ];
   @override
   void initState() {
-    nameTh = widget.nameTh;
-    nameEn = widget.nameEn;
+    category = widget.category;
+    if (!categoriesValue.contains(category)) {
+      category = categoriesValue.last;
+    }
     super.initState();
   }
 
@@ -36,35 +42,31 @@ class _EditNameDialogState extends State<_EditNameDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ชื่อเมนู/ประเภทเมนู',
+              'ตัวเลือกวัตถุดิบ',
               style: context.typographies.heading,
             ),
             const SizedBox(height: 32),
-            TextFormField(
-              initialValue: nameTh,
-              onChanged: (v) {
-                setState(() {
-                  nameTh = v;
-                });
-              },
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                label: const Text('ชื่อเมนูภาษาไทย'),
-                floatingLabelStyle: context.typographies.heading,
-              ),
-            ),
-            const SizedBox(height: 32),
-            TextFormField(
-              initialValue: nameEn,
-              onChanged: (v) {
-                setState(() {
-                  nameEn = v;
-                });
-              },
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(),
-                label: const Text('ชื่อเมนูอังกฤษ'),
-                floatingLabelStyle: context.typographies.heading,
+            LayoutBuilder(
+              builder: (context, constraints) => DropdownMenu(
+                width: constraints.maxWidth,
+                initialSelection: category,
+                label: Text(
+                  'ประเภท',
+                  style: context.typographies.heading,
+                ),
+                textStyle: context.typographies.body,
+                onSelected: (v) {},
+                dropdownMenuEntries: categoriesValue
+                    .map(
+                      (e) => DropdownMenuEntry(
+                          value: e,
+                          label: e,
+                          labelWidget: Text(
+                            e,
+                            style: context.typographies.body,
+                          )),
+                    )
+                    .toList(),
               ),
             ),
             const SizedBox(height: 16),
