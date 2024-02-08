@@ -77,7 +77,16 @@ class _MenuInfoImage extends StatelessWidget {
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (_) => _ConfirmDeleteDialog(
+                            onConfirm: () {
+                              cubit.deleteImage();
+                            },
+                          ),
+                        );
+                      },
                       icon: Icon(Icons.delete_forever),
                       label: Text('ลบรูปภาพ'),
                     ),

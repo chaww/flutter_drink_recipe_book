@@ -64,7 +64,16 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                       ),
                     );
                   },
-                  onActionDelete: (index) {},
+                  onActionDelete: (index) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (_) => _ConfirmDeleteDialog(
+                        onConfirm: () {
+                          cubit.deleteOption(type: widget.type, recipeIndex: index);
+                        },
+                      ),
+                    );
+                  },
                 ),
                 if (cubit.state.showEditButton)
                   _IconButtonSize(
@@ -100,7 +109,20 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               ),
             );
           },
-          onActionDelete: (index) {},
+          onActionDelete: (index) {
+            showDialog<String>(
+              context: context,
+              builder: (_) => _ConfirmDeleteDialog(
+                onConfirm: () {
+                  cubit.deleteIngredient(
+                    type: widget.type,
+                    recipeIndex: isSelected,
+                    ingredientIndex: index,
+                  );
+                },
+              ),
+            );
+          },
         ),
         if (cubit.state.showEditButton && widget.recipeList.isNotEmpty)
           FilledButton.tonalIcon(

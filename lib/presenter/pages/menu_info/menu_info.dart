@@ -16,6 +16,7 @@ part 'sections/menu_info_image.dart';
 part 'sections/menu_info_card.dart';
 part 'sections/menu_info_card_ingredients.dart';
 part 'widgets/icon_button_size.dart';
+part 'widgets/confirm_dialog.dart';
 part 'modals/modal_edit_category.dart';
 part 'modals/modal_edit_ingredient.dart';
 part 'modals/modal_edit_name.dart';
@@ -92,6 +93,14 @@ class MenuInfoPageScaffold extends StatelessWidget {
                   cubit.setShowEditButton(!state.showEditButton);
                   break;
                 case 1:
+                  showDialog<String>(
+                    context: context,
+                    builder: (_) => _ConfirmDeleteDialog(
+                      onConfirm: () {
+                        cubit.deleteMenu();
+                      },
+                    ),
+                  );
                   break;
                 default:
               }
