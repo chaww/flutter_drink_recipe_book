@@ -43,7 +43,9 @@ class _MenuInfoImage extends StatelessWidget {
                               context: context,
                               builder: (_) => _EditCategoryDialog(
                                 category: state.menu.category,
-                                onSave: (data) {},
+                                onSave: (category) {
+                                  cubit.saveCategory(category: category);
+                                },
                               ),
                             );
                           },

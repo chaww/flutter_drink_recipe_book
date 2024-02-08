@@ -8,7 +8,7 @@ class _EditCategoryDialog extends StatefulWidget {
   });
 
   final String category;
-  final void Function(Ingredient data) onSave;
+  final void Function(String category) onSave;
 
   @override
   State<_EditCategoryDialog> createState() => _EditCategoryDialogState();
@@ -55,7 +55,11 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                   style: context.typographies.heading,
                 ),
                 textStyle: context.typographies.body,
-                onSelected: (v) {},
+                onSelected: (v) {
+                  setState(() {
+                    category = v ?? categoriesValue.last;
+                  });
+                },
                 dropdownMenuEntries: categoriesValue
                     .map(
                       (e) => DropdownMenuEntry(
@@ -88,6 +92,7 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
+                      widget.onSave(category);
                       Navigator.pop(context);
                     },
                     child: Text(

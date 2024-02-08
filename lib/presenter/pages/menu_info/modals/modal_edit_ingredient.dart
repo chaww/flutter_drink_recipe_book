@@ -120,11 +120,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                           value: value,
                           unit: unit,
                         );
-                        // if (widget.index >= 0) {
-                        //   log('is edit');
-                        // } else {
-                        //   log('is add');
-                        // }
+                        widget.onSave(item);
                         Navigator.pop(context);
                       } else {}
                     },

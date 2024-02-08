@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
+import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -46,20 +47,27 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required String nameEn,
   }) {
     log('saveMenuName');
-    // emit(
-    //   state.copyWith(
-    //     menu: state.menu.copyWith(
-    //       nameTh: nameTh,
-    //       nameEn: nameEn,
-    //     ),
-    //   ),
-    // );
+    emit(
+      state.copyWith(
+        menu: state.menu.copyWith(
+          nameTh: nameTh,
+          nameEn: nameEn,
+        ),
+      ),
+    );
   }
 
   void saveCategory({
     required String category,
   }) {
-    log('saveCategory');
+    log('saveCategory $category');
+    emit(
+      state.copyWith(
+        menu: state.menu.copyWith(
+          category: category,
+        ),
+      ),
+    );
   }
 
   void saveOptionName({
@@ -68,6 +76,42 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required String optionName,
   }) {
     log('saveOptionName');
+    switch (type) {
+      case MenuType.hot:
+        List<Recipe> updatedRecipes = List.from(state.menu.recipesHot);
+        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+        emit(
+          state.copyWith(
+            menu: state.menu.copyWith(
+              recipesHot: updatedRecipes,
+            ),
+          ),
+        );
+        break;
+      case MenuType.ice:
+        List<Recipe> updatedRecipes = List.from(state.menu.recipesIce);
+        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+        emit(
+          state.copyWith(
+            menu: state.menu.copyWith(
+              recipesIce: updatedRecipes,
+            ),
+          ),
+        );
+        break;
+      case MenuType.frappe:
+        List<Recipe> updatedRecipes = List.from(state.menu.recipesFrappe);
+        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+        emit(
+          state.copyWith(
+            menu: state.menu.copyWith(
+              recipesFrappe: updatedRecipes,
+            ),
+          ),
+        );
+        break;
+      default:
+    }
   }
 
   void deleteOption({

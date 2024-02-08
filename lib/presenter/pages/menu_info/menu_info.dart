@@ -81,7 +81,9 @@ class MenuInfoPageScaffold extends StatelessWidget {
                   builder: (_) => _EditNameDialog(
                     nameTh: state.menu.nameTh,
                     nameEn: state.menu.nameEn,
-                    onSave: (data) {},
+                    onSave: (nameTh, nameEn) {
+                      cubit.saveMenuName(nameTh: nameTh, nameEn: nameEn);
+                    },
                   ),
                 );
               },

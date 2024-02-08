@@ -60,7 +60,13 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                       context: context,
                       builder: (_) => _EditOptionNameDialog(
                         optionName: optionName,
-                        onSave: (data) {},
+                        onSave: (data) {
+                          cubit.saveOptionName(
+                            type: widget.type,
+                            recipeIndex: isSelected,
+                            optionName: data,
+                          );
+                        },
                       ),
                     );
                   },
@@ -84,7 +90,13 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                         context: context,
                         builder: (_) => _EditOptionNameDialog(
                           optionName: '',
-                          onSave: (data) {},
+                          onSave: (data) {
+                            cubit.saveOptionName(
+                              type: widget.type,
+                              recipeIndex: -1,
+                              optionName: data,
+                            );
+                          },
                         ),
                       );
                     },
@@ -105,7 +117,14 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               context: context,
               builder: (_) => _EditIngredientDialog(
                 ingredient: ingredient,
-                onSave: (data) {},
+                onSave: (data) {
+                  cubit.saveIngredient(
+                    type: widget.type,
+                    recipeIndex: isSelected,
+                    ingredientIndex: index,
+                    ingredient: data,
+                  );
+                },
               ),
             );
           },
@@ -132,7 +151,14 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 context: context,
                 builder: (_) => _EditIngredientDialog(
                   ingredient: const Ingredient(name: '', value: '', unit: ''),
-                  onSave: (data) {},
+                  onSave: (data) {
+                    cubit.saveIngredient(
+                      type: widget.type,
+                      recipeIndex: isSelected,
+                      ingredientIndex: -1,
+                      ingredient: data,
+                    );
+                  },
                 ),
               );
             },

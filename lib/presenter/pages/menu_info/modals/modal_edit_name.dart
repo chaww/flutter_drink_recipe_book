@@ -9,7 +9,7 @@ class _EditNameDialog extends StatefulWidget {
 
   final String nameTh;
   final String nameEn;
-  final void Function(Ingredient data) onSave;
+  final void Function(String nameTh, String nameEn) onSave;
 
   @override
   State<_EditNameDialog> createState() => _EditNameDialogState();
@@ -86,6 +86,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
+                      widget.onSave(nameTh, nameEn);
                       Navigator.pop(context);
                     },
                     child: Text(
