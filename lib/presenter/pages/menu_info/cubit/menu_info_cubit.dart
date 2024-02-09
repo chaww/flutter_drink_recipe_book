@@ -94,7 +94,11 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     List<Recipe>? recipes = recipesMap[type];
     if (recipes != null) {
       List<Recipe> updatedRecipes = List.from(recipes);
-      updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+      if (recipeIndex > -1) {
+        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+      } else {
+        updatedRecipes.add(Recipe(optionName: optionName, ingredients: []));
+      }
       emit(state.copyWith(
         menu: state.menu.copyWith(
           recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
@@ -102,6 +106,9 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
           recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
         ),
       ));
+      if (recipeIndex == -1) {
+        setOptionFocus(type: type, value: updatedRecipes.length - 1);
+      }
     }
   }
 
