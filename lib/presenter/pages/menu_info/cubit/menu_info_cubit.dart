@@ -148,6 +148,37 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required Ingredient ingredient,
   }) {
     log('updateIngredient');
+
+    final recipesMap = {
+      MenuType.hot: state.menu.recipesHot,
+      MenuType.ice: state.menu.recipesIce,
+      MenuType.frappe: state.menu.recipesFrappe,
+    };
+
+    List<Recipe>? recipes = recipesMap[type];
+    if (recipes != null) {
+      List<Recipe> updatedRecipes = List.from(recipes);
+      List<Ingredient> updateIngredients = List.from(updatedRecipes[recipeIndex].ingredients);
+      if (ingredientIndex > -1) {
+        updateIngredients[ingredientIndex] = updateIngredients[ingredientIndex].copyWith(
+          name: ingredient.name,
+          unit: ingredient.unit,
+          value: ingredient.value,
+        );
+      } else {
+        updateIngredients.add(ingredient);
+      }
+      updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(
+        ingredients: updateIngredients,
+      );
+      emit(state.copyWith(
+        menu: state.menu.copyWith(
+          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
+          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
+          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
+        ),
+      ));
+    }
   }
 
   void deleteIngredient({
