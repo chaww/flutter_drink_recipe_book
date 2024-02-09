@@ -83,42 +83,25 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required int recipeIndex,
     required String optionName,
   }) {
-    log('saveOptionName');
-    switch (type) {
-      case MenuType.hot:
-        List<Recipe> updatedRecipes = List.from(state.menu.recipesHot);
-        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
-        emit(
-          state.copyWith(
-            menu: state.menu.copyWith(
-              recipesHot: updatedRecipes,
-            ),
-          ),
-        );
-        break;
-      case MenuType.ice:
-        List<Recipe> updatedRecipes = List.from(state.menu.recipesIce);
-        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
-        emit(
-          state.copyWith(
-            menu: state.menu.copyWith(
-              recipesIce: updatedRecipes,
-            ),
-          ),
-        );
-        break;
-      case MenuType.frappe:
-        List<Recipe> updatedRecipes = List.from(state.menu.recipesFrappe);
-        updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
-        emit(
-          state.copyWith(
-            menu: state.menu.copyWith(
-              recipesFrappe: updatedRecipes,
-            ),
-          ),
-        );
-        break;
-      default:
+    log('updateOptionName');
+
+    final recipesMap = {
+      MenuType.hot: state.menu.recipesHot,
+      MenuType.ice: state.menu.recipesIce,
+      MenuType.frappe: state.menu.recipesFrappe,
+    };
+
+    List<Recipe>? recipes = recipesMap[type];
+    if (recipes != null) {
+      List<Recipe> updatedRecipes = List.from(recipes);
+      updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(optionName: optionName);
+      emit(state.copyWith(
+        menu: state.menu.copyWith(
+          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
+          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
+          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
+        ),
+      ));
     }
   }
 
