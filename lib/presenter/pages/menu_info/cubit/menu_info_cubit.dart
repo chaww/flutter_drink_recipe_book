@@ -128,6 +128,9 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     if (recipes != null) {
       List<Recipe> updatedRecipes = List.from(recipes);
       updatedRecipes.removeAt(recipeIndex);
+      if (updatedRecipes.length > 1) {
+        setOptionFocus(type: type, value: updatedRecipes.length - 1);
+      }
       emit(state.copyWith(
         menu: state.menu.copyWith(
           recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
@@ -135,9 +138,6 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
           recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
         ),
       ));
-      if (recipeIndex == -1) {
-        setOptionFocus(type: type, value: updatedRecipes.length - 1);
-      }
     }
   }
 
