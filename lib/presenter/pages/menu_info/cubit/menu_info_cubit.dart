@@ -117,6 +117,28 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required int recipeIndex,
   }) {
     log('deleteOption');
+
+    final recipesMap = {
+      MenuType.hot: state.menu.recipesHot,
+      MenuType.ice: state.menu.recipesIce,
+      MenuType.frappe: state.menu.recipesFrappe,
+    };
+
+    List<Recipe>? recipes = recipesMap[type];
+    if (recipes != null) {
+      List<Recipe> updatedRecipes = List.from(recipes);
+      updatedRecipes.removeAt(recipeIndex);
+      emit(state.copyWith(
+        menu: state.menu.copyWith(
+          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
+          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
+          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
+        ),
+      ));
+      if (recipeIndex == -1) {
+        setOptionFocus(type: type, value: updatedRecipes.length - 1);
+      }
+    }
   }
 
   void updateIngredient({
