@@ -61,7 +61,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                       builder: (_) => _EditOptionNameDialog(
                         optionName: optionName,
                         onSave: (data) {
-                          cubit.saveOptionName(
+                          cubit.updateOptionName(
                             type: widget.type,
                             recipeIndex: isSelected,
                             optionName: data,
@@ -91,7 +91,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                         builder: (_) => _EditOptionNameDialog(
                           optionName: '',
                           onSave: (data) {
-                            cubit.saveOptionName(
+                            cubit.updateOptionName(
                               type: widget.type,
                               recipeIndex: -1,
                               optionName: data,
@@ -118,7 +118,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               builder: (_) => _EditIngredientDialog(
                 ingredient: ingredient,
                 onSave: (data) {
-                  cubit.saveIngredient(
+                  cubit.updateIngredient(
                     type: widget.type,
                     recipeIndex: isSelected,
                     ingredientIndex: index,
@@ -152,7 +152,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 builder: (_) => _EditIngredientDialog(
                   ingredient: const Ingredient(name: '', value: '', unit: ''),
                   onSave: (data) {
-                    cubit.saveIngredient(
+                    cubit.updateIngredient(
                       type: widget.type,
                       recipeIndex: isSelected,
                       ingredientIndex: -1,

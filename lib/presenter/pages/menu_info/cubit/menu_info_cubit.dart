@@ -34,19 +34,27 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     emit(state.copyWith(showEditButton: value));
   }
 
+  void updateMenu() {
+    log('updateMenu');
+  }
+
   void deleteMenu() {
     log('deleteMenu');
+  }
+
+  void updateImage() {
+    log('updateImage');
   }
 
   void deleteImage() {
     log('deleteImage');
   }
 
-  void saveMenuName({
+  void updateMenuName({
     required String nameTh,
     required String nameEn,
   }) {
-    log('saveMenuName');
+    log('updateMenuName');
     emit(
       state.copyWith(
         menu: state.menu.copyWith(
@@ -57,10 +65,10 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     );
   }
 
-  void saveCategory({
+  void updateCategory({
     required String category,
   }) {
-    log('saveCategory $category');
+    log('updateCategory $category');
     emit(
       state.copyWith(
         menu: state.menu.copyWith(
@@ -70,7 +78,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     );
   }
 
-  void saveOptionName({
+  void updateOptionName({
     required MenuType type,
     required int recipeIndex,
     required String optionName,
@@ -121,13 +129,13 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     log('deleteOption');
   }
 
-  void saveIngredient({
+  void updateIngredient({
     required MenuType type,
     required int recipeIndex,
     required int ingredientIndex,
     required Ingredient ingredient,
   }) {
-    log('saveIngredient');
+    log('updateIngredient');
   }
 
   void deleteIngredient({

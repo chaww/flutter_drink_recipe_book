@@ -82,7 +82,7 @@ class MenuInfoPageScaffold extends StatelessWidget {
                     nameTh: state.menu.nameTh,
                     nameEn: state.menu.nameEn,
                     onSave: (nameTh, nameEn) {
-                      cubit.saveMenuName(nameTh: nameTh, nameEn: nameEn);
+                      cubit.updateMenuName(nameTh: nameTh, nameEn: nameEn);
                     },
                   ),
                 );
