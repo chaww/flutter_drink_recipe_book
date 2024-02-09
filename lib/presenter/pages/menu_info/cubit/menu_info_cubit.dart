@@ -105,7 +105,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     }
   }
 
-  void deleteOption({
+  void deleteRecipe({
     required MenuType type,
     required int recipeIndex,
   }) {

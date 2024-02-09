@@ -75,7 +75,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                       context: context,
                       builder: (_) => _ConfirmDeleteDialog(
                         onConfirm: () {
-                          cubit.deleteOption(type: widget.type, recipeIndex: index);
+                          cubit.deleteRecipe(type: widget.type, recipeIndex: index);
                         },
                       ),
                     );
