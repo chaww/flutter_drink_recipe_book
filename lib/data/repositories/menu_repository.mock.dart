@@ -5,11 +5,14 @@ import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 
 class MenuMockRepository extends MenuRepository {
   MenuMockRepository() {
     _init();
   }
+
+  final _local_image = LocalImage();
 
   final menuList = <Menu>[
     Menu(
@@ -108,4 +111,7 @@ class MenuMockRepository extends MenuRepository {
 
   @override
   Future<void> deleteMenu(String id) async {}
+
+  @override
+  Future<List<String>?> displayPickImageDialog() => _local_image.displayPickImageDialog();
 }

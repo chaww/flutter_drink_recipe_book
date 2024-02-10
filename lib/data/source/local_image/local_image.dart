@@ -20,8 +20,9 @@ class LocalImage {
       maxWidth: maxWidth,
       maxHeight: maxHeight,
     );
-    final mediaFileList = image == null ? null : <XFile>[image];
-    final mime = lookupMimeType(mediaFileList![0].path);
+    if (image == null) return null;
+    final mediaFileList = <XFile>[image];
+    final mime = lookupMimeType(mediaFileList[0].path);
     if (mime == null || mime.startsWith('image/')) {
       return [...mediaFileList.map((e) => e.path)];
     } else {

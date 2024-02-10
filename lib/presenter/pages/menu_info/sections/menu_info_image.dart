@@ -67,13 +67,17 @@ class _MenuInfoImage extends StatelessWidget {
                 children: [
                   if (state.menu.imageSrc.isEmpty)
                     FilledButton.tonalIcon(
-                      onPressed: () {},
+                      onPressed: () {
+                        cubit.updateImage();
+                      },
                       icon: Icon(Icons.add_photo_alternate),
                       label: Text('เพิ่มรูปภาพ'),
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
-                      onPressed: () {},
+                      onPressed: () {
+                        cubit.updateImage();
+                      },
                       icon: Icon(Icons.photo),
                       label: Text('เปลี่ยนรูปภาพ'),
                     ),

@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
+import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -13,7 +14,11 @@ part 'menu_info_cubit.freezed.dart';
 class MenuInfoCubit extends Cubit<MenuInfoState> {
   MenuInfoCubit({
     required Menu menu,
-  }) : super(MenuInfoState(menu: menu));
+    required MenuRepository menuRepository,
+  })  : _menuRepository = menuRepository,
+        super(MenuInfoState(menu: menu));
+
+  final MenuRepository _menuRepository;
 
   void setOptionFocus({required MenuType type, required int value}) {
     switch (type) {
@@ -42,8 +47,10 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     log('deleteMenu');
   }
 
-  void updateImage() {
+  void updateImage() async {
     log('updateImage');
+    final path = await _menuRepository.displayPickImageDialog();
+    log('[path] $path');
   }
 
   void deleteImage() {

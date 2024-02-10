@@ -6,6 +6,7 @@ import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
+import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.mock.dart';
 import 'package:flutter_drink_recipe_book/data/states/menu_info/menu_info_cubit.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
@@ -39,7 +40,10 @@ class MenuInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => MenuInfoCubit(menu: menu),
+      create: (_) => MenuInfoCubit(
+        menu: menu,
+        menuRepository: context.read<MenuMockRepository>(),
+      ),
       child: MenuInfoPageScaffold(),
     );
   }
