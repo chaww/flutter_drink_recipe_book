@@ -6,7 +6,7 @@ import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
-import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/cubit/menu_info_cubit.dart';
+import 'package:flutter_drink_recipe_book/data/states/menu_info/menu_info_cubit.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/main_tab_view.dart';
