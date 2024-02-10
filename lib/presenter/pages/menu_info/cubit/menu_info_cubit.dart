@@ -99,13 +99,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
       } else {
         updatedRecipes.add(Recipe(optionName: optionName, ingredients: []));
       }
-      emit(state.copyWith(
-        menu: state.menu.copyWith(
-          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
-          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
-          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
-        ),
-      ));
+      _updateRecipes(type: type, recipes: updatedRecipes);
       if (recipeIndex == -1) {
         setOptionFocus(type: type, value: updatedRecipes.length - 1);
       }
@@ -131,13 +125,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
       if (updatedRecipes.length > 1) {
         setOptionFocus(type: type, value: updatedRecipes.length - 1);
       }
-      emit(state.copyWith(
-        menu: state.menu.copyWith(
-          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
-          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
-          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
-        ),
-      ));
+      _updateRecipes(type: type, recipes: updatedRecipes);
     }
   }
 
@@ -171,13 +159,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
       updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(
         ingredients: updateIngredients,
       );
-      emit(state.copyWith(
-        menu: state.menu.copyWith(
-          recipesHot: type == MenuType.hot ? updatedRecipes : state.menu.recipesHot,
-          recipesIce: type == MenuType.ice ? updatedRecipes : state.menu.recipesIce,
-          recipesFrappe: type == MenuType.frappe ? updatedRecipes : state.menu.recipesFrappe,
-        ),
-      ));
+      _updateRecipes(type: type, recipes: updatedRecipes);
     }
   }
 
@@ -187,5 +169,35 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     required int ingredientIndex,
   }) {
     log('deleteIngredient');
+
+    final recipesMap = {
+      MenuType.hot: state.menu.recipesHot,
+      MenuType.ice: state.menu.recipesIce,
+      MenuType.frappe: state.menu.recipesFrappe,
+    };
+
+    List<Recipe>? recipes = recipesMap[type];
+    if (recipes != null) {
+      List<Recipe> updatedRecipes = List.from(recipes);
+      List<Ingredient> updateIngredients = List.from(updatedRecipes[recipeIndex].ingredients);
+      updateIngredients.removeAt(ingredientIndex);
+      updatedRecipes[recipeIndex] = updatedRecipes[recipeIndex].copyWith(
+        ingredients: updateIngredients,
+      );
+      _updateRecipes(type: type, recipes: updatedRecipes);
+    }
+  }
+
+  void _updateRecipes({
+    required MenuType type,
+    required List<Recipe> recipes,
+  }) {
+    emit(state.copyWith(
+      menu: state.menu.copyWith(
+        recipesHot: type == MenuType.hot ? recipes : state.menu.recipesHot,
+        recipesIce: type == MenuType.ice ? recipes : state.menu.recipesIce,
+        recipesFrappe: type == MenuType.frappe ? recipes : state.menu.recipesFrappe,
+      ),
+    ));
   }
 }
