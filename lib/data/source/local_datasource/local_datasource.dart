@@ -1,8 +1,8 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
-import 'package:flutter_drink_recipe_book/data/source/local/models/ingredient.dart';
-import 'package:flutter_drink_recipe_book/data/source/local/models/menu.dart';
-import 'package:flutter_drink_recipe_book/data/source/local/models/recipe.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/recipe.dart';
 
 @singleton
 class LocalDataSource {
