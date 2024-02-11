@@ -9,23 +9,26 @@ class MenuHiveModel extends HiveObject {
   static const String boxKey = 'menu';
 
   @HiveField(0)
-  late String nameTh;
+  late String id;
 
   @HiveField(1)
-  late String nameEn;
+  late String nameTh;
 
   @HiveField(2)
-  late String imageSrc;
+  late String nameEn;
 
   @HiveField(3)
-  late String category;
+  late String imageSrc;
 
   @HiveField(4)
-  late List<RecipeHiveModel> recipesHot;
+  late String category;
 
   @HiveField(5)
-  late List<RecipeHiveModel> recipesIce;
+  late List<RecipeHiveModel> recipesHot;
 
   @HiveField(6)
+  late List<RecipeHiveModel> recipesIce;
+
+  @HiveField(7)
   late List<RecipeHiveModel> recipesFrappe;
 }
