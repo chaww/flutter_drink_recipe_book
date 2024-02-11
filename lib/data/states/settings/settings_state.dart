@@ -1,15 +1,24 @@
-import 'package:flutter_drink_recipe_book/presenter/themes/themes.dart';
-import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.light.dart';
+part of 'settings_bloc.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+class SettingsState extends Equatable {
+  final AppTheme theme;
+  final String locale;
 
-part 'settings_state.freezed.dart';
+  const SettingsState({
+    this.theme = const LightAppTheme(),
+    this.locale = 'en',
+  });
 
-@freezed
-class SettingsState with _$SettingsState {
-  const factory SettingsState({
-    @Default(LightAppTheme()) AppTheme theme,
-    @Default('en') String locale,
-  }) = _SettingsState;
+  SettingsState copyWith({
+    AppTheme? theme,
+    String? locale,
+  }) {
+    return SettingsState(
+      theme: theme ?? this.theme,
+      locale: locale ?? this.locale,
+    );
+  }
+
+  @override
+  List<Object> get props => [theme, locale];
 }

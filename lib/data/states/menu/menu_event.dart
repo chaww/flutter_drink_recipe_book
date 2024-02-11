@@ -1,13 +1,12 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+part of 'menu_bloc.dart';
 
-part 'menu_event.freezed.dart';
+class MenuEvent extends Equatable {
+  const MenuEvent();
 
-@freezed
-class MenuEvent with _$MenuEvent {
-  const factory MenuEvent.subscriptionMenuList() = SubscriptionMenuList;
-  const factory MenuEvent.getMenu(String id) = GetMenu;
-  const factory MenuEvent.saveMenu(Menu menu) = SaveMenu;
-  const factory MenuEvent.deleteMenu(Menu menu) = DeleteMenu;
+  @override
+  List<Object> get props => [];
+}
+
+class SubscriptionMenuList extends MenuEvent {
+  const SubscriptionMenuList();
 }

@@ -1,15 +1,14 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'menu_info_state.dart';
-part 'menu_info_cubit.freezed.dart';
 
 class MenuInfoCubit extends Cubit<MenuInfoState> {
   MenuInfoCubit({

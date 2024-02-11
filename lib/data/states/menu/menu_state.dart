@@ -1,12 +1,19 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+part of 'menu_bloc.dart';
 
-part 'menu_state.freezed.dart';
+class MenuState extends Equatable {
+  final List<Menu> menuList;
+  const MenuState({
+    this.menuList = const [],
+  });
 
-@freezed
-class MenuState with _$MenuState {
-  const factory MenuState({
-    @Default([]) List<Menu> menuList,
-  }) = _MenuState;
+  MenuState copyWith({
+    List<Menu>? menuList,
+  }) {
+    return MenuState(
+      menuList: menuList ?? this.menuList,
+    );
+  }
+
+  @override
+  List<Object> get props => [menuList];
 }

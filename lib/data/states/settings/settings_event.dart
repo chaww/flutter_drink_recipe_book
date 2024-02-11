@@ -1,14 +1,29 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter_drink_recipe_book/presenter/themes/themes.dart';
+part of 'settings_bloc.dart';
 
-part 'settings_event.freezed.dart';
+class SettingsEvent extends Equatable {
+  const SettingsEvent();
 
-@freezed
-class SettingsEvent with _$SettingsEvent {
-  const factory SettingsEvent.themeChanged(AppTheme theme) =
-      SettingsThemeChanged;
+  @override
+  List<Object> get props => [];
+}
 
-  const factory SettingsEvent.localeChanged(String locale) =
-      SettingsLocaleChanged;
+class SettingsThemeChanged extends SettingsEvent {
+  final AppTheme theme;
+
+  const SettingsThemeChanged({
+    required this.theme,
+  });
+
+  @override
+  List<Object> get props => [theme];
+}
+
+class SettingsLocaleChanged extends SettingsEvent {
+  final String locale;
+  const SettingsLocaleChanged({
+    required this.locale,
+  });
+
+  @override
+  List<Object> get props => [locale];
 }

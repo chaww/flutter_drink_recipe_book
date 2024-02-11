@@ -1,17 +1,54 @@
-import 'package:flutter/foundation.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:equatable/equatable.dart';
 
 import 'ingredient.dart';
 
-part 'recipe.freezed.dart';
-part 'recipe.g.dart';
+class Recipe extends Equatable {
+  final String optionName;
+  final List<Ingredient> ingredients;
+  const Recipe({
+    required this.optionName,
+    required this.ingredients,
+  });
 
-@freezed
-class Recipe with _$Recipe {
-  const factory Recipe({
-    required String optionName,
-    required List<Ingredient> ingredients,
-  }) = _Recipe;
+  Recipe copyWith({
+    String? optionName,
+    List<Ingredient>? ingredients,
+  }) {
+    return Recipe(
+      optionName: optionName ?? this.optionName,
+      ingredients: ingredients ?? this.ingredients,
+    );
+  }
 
-  factory Recipe.fromJson(Map<String, Object?> json) => _$RecipeFromJson(json);
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'optionName': optionName,
+      'ingredients': ingredients.map((x) => x.toMap()).toList(),
+    };
+  }
+
+  factory Recipe.fromMap(Map<String, dynamic> map) {
+    return Recipe(
+      optionName: map['optionName'] as String,
+      ingredients: List<Ingredient>.from(
+        (map['ingredients'] as List<int>).map<Ingredient>(
+          (x) => Ingredient.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Recipe.fromJson(String source) =>
+      Recipe.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  bool get stringify => true;
+
+  @override
+  List<Object> get props => [optionName, ingredients];
 }

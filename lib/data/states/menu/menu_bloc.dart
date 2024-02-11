@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
+import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
-import 'package:flutter_drink_recipe_book/data/states/menu/menu_event.dart';
-import 'package:flutter_drink_recipe_book/data/states/menu/menu_state.dart';
 
-@singleton
+part 'menu_event.dart';
+part 'menu_state.dart';
+
 class MenuBloc extends Bloc<MenuEvent, MenuState> {
   final MenuRepository _menuRepository;
 

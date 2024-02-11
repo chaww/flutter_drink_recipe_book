@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.mock.dart';
-import 'package:flutter_drink_recipe_book/data/states/menu/menu_event.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 
