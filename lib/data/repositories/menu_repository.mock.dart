@@ -104,13 +104,11 @@ class MenuMockRepository extends MenuRepository {
   Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
 
   @override
-  Future<Menu?> getMenu(String id) async {
-    final menu = menuList.where((e) => e.id == id);
-    return menu.first;
-  }
-
-  @override
   Future<void> updateMenu(Menu menu) async {
+    final imageSrc = await _localImage.moveToApplicationDocumentsDirectory(
+      source: menu.imageSrc,
+    );
+    menu = menu.copyWith(imageSrc: imageSrc);
     if (menu.id.isEmpty) {
       final updateMenu = menu.copyWith(
         id: Uuid().v4(),
