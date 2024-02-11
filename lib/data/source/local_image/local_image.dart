@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -14,20 +15,23 @@ class LocalImage {
     double? maxWidth = 1500,
     double? maxHeight = 1500,
   }) async {
-    final picker = ImagePicker();
-    final image = await picker.pickImage(
-      source: ImageSource.gallery,
-      maxWidth: maxWidth,
-      maxHeight: maxHeight,
-    );
-    if (image == null) return null;
-    final mediaFileList = <XFile>[image];
-    final mime = lookupMimeType(mediaFileList[0].path);
-    if (mime == null || mime.startsWith('image/')) {
-      return [...mediaFileList.map((e) => e.path)];
-    } else {
-      return null;
+    try {
+      final picker = ImagePicker();
+      final image = await picker.pickImage(
+        source: ImageSource.gallery,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+      );
+      if (image == null) return null;
+      final mediaFileList = <XFile>[image];
+      final mime = lookupMimeType(mediaFileList[0].path);
+      if (mime == null || mime.startsWith('image/')) {
+        return [...mediaFileList.map((e) => e.path)];
+      }
+    } catch (e) {
+      log('[displayPickImageDialog] Error $e');
     }
+    return null;
   }
 
   Future<String> moveToApplicationDocumentsDirectory({
