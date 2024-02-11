@@ -15,5 +15,5 @@ class MenuState extends Equatable {
   }
 
   @override
-  List<Object> get props => [menuList];
+  List<Object> get props => [menuList, DateTime.now().microsecond];
 }
