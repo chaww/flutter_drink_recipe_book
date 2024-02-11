@@ -50,11 +50,13 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
   void updateImage() async {
     log('updateImage');
     final path = await _menuRepository.displayPickImageDialog();
-    log('[path] $path');
+    if (path == null) return;
+    emit(state.copyWith(menu: state.menu.copyWith(imageSrc: path[0])));
   }
 
   void deleteImage() {
     log('deleteImage');
+    emit(state.copyWith(menu: state.menu.copyWith(imageSrc: '')));
   }
 
   void updateMenuName({
