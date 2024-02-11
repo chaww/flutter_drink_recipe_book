@@ -41,9 +41,11 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
 
   void updateMenu() {
     log('updateMenu');
+    _menuRepository.updateMenu(state.menu);
   }
 
   void deleteMenu() {
+    _menuRepository.deleteMenu(state.menu.id);
     log('deleteMenu');
   }
 

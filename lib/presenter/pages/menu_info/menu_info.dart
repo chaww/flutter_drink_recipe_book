@@ -123,7 +123,7 @@ class MenuInfoPageScaffold extends StatelessWidget {
       floatingActionButton: state.showEditButton
           ? FloatingActionButton(
               onPressed: () {
-                cubit.setShowEditButton(!state.showEditButton);
+                cubit.updateMenu();
               },
               shape: const CircleBorder(),
               child: const Icon(Icons.done),

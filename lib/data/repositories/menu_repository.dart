@@ -7,7 +7,7 @@ abstract class MenuRepository {
 
   Future<Menu?> getMenu(String id);
 
-  Future<void> saveMenu(Menu menu);
+  Future<void> updateMenu(Menu menu);
 
   Future<void> deleteMenu(String id);
 

@@ -1,18 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:rxdart/subjects.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
+import 'package:uuid/uuid.dart';
 
 class MenuMockRepository extends MenuRepository {
   MenuMockRepository() {
     _init();
   }
 
-  final _local_image = LocalImage();
+  final _localImage = LocalImage();
 
   final menuList = <Menu>[
     Menu(
@@ -107,11 +110,25 @@ class MenuMockRepository extends MenuRepository {
   }
 
   @override
-  Future<void> saveMenu(Menu menu) async {}
+  Future<void> updateMenu(Menu menu) async {
+    if (menu.id.isEmpty) {
+      final updateMenu = menu.copyWith(
+        id: Uuid().v4(),
+      );
+      menuList.add(updateMenu);
+    } else {
+      final index = menuList.indexWhere((e) => e.id == menu.id);
+      menuList[index] = menu;
+    }
+    _menuStreamController.add(menuList);
+  }
 
   @override
-  Future<void> deleteMenu(String id) async {}
+  Future<void> deleteMenu(String id) async {
+    menuList.removeWhere((menu) => menu.id == id);
+    _menuStreamController.add(menuList);
+  }
 
   @override
-  Future<List<String>?> displayPickImageDialog() => _local_image.displayPickImageDialog();
+  Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
 }
