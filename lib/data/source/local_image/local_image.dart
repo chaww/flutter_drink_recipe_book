@@ -2,12 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:injectable/injectable.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-@singleton
 class LocalImage {
   const LocalImage();
 

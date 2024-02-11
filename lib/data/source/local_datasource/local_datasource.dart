@@ -1,14 +1,11 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:injectable/injectable.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/recipe.dart';
 
-@singleton
 class LocalDataSource {
-  const LocalDataSource();
+  LocalDataSource();
 
-  @PostConstruct(preResolve: true)
   Future<void> initialize() async {
     await Hive.initFlutter();
 
@@ -17,8 +14,8 @@ class LocalDataSource {
     Hive.registerAdapter<IngredientHiveModel>(IngredientHiveModelAdapter());
 
     await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
-    await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
-    await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
+    await Hive.openBox<RecipeHiveModel>(RecipeHiveModel.boxKey);
+    await Hive.openBox<IngredientHiveModel>(IngredientHiveModel.boxKey);
   }
 
   Future<List<MenuHiveModel>> getAllMenu() async {

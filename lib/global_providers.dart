@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.mock.dart';
+import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.default.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 
@@ -22,7 +22,7 @@ class GlobalBlocProviders extends StatelessWidget {
         ),
         BlocProvider<MenuBloc>(
           create: (context) => MenuBloc(
-            menuRepository: context.read<MenuMockRepository>(),
+            menuRepository: context.read<MenuDefaultRepository>(),
           )..add(const SubscriptionMenuList()),
         ),
       ],
@@ -35,8 +35,8 @@ class GlobalBlocProviders extends StatelessWidget {
   }) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<MenuMockRepository>(
-          create: (context) => MenuMockRepository(),
+        RepositoryProvider<MenuDefaultRepository>(
+          create: (context) => MenuDefaultRepository(),
         ),
       ],
       child: child,

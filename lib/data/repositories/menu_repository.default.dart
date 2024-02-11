@@ -4,21 +4,24 @@ import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_dat
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
-import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 
-@Singleton(as: MenuRepository)
 class MenuDefaultRepository extends MenuRepository {
   MenuDefaultRepository() {
-    _updateAll();
+    _init();
   }
 
   final _localImage = const LocalImage();
-  final _localDataSource = const LocalDataSource();
+  final _localDataSource = LocalDataSource();
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
 
-  void _updateAll() async {
+  void _init() async {
+    await _localDataSource.initialize();
+    _updateAll();
+  }
+
+  Future<void> _updateAll() async {
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
 
