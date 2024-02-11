@@ -19,14 +19,14 @@ class _MenuInfoImage extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          Placeholder(),
+          const Placeholder(),
           Padding(
-            padding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
             child: Row(
               children: [
                 Container(
                   decoration: BoxDecoration(color: context.colors.primary),
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -35,7 +35,7 @@ class _MenuInfoImage extends StatelessWidget {
                         style: context.typographies.body,
                       ),
                       if (state.showEditButton) ...[
-                        SizedBox(width: 8),
+                        const SizedBox(width: 8),
                         _IconButtonSize(
                           onTap: () {
                             showDialog<String>(
@@ -50,7 +50,7 @@ class _MenuInfoImage extends StatelessWidget {
                             );
                           },
                           size: 18,
-                          child: Icon(Icons.edit),
+                          child: const Icon(Icons.edit),
                         )
                       ],
                     ],
@@ -70,16 +70,16 @@ class _MenuInfoImage extends StatelessWidget {
                       onPressed: () {
                         cubit.updateImage();
                       },
-                      icon: Icon(Icons.add_photo_alternate),
-                      label: Text('เพิ่มรูปภาพ'),
+                      icon: const Icon(Icons.add_photo_alternate),
+                      label: const Text('เพิ่มรูปภาพ'),
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
                       onPressed: () {
                         cubit.updateImage();
                       },
-                      icon: Icon(Icons.photo),
-                      label: Text('เปลี่ยนรูปภาพ'),
+                      icon: const Icon(Icons.photo),
+                      label: const Text('เปลี่ยนรูปภาพ'),
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
@@ -93,8 +93,8 @@ class _MenuInfoImage extends StatelessWidget {
                           ),
                         );
                       },
-                      icon: Icon(Icons.delete_forever),
-                      label: Text('ลบรูปภาพ'),
+                      icon: const Icon(Icons.delete_forever),
+                      label: const Text('ลบรูปภาพ'),
                     ),
                 ],
               ),
