@@ -7,23 +7,10 @@ class SettingsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SettingsThemeChanged extends SettingsEvent {
-  final AppTheme theme;
-
-  const SettingsThemeChanged({
-    required this.theme,
-  });
-
-  @override
-  List<Object> get props => [theme];
+class SettingsThemeSwitch extends SettingsEvent {
+  const SettingsThemeSwitch();
 }
 
-class SettingsLocaleChanged extends SettingsEvent {
-  final String locale;
-  const SettingsLocaleChanged({
-    required this.locale,
-  });
-
-  @override
-  List<Object> get props => [locale];
+class SettingsLocaleSwitch extends SettingsEvent {
+  const SettingsLocaleSwitch();
 }

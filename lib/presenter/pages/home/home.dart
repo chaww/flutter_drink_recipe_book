@@ -8,7 +8,6 @@ import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_list/menu_list.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.dart';
-import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.light.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/locale_switcher_button.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/theme_switcher_button.dart';
 
@@ -17,22 +16,12 @@ class HomePage extends StatelessWidget {
 
   void _onThemeSwitcherPressed(BuildContext context) {
     final settingsBloc = context.read<SettingsBloc>();
-    final currentTheme = settingsBloc.state.theme;
-
-    settingsBloc.add(SettingsThemeChanged(
-      theme: currentTheme is LightAppTheme ? const DarkAppTheme() : const LightAppTheme(),
-    ));
+    settingsBloc.add(SettingsThemeSwitch());
   }
 
   void _onLocaleSwitcherPressed(BuildContext context) {
     final settingsBloc = context.read<SettingsBloc>();
-    final currentLocale = settingsBloc.state.locale;
-
-    settingsBloc.add(
-      SettingsLocaleChanged(
-        locale: currentLocale == 'en' ? 'th' : 'en',
-      ),
-    );
+    settingsBloc.add(SettingsLocaleSwitch());
   }
 
   @override
