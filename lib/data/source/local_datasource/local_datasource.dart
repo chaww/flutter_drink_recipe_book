@@ -21,6 +21,19 @@ class LocalDataSource {
     await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
   }
 
+  Future<List<MenuHiveModel>> getAllMenu() async {
+    final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
+    final menuList = List.generate(menuBox.length, (index) => menuBox.getAt(index))
+        .whereType<MenuHiveModel>()
+        .toList();
+    return menuList;
+  }
+
+  Future<MenuHiveModel?> getMenu(String index) async {
+    final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
+    return menuBox.get(index);
+  }
+
   Future<void> addMenu(MenuHiveModel menu) async {
     final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
     await menuBox.add(menu);
@@ -39,18 +52,5 @@ class LocalDataSource {
   }) async {
     final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
     await menuBox.deleteAt(index);
-  }
-
-  Future<List<MenuHiveModel>> getAllMenu() async {
-    final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
-    final menuList = List.generate(menuBox.length, (index) => menuBox.getAt(index))
-        .whereType<MenuHiveModel>()
-        .toList();
-    return menuList;
-  }
-
-  Future<MenuHiveModel?> getMenu(String index) async {
-    final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
-    return menuBox.get(index);
   }
 }
