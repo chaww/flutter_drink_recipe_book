@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.default.dart';
+import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/menu_info/menu_info_cubit.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
@@ -46,13 +45,61 @@ class MenuInfoPage extends StatelessWidget {
         menu: menu,
         menuRepository: context.read<MenuDefaultRepository>(),
       ),
-      child: MenuInfoPageScaffold(),
+      child: const _MenuInfoPageScaffold(),
     );
   }
 }
 
-class MenuInfoPageScaffold extends StatelessWidget {
-  const MenuInfoPageScaffold({super.key});
+class _MenuInfoPageScaffold extends StatelessWidget {
+  const _MenuInfoPageScaffold();
+
+  List<Widget>? _buildAppBarActions({required BuildContext context}) {
+    final cubit = context.watch<MenuInfoCubit>();
+    final state = cubit.state;
+    return [
+      if (state.showEditButton)
+        IconButton(
+          icon: const Icon(Icons.edit),
+          onPressed: () {
+            showDialog<String>(
+              barrierDismissible: false,
+              context: context,
+              builder: (_) => _EditNameDialog(
+                nameTh: state.menu.nameTh,
+                nameEn: state.menu.nameEn,
+                onSave: (nameTh, nameEn) {
+                  cubit.updateMenuName(nameTh: nameTh, nameEn: nameEn);
+                },
+              ),
+            );
+          },
+        ),
+      PopupMenuButton<int>(
+        onSelected: (item) {
+          switch (item) {
+            case 0:
+              cubit.setShowEditButton(!state.showEditButton);
+              break;
+            case 1:
+              showDialog<String>(
+                context: context,
+                builder: (_) => _ConfirmDeleteDialog(
+                  onConfirm: () {
+                    cubit.deleteMenu();
+                  },
+                ),
+              );
+              break;
+            default:
+          }
+        },
+        itemBuilder: (context) => [
+          const PopupMenuItem<int>(value: 0, child: Text('Edit')),
+          const PopupMenuItem<int>(value: 1, child: Text('Delete')),
+        ],
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,49 +123,7 @@ class MenuInfoPageScaffold extends StatelessWidget {
         titleTextStyle: context.typographies.headingSmall.copyWith(
           color: context.colors.text,
         ),
-        actions: [
-          if (state.showEditButton)
-            IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () {
-                showDialog<String>(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (_) => _EditNameDialog(
-                    nameTh: state.menu.nameTh,
-                    nameEn: state.menu.nameEn,
-                    onSave: (nameTh, nameEn) {
-                      cubit.updateMenuName(nameTh: nameTh, nameEn: nameEn);
-                    },
-                  ),
-                );
-              },
-            ),
-          PopupMenuButton<int>(
-            onSelected: (item) {
-              switch (item) {
-                case 0:
-                  cubit.setShowEditButton(!state.showEditButton);
-                  break;
-                case 1:
-                  showDialog<String>(
-                    context: context,
-                    builder: (_) => _ConfirmDeleteDialog(
-                      onConfirm: () {
-                        cubit.deleteMenu();
-                      },
-                    ),
-                  );
-                  break;
-                default:
-              }
-            },
-            itemBuilder: (context) => [
-              PopupMenuItem<int>(value: 0, child: Text('Edit')),
-              PopupMenuItem<int>(value: 1, child: Text('Delete')),
-            ],
-          ),
-        ],
+        actions: _buildAppBarActions(context: context),
       ),
       floatingActionButton: state.showEditButton
           ? FloatingActionButton(
@@ -129,11 +134,47 @@ class MenuInfoPageScaffold extends StatelessWidget {
               child: const Icon(Icons.done),
             )
           : null,
-      body: Stack(
-        children: [
-          _MenuInfoImage(),
-          _MenuInfoCard(),
-        ],
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (didPop) async {
+          if (!didPop) {
+            final menuList = context.read<MenuBloc>().state.menuList;
+            final oldMenuList = menuList.where((e) => e.id == state.menu.id).toList();
+            if (state.menu == Menu.createDefault()) {
+              Navigator.pop(context);
+            } else if (oldMenuList.isNotEmpty && oldMenuList.first == state.menu) {
+              Navigator.pop(context);
+            } else {
+              await showDialog<bool>(
+                context: context,
+                builder: (dialogContext) => AlertDialog(
+                  title: const Text('ละทิ้งการเปลี่ยนแปลง?'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(dialogContext);
+                      },
+                      child: const Text('ยกเลิก'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(dialogContext);
+                        Navigator.pop(context);
+                      },
+                      child: const Text('ตกลง'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          }
+        },
+        child: const Stack(
+          children: [
+            _MenuInfoImage(),
+            _MenuInfoCard(),
+          ],
+        ),
       ),
     );
   }
