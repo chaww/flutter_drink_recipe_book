@@ -43,7 +43,7 @@ class ItemCard extends StatelessWidget {
                             style: context.typographies.body,
                           ),
                           Text(
-                            '(${menu.nameEn})',
+                            menu.nameEn.isNotEmpty ? '(${menu.nameEn})' : '',
                             style: context.typographies.body,
                           )
                         ],

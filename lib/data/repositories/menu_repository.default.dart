@@ -5,6 +5,7 @@ import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.da
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:uuid/uuid.dart';
 
 class MenuDefaultRepository extends MenuRepository {
   MenuDefaultRepository() {
@@ -39,7 +40,9 @@ class MenuDefaultRepository extends MenuRepository {
     if (index > -1) {
       await _localDataSource.updateMenu(index: index, menu: menu.toHiveModel());
     } else {
-      await _localDataSource.addMenu(menu.toHiveModel());
+      var newMenu = menu;
+      if (menu.id.isEmpty) newMenu = menu.copyWith(id: const Uuid().v4());
+      await _localDataSource.addMenu(newMenu.toHiveModel());
     }
     _updateAll();
   }
