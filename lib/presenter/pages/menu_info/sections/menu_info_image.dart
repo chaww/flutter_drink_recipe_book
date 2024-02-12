@@ -19,16 +19,30 @@ class _MenuInfoImage extends StatelessWidget {
       width: double.infinity,
       child: Stack(
         children: [
-          Container(
-            decoration: state.menu.imageSrc != ''
-                ? BoxDecoration(
-                    image: DecorationImage(
-                      image: FileImage(File(state.menu.imageSrc)),
-                      fit: BoxFit.contain,
+          state.menu.imageSrc == ''
+              ? Padding(
+                  padding: const EdgeInsets.all(64),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: context.appTheme.name == 'light'
+                            ? Assets.hidden.logoLight.provider()
+                            : Assets.hidden.logoDark.provider(),
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                  )
-                : null,
-          ),
+                  ),
+                )
+              : Container(
+                  decoration: state.menu.imageSrc != ''
+                      ? BoxDecoration(
+                          image: DecorationImage(
+                            image: FileImage(File(state.menu.imageSrc)),
+                            fit: BoxFit.contain,
+                          ),
+                        )
+                      : null,
+                ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
             child: Row(

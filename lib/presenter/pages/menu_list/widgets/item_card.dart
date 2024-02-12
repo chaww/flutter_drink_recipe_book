@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
+import 'package:flutter_drink_recipe_book/presenter/assets.gen.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_info.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 
@@ -29,9 +30,17 @@ class ItemCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Placeholder(
-                      fallbackHeight: height * 0.7,
-                      // fallbackWidth: 100,
+                    SizedBox(
+                      height: height * 0.7,
+                      child: Padding(
+                        padding: EdgeInsets.all(24),
+                        child: Image(
+                          image: context.appTheme.name == 'light'
+                              ? Assets.hidden.logoLight.provider()
+                              : Assets.hidden.logoDark.provider(),
+                          fit: BoxFit.contain,
+                        ),
+                      ),
                     ),
                     Spacer(),
                     Padding(
@@ -53,31 +62,6 @@ class ItemCard extends StatelessWidget {
                 ),
               ],
             ),
-            // children: [
-            //   Row(
-            //     children: [
-            //       Text('ชื่อเมนู'),
-            //       Spacer(),
-            //     ],
-            //   ),
-            //   Row(
-            //     children: [
-            //       Placeholder(
-            //         child: SizedBox(
-            //           width: constraints.maxWidth - 50,
-            //           height: constraints.maxWidth - 50,
-            //         ),
-            //       ),
-            //       Column(
-            //         children: [
-            //           Icon(Icons.coffee),
-            //           Icon(Icons.ac_unit),
-            //           Icon(Icons.scatter_plot),
-            //         ],
-            //       ),
-            //     ],
-            //   ),
-            // ],
           ),
         );
       },
