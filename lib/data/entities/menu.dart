@@ -44,6 +44,19 @@ class Menu extends Equatable {
     );
   }
 
+  static Menu createDefault() {
+    return const Menu(
+      id: '',
+      nameTh: '',
+      nameEn: '',
+      imageSrc: '',
+      category: 'others',
+      recipesHot: [],
+      recipesIce: [],
+      recipesFrappe: [],
+    );
+  }
+
   @override
   List<Object> get props {
     return [

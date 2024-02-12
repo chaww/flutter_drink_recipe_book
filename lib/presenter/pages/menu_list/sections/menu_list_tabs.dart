@@ -43,16 +43,7 @@ class _MenuListTabsState extends State<_MenuListTabs> {
               icon: const Icon(Icons.add),
               iconSize: 32,
               onPressed: () {
-                const menu = Menu(
-                  id: '',
-                  nameTh: '',
-                  nameEn: '',
-                  imageSrc: '',
-                  category: 'others',
-                  recipesHot: [],
-                  recipesIce: [],
-                  recipesFrappe: [],
-                );
+                var menu = Menu.createDefault();
                 Navigator.of(context).push(MenuInfoPage.route(menu: menu));
               },
             ),
