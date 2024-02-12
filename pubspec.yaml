@@ -36,6 +36,9 @@ flutter:
   uses-material-design: true
   generate: true
 
+  assets:
+    - assets/hidden/
+
   fonts:
     - family: Prompt
       fonts:

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector.dart';
+import 'package:flutter_drink_recipe_book/presenter/assets.gen.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_list/menu_list.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.dart';
@@ -36,9 +37,8 @@ class HomePage extends StatelessWidget {
     ];
 
     return Scaffold(
-      // backgroundColor: context.appTheme.colors.backgroundDark,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 26),
           child: Column(
             children: [
@@ -65,31 +65,22 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              const Placeholder(
-                child: SizedBox(height: 120, width: 240),
-              ),
+              if (context.appTheme.name == 'light')
+                Image(image: Assets.hidden.logoLight.provider(), width: 240)
+              else
+                Image(image: Assets.hidden.logoDark.provider(), width: 240),
               const SizedBox(height: 64),
               Text(
                 context.l10n.appTitle,
                 style: TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               const SizedBox(height: 64),
-              // const Row(
-              //   children: [
-              //     Text(
-              //       'categories',
-              //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-              //     ),
-              //     Spacer(),
-              //   ],
-              // ),
               Center(
                 child: Text(
                   context.l10n.drinkCategories,
-                  // style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   style: context.typographies.headingSmall,
                 ),
               ),
