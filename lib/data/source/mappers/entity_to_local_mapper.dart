@@ -1,6 +1,8 @@
+import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/recipe.dart';
@@ -28,4 +30,10 @@ extension IngredientHiveModelX on Ingredient {
     ..name = name
     ..volume = volume
     ..unit = unit;
+}
+
+extension AppSettingsHiveModelX on AppSettings {
+  AppSettingsHiveModel toHiveModel() => AppSettingsHiveModel()
+    ..locale = locale
+    ..theme = theme;
 }
