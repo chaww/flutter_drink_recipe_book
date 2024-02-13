@@ -14,7 +14,7 @@ class LocaleSwitcherButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       onPressed: onPressed,
-      child: Text(locale == 'en' ? 'EN' : 'ไทย'),
+      child: Text(locale == 'en' ? 'ไทย' : 'Eng'),
     );
   }
 }

@@ -3,6 +3,59 @@ part of '../menu_info.dart';
 class _MenuInfoImage extends StatelessWidget {
   const _MenuInfoImage();
 
+  Widget _buildCategory(BuildContext context) {
+    final cubit = context.watch<MenuInfoCubit>();
+    final state = cubit.state;
+
+    final categoriesMap = {
+      'tea': context.l10n.drinkCategorieTea,
+      'coffee': context.l10n.drinkCategorieCoffee,
+      'smoothies': context.l10n.drinkCategorieSmoothies,
+      'soda': context.l10n.drinkCategorieSoda,
+      'others': context.l10n.drinkCategorieOthers,
+    };
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
+      child: Row(
+        children: [
+          Container(
+            decoration: BoxDecoration(color: context.colors.primary),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  categoriesMap[state.menu.category]!.toString(),
+                  style: context.typographies.body,
+                ),
+                if (state.showEditButton) ...[
+                  const SizedBox(width: 8),
+                  _IconButtonSize(
+                    onTap: () {
+                      showDialog<String>(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (_) => _EditCategoryDialog(
+                          category: state.menu.category,
+                          onSave: (category) {
+                            cubit.updateCategory(category: category);
+                          },
+                        ),
+                      );
+                    },
+                    size: 18,
+                    child: const Icon(Icons.edit),
+                  )
+                ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
@@ -43,45 +96,7 @@ class _MenuInfoImage extends StatelessWidget {
                         )
                       : null,
                 ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 16, 0, 0),
-            child: Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(color: context.colors.primary),
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${state.menu.category[0].toUpperCase()}${state.menu.category.substring(1)}',
-                        style: context.typographies.body,
-                      ),
-                      if (state.showEditButton) ...[
-                        const SizedBox(width: 8),
-                        _IconButtonSize(
-                          onTap: () {
-                            showDialog<String>(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (_) => _EditCategoryDialog(
-                                category: state.menu.category,
-                                onSave: (category) {
-                                  cubit.updateCategory(category: category);
-                                },
-                              ),
-                            );
-                          },
-                          size: 18,
-                          child: const Icon(Icons.edit),
-                        )
-                      ],
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          _buildCategory(context),
           if (state.showEditButton)
             Center(
               heightFactor: areaMinHeight,

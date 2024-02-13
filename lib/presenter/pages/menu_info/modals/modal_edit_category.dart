@@ -23,17 +23,27 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
     'soda',
     'others',
   ];
+
   @override
   void initState() {
     category = widget.category;
     if (!categoriesValue.contains(category)) {
       category = categoriesValue.last;
     }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final categoriesMap = {
+      'tea': context.l10n.drinkCategorieTea,
+      'coffee': context.l10n.drinkCategorieCoffee,
+      'smoothies': context.l10n.drinkCategorieSmoothies,
+      'soda': context.l10n.drinkCategorieSoda,
+      'others': context.l10n.drinkCategorieOthers,
+    };
+
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -60,15 +70,16 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                     category = v ?? categoriesValue.last;
                   });
                 },
-                dropdownMenuEntries: categoriesValue
+                dropdownMenuEntries: categoriesMap.entries
                     .map(
                       (e) => DropdownMenuEntry(
-                          value: e,
-                          label: e,
-                          labelWidget: Text(
-                            e,
-                            style: context.typographies.body,
-                          )),
+                        value: e.key,
+                        label: e.value,
+                        labelWidget: Text(
+                          e.value,
+                          style: context.typographies.body,
+                        ),
+                      ),
                     )
                     .toList(),
               ),
