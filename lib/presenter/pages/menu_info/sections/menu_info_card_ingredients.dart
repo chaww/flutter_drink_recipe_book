@@ -164,7 +164,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
             },
             icon: const Icon(Icons.add),
             label: Text(
-              context.l10n.menuInfoAddIngredient,
+              context.l10n.addIngredient,
               style: context.typographies.bodySmall,
             ),
           ),

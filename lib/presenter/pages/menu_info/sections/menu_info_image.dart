@@ -8,11 +8,11 @@ class _MenuInfoImage extends StatelessWidget {
     final state = cubit.state;
 
     final categoriesMap = {
-      'tea': context.l10n.drinkCategorieTea,
-      'coffee': context.l10n.drinkCategorieCoffee,
-      'smoothies': context.l10n.drinkCategorieSmoothies,
-      'soda': context.l10n.drinkCategorieSoda,
-      'others': context.l10n.drinkCategorieOthers,
+      'tea': context.l10n.drinkCategoryTea,
+      'coffee': context.l10n.drinkCategoryCoffee,
+      'smoothies': context.l10n.drinkCategorySmoothies,
+      'soda': context.l10n.drinkCategorySoda,
+      'others': context.l10n.drinkCategoryOthers,
     };
 
     return Padding(

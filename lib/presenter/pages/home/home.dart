@@ -28,12 +28,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categories = [
-      context.l10n.drinkCategorieAll,
-      context.l10n.drinkCategorieTea,
-      context.l10n.drinkCategorieCoffee,
-      context.l10n.drinkCategorieSmoothies,
-      context.l10n.drinkCategorieSoda,
-      context.l10n.drinkCategorieOthers,
+      context.l10n.drinkCategoryAll,
+      context.l10n.drinkCategoryTea,
+      context.l10n.drinkCategoryCoffee,
+      context.l10n.drinkCategorySmoothies,
+      context.l10n.drinkCategorySoda,
+      context.l10n.drinkCategoryOthers,
     ];
 
     return Scaffold(
