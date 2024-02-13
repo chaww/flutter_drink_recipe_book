@@ -63,6 +63,10 @@ class LocalDataSource {
     required AppSettingsHiveModel appSettings,
   }) async {
     final appSettingsBox = Hive.box<AppSettingsHiveModel>(AppSettingsHiveModel.boxKey);
-    await appSettingsBox.putAt(0, appSettings);
+    if (appSettingsBox.length == 0) {
+      appSettingsBox.add(appSettings);
+    } else {
+      await appSettingsBox.putAt(0, appSettings);
+    }
   }
 }

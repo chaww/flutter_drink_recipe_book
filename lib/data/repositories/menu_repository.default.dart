@@ -9,18 +9,13 @@ import 'package:uuid/uuid.dart';
 
 class MenuDefaultRepository extends MenuRepository {
   MenuDefaultRepository() {
-    _init();
+    _updateAll();
   }
 
   final _localImage = const LocalImage();
   final _localDataSource = LocalDataSource();
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
-
-  void _init() async {
-    await _localDataSource.initialize();
-    _updateAll();
-  }
 
   Future<void> _updateAll() async {
     final menuHiveModels = await _localDataSource.getAllMenu();
