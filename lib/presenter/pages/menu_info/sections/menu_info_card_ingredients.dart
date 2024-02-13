@@ -150,7 +150,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                 barrierDismissible: false,
                 context: context,
                 builder: (_) => _EditIngredientDialog(
-                  ingredient: const Ingredient(name: '', value: '', unit: ''),
+                  ingredient: const Ingredient(name: '', volume: '', unit: ''),
                   onSave: (data) {
                     cubit.updateIngredient(
                       type: widget.type,
@@ -282,7 +282,7 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
               ),
               Spacer(),
               Text(
-                ingredient.value,
+                ingredient.volume,
                 style: context.appTheme.typographies.body,
               ),
               SizedBox(width: 16, height: 48),

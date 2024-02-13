@@ -166,7 +166,7 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
         updateIngredients[ingredientIndex] = updateIngredients[ingredientIndex].copyWith(
           name: ingredient.name,
           unit: ingredient.unit,
-          value: ingredient.value,
+          volume: ingredient.volume,
         );
       } else {
         updateIngredients.add(ingredient);

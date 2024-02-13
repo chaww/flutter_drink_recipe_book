@@ -22,7 +22,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
   @override
   void initState() {
     name = widget.ingredient.name;
-    value = widget.ingredient.value;
+    value = widget.ingredient.volume;
     unit = widget.ingredient.unit;
     super.initState();
   }
@@ -117,7 +117,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                       if (name.isNotEmpty) {
                         final item = Ingredient(
                           name: name,
-                          value: value,
+                          volume: value,
                           unit: unit,
                         );
                         widget.onSave(item);
