@@ -227,8 +227,8 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                   }
                 },
                 itemBuilder: (context) => [
-                  PopupMenuItem<int>(value: 0, child: Text('Edit')),
-                  PopupMenuItem<int>(value: 1, child: Text('Delete')),
+                  PopupMenuItem<int>(value: 0, child: Text(context.l10n.edit)),
+                  PopupMenuItem<int>(value: 1, child: Text(context.l10n.delete)),
                 ],
                 child: Container(
                   padding: EdgeInsets.all((itemHeight - 24) / 2),
@@ -301,8 +301,8 @@ class _MenuInfoCardIngredientsState extends State<_MenuInfoCardIngredients> {
                     }
                   },
                   itemBuilder: (context) => [
-                    PopupMenuItem<int>(value: 0, child: Text('Edit')),
-                    PopupMenuItem<int>(value: 1, child: Text('Delete')),
+                    PopupMenuItem<int>(value: 0, child: Text(context.l10n.edit)),
+                    PopupMenuItem<int>(value: 1, child: Text(context.l10n.delete)),
                   ],
                 ),
               SizedBox(width: state.showEditButton ? 12 : 32)

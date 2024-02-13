@@ -33,7 +33,7 @@ class _EditOptionNameDialogState extends State<_EditOptionNameDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ตัวเลือกวัตถุดิบ',
+              context.l10n.ingredientOption,
               style: context.typographies.heading,
             ),
             const SizedBox(height: 32),
@@ -46,7 +46,7 @@ class _EditOptionNameDialogState extends State<_EditOptionNameDialog> {
               },
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                label: const Text('ชื่อตัวเลือกวัตถุดิบ'),
+                label: Text(context.l10n.ingredientOptionName),
                 floatingLabelStyle: context.typographies.heading,
               ),
             ),
@@ -59,7 +59,7 @@ class _EditOptionNameDialogState extends State<_EditOptionNameDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ยกเลิก',
+                      context.l10n.cancel,
                       style: context.typographies.headingSmall.copyWith(
                         color: context.colors.text,
                       ),
@@ -73,7 +73,7 @@ class _EditOptionNameDialogState extends State<_EditOptionNameDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'บันทึก',
+                      context.l10n.save,
                       style: context.typographies.headingSmall,
                     ),
                   ),

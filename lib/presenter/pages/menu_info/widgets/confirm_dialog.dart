@@ -10,13 +10,13 @@ class _ConfirmDeleteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('ยืนยันการลบ'),
-      content: Text('กรุณากดยืนยันเพื่อทำการลบ'),
+      title: Text(context.l10n.dialogConfirmDeleteTitle),
+      content: Text(context.l10n.dialogConfirmDeleteContent),
       actions: <Widget>[
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'ยกเลิก',
+            context.l10n.cancel,
             style: context.typographies.headingSmall.copyWith(
               color: context.colors.text,
             ),
@@ -28,7 +28,7 @@ class _ConfirmDeleteDialog extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text(
-            'ยืนยัน',
+            context.l10n.confirm,
             style: context.typographies.headingSmall,
           ),
         ),

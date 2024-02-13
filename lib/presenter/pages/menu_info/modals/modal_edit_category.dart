@@ -2,7 +2,6 @@ part of '../menu_info.dart';
 
 class _EditCategoryDialog extends StatefulWidget {
   const _EditCategoryDialog({
-    // ignore: unused_element
     required this.category,
     required this.onSave,
   });
@@ -52,7 +51,7 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ตัวเลือกวัตถุดิบ',
+              context.l10n.drinkCategories,
               style: context.typographies.heading,
             ),
             const SizedBox(height: 32),
@@ -61,7 +60,7 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                 width: constraints.maxWidth,
                 initialSelection: category,
                 label: Text(
-                  'ประเภท',
+                  context.l10n.drinkCategories,
                   style: context.typographies.heading,
                 ),
                 textStyle: context.typographies.body,
@@ -93,7 +92,7 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ยกเลิก',
+                      context.l10n.cancel,
                       style: context.typographies.headingSmall.copyWith(
                         color: context.colors.text,
                       ),
@@ -107,7 +106,7 @@ class _EditCategoryDialogState extends State<_EditCategoryDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'บันทึก',
+                      context.l10n.save,
                       style: context.typographies.headingSmall,
                     ),
                   ),

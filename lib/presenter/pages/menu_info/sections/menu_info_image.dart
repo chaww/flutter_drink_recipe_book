@@ -109,7 +109,7 @@ class _MenuInfoImage extends StatelessWidget {
                         cubit.updateImage();
                       },
                       icon: const Icon(Icons.add_photo_alternate),
-                      label: const Text('เพิ่มรูปภาพ'),
+                      label: Text(context.l10n.addImage),
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
@@ -117,7 +117,7 @@ class _MenuInfoImage extends StatelessWidget {
                         cubit.updateImage();
                       },
                       icon: const Icon(Icons.photo),
-                      label: const Text('เปลี่ยนรูปภาพ'),
+                      label: Text(context.l10n.changeImage),
                     ),
                   if (state.menu.imageSrc.isNotEmpty)
                     FilledButton.tonalIcon(
@@ -132,7 +132,7 @@ class _MenuInfoImage extends StatelessWidget {
                         );
                       },
                       icon: const Icon(Icons.delete_forever),
-                      label: const Text('ลบรูปภาพ'),
+                      label: Text(context.l10n.deleteImage),
                     ),
                 ],
               ),

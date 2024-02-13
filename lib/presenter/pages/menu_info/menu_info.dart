@@ -96,8 +96,8 @@ class _MenuInfoPageScaffold extends StatelessWidget {
           }
         },
         itemBuilder: (context) => [
-          const PopupMenuItem<int>(value: 0, child: Text('Edit')),
-          const PopupMenuItem<int>(value: 1, child: Text('Delete')),
+          PopupMenuItem<int>(value: 0, child: Text(context.l10n.editMenu)),
+          PopupMenuItem<int>(value: 1, child: Text(context.l10n.deleteMenu)),
         ],
       ),
     ];
@@ -150,20 +150,28 @@ class _MenuInfoPageScaffold extends StatelessWidget {
               await showDialog<bool>(
                 context: context,
                 builder: (dialogContext) => AlertDialog(
-                  title: const Text('ละทิ้งการเปลี่ยนแปลง?'),
+                  title: Text(context.l10n.dialogCancelChangeTitle),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
                         Navigator.pop(dialogContext);
                       },
-                      child: const Text('ยกเลิก'),
+                      child: Text(
+                        context.l10n.cancel,
+                        style: context.typographies.headingSmall.copyWith(
+                          color: context.colors.text,
+                        ),
+                      ),
                     ),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(dialogContext);
                         Navigator.pop(context);
                       },
-                      child: const Text('ตกลง'),
+                      child: Text(
+                        context.l10n.confirm,
+                        style: context.typographies.headingSmall,
+                      ),
                     ),
                   ],
                 ),

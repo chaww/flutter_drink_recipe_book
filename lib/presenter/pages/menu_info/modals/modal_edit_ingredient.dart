@@ -37,7 +37,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'วัตถุดิบ',
+              context.l10n.ingredient,
               style: context.typographies.heading,
             ),
             const SizedBox(height: 32),
@@ -51,9 +51,10 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
               },
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                label: const Text('ชื่อวัตถุดิบ'),
+                label: Text(context.l10n.ingredientName),
                 floatingLabelStyle: context.typographies.heading,
-                errorText: showNameValidate && name.isEmpty ? 'ต้องมีชื่อวัตถุดิบ' : null,
+                errorText:
+                    showNameValidate && name.isEmpty ? context.l10n.ingredientNameValidate : null,
               ),
             ),
             const SizedBox(height: 16),
@@ -68,8 +69,8 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                       });
                     },
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('ปริมาณ'),
+                      border: const OutlineInputBorder(),
+                      label: Text(context.l10n.volume),
                       floatingLabelStyle: context.typographies.heading,
                     ),
                   ),
@@ -84,8 +85,8 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                       });
                     },
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      label: Text('หน่วย'),
+                      border: const OutlineInputBorder(),
+                      label: Text(context.l10n.unit),
                       floatingLabelStyle: context.typographies.heading,
                     ),
                   ),
@@ -101,7 +102,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ยกเลิก',
+                      context.l10n.cancel,
                       style: context.typographies.headingSmall.copyWith(
                         color: context.colors.text,
                       ),
@@ -125,7 +126,7 @@ class _EditIngredientDialogState extends State<_EditIngredientDialog> {
                       } else {}
                     },
                     child: Text(
-                      'บันทึก',
+                      context.l10n.save,
                       style: context.typographies.headingSmall,
                     ),
                   ),

@@ -13,6 +13,7 @@
   "drinkTypeHot": "Hot",
   "drinkTypeIce": "Ice",
   "drinkTypeFrappe": "Frappe",
+  "confirm": "Confirm",
   "edit": "Edit",
   "save": "Save",
   "cancel": "Cancel",
@@ -30,6 +31,10 @@
   "addIngredient": "Add Ingredient",
   "ingredient": "Ingredient",
   "ingredientName": "Ingredient Name",
+  "ingredientNameValidate": "Require Ingredient Name",
   "volume": "Volume",
-  "unit": "Unit"
+  "unit": "Unit",
+  "dialogCancelChangeTitle": "Data will not be saved!?",
+  "dialogConfirmDeleteTitle": "Confirm deletion!?",
+  "dialogConfirmDeleteContent": "Please press confirm to delete."
 }

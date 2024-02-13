@@ -36,7 +36,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'ชื่อเมนู/ประเภทเมนู',
+              context.l10n.menuName,
               style: context.typographies.heading,
             ),
             const SizedBox(height: 32),
@@ -49,7 +49,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
               },
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                label: const Text('ชื่อเมนูภาษาไทย'),
+                label: Text(context.l10n.menuNameTh),
                 floatingLabelStyle: context.typographies.heading,
               ),
             ),
@@ -63,7 +63,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
               },
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
-                label: const Text('ชื่อเมนูอังกฤษ'),
+                label: Text(context.l10n.menuNameEn),
                 floatingLabelStyle: context.typographies.heading,
               ),
             ),
@@ -76,7 +76,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'ยกเลิก',
+                      context.l10n.cancel,
                       style: context.typographies.headingSmall.copyWith(
                         color: context.colors.text,
                       ),
@@ -90,7 +90,7 @@ class _EditNameDialogState extends State<_EditNameDialog> {
                       Navigator.pop(context);
                     },
                     child: Text(
-                      'บันทึก',
+                      context.l10n.save,
                       style: context.typographies.headingSmall,
                     ),
                   ),
