@@ -38,14 +38,19 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
     emit(state.copyWith(showEditButton: value));
   }
 
-  void updateMenu() {
+  void updateMenu() async {
     log('updateMenu');
-    _menuRepository.updateMenu(state.menu);
+    final newMenu = await _menuRepository.updateMenu(state.menu);
+    // emit(state.copyWith(menu: newMenu));
+    emit(state.copyWith(
+      menu: newMenu,
+      showEditButton: false,
+    ));
   }
 
   void deleteMenu() {
-    _menuRepository.deleteMenu(state.menu.id);
     log('deleteMenu');
+    _menuRepository.deleteMenu(state.menu.id);
   }
 
   void updateImage() async {

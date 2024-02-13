@@ -104,7 +104,7 @@ class MenuMockRepository extends MenuRepository {
   Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
 
   @override
-  Future<void> updateMenu(Menu menu) async {
+  Future<Menu> updateMenu(Menu menu) async {
     final imageSrc = await _localImage.moveToApplicationDocumentsDirectory(
       source: menu.imageSrc,
     );
@@ -119,6 +119,7 @@ class MenuMockRepository extends MenuRepository {
       menuList[index] = menu;
     }
     _menuStreamController.add(menuList);
+    return menu;
   }
 
   @override

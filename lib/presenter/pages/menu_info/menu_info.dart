@@ -87,6 +87,7 @@ class _MenuInfoPageScaffold extends StatelessWidget {
                 builder: (_) => _ConfirmDeleteDialog(
                   onConfirm: () {
                     cubit.deleteMenu();
+                    Navigator.pop(context);
                   },
                 ),
               );

@@ -5,7 +5,7 @@ abstract class MenuRepository {
 
   Stream<List<Menu>> getMenuList();
 
-  Future<void> updateMenu(Menu menu);
+  Future<Menu> updateMenu(Menu menu);
 
   Future<void> deleteMenu(String id);
 

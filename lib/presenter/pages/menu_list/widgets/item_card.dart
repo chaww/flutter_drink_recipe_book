@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/presenter/assets.gen.dart';
@@ -18,7 +20,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final height = constraints.maxHeight;
+        final height = constraints.maxHeight * 0.7;
 
         return Card(
           clipBehavior: Clip.antiAlias,
@@ -31,16 +33,23 @@ class ItemCard extends StatelessWidget {
                 Column(
                   children: [
                     SizedBox(
-                      height: height * 0.7,
-                      child: Padding(
-                        padding: EdgeInsets.all(24),
-                        child: Image(
-                          image: context.appTheme.name == 'light'
-                              ? Assets.hidden.logoLight.provider()
-                              : Assets.hidden.logoDark.provider(),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+                      height: height,
+                      child: menu.imageSrc == ''
+                          ? Padding(
+                              padding: EdgeInsets.all(24),
+                              child: Image(
+                                image: context.appTheme.name == 'light'
+                                    ? Assets.hidden.logoLight.provider()
+                                    : Assets.hidden.logoDark.provider(),
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : Center(
+                              child: Image(
+                                image: FileImage(File(menu.imageSrc)),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
                     ),
                     Spacer(),
                     Padding(

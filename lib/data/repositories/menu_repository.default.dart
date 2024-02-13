@@ -33,18 +33,21 @@ class MenuDefaultRepository extends MenuRepository {
   Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
 
   @override
-  Future<void> updateMenu(Menu menu) async {
+  Future<Menu> updateMenu(Menu menu) async {
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
     final index = menuEntities.indexWhere((e) => e.id == menu.id);
+    late Menu newMenu;
     if (index > -1) {
       await _localDataSource.updateMenu(index: index, menu: menu.toHiveModel());
+      newMenu = menu;
     } else {
-      var newMenu = menu;
+      newMenu = menu;
       if (menu.id.isEmpty) newMenu = menu.copyWith(id: const Uuid().v4());
       await _localDataSource.addMenu(newMenu.toHiveModel());
     }
     _updateAll();
+    return newMenu;
   }
 
   @override
