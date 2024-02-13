@@ -26,6 +26,6 @@ extension RecipeHiveModelX on Recipe {
 extension IngredientHiveModelX on Ingredient {
   IngredientHiveModel toHiveModel() => IngredientHiveModel()
     ..name = name
-    ..value = volume
+    ..volume = volume
     ..unit = unit;
 }

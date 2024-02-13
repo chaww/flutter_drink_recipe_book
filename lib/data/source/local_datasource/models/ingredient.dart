@@ -10,7 +10,7 @@ class IngredientHiveModel extends HiveObject {
   late String name;
 
   @HiveField(1)
-  late String value;
+  late String volume;
 
   @HiveField(2)
   late String unit;

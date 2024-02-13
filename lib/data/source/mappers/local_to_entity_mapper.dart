@@ -28,7 +28,7 @@ extension RecipeHiveModelX on RecipeHiveModel {
 extension IngredientHiveModelX on IngredientHiveModel {
   Ingredient toEntity() => Ingredient(
         name: name,
-        volume: value,
+        volume: volume,
         unit: unit,
       );
 }

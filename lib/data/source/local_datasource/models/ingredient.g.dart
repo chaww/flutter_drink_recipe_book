@@ -18,7 +18,7 @@ class IngredientHiveModelAdapter extends TypeAdapter<IngredientHiveModel> {
     };
     return IngredientHiveModel()
       ..name = fields[0] as String
-      ..value = fields[1] as String
+      ..volume = fields[1] as String
       ..unit = fields[2] as String;
   }
 
@@ -29,7 +29,7 @@ class IngredientHiveModelAdapter extends TypeAdapter<IngredientHiveModel> {
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
-      ..write(obj.value)
+      ..write(obj.volume)
       ..writeByte(2)
       ..write(obj.unit);
   }
