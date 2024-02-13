@@ -1,3 +1,4 @@
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/app_settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
@@ -12,10 +13,12 @@ class LocalDataSource {
     Hive.registerAdapter<MenuHiveModel>(MenuHiveModelAdapter());
     Hive.registerAdapter<RecipeHiveModel>(RecipeHiveModelAdapter());
     Hive.registerAdapter<IngredientHiveModel>(IngredientHiveModelAdapter());
+    Hive.registerAdapter<AppSettingsHiveModel>(AppSettingsHiveModelAdapter());
 
     await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
     await Hive.openBox<RecipeHiveModel>(RecipeHiveModel.boxKey);
     await Hive.openBox<IngredientHiveModel>(IngredientHiveModel.boxKey);
+    await Hive.openBox<AppSettingsHiveModel>(AppSettingsHiveModel.boxKey);
   }
 
   Future<List<MenuHiveModel>> getAllMenu() async {
@@ -49,5 +52,17 @@ class LocalDataSource {
   }) async {
     final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
     await menuBox.deleteAt(index);
+  }
+
+  Future<AppSettingsHiveModel?> getAppSettings() async {
+    final appSettings = Hive.box<AppSettingsHiveModel>(AppSettingsHiveModel.boxKey);
+    return appSettings.get(0);
+  }
+
+  Future<void> updateAppSettings({
+    required AppSettingsHiveModel appSettings,
+  }) async {
+    final appSettingsBox = Hive.box<AppSettingsHiveModel>(AppSettingsHiveModel.boxKey);
+    await appSettingsBox.putAt(0, appSettings);
   }
 }
