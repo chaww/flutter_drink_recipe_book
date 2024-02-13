@@ -5,8 +5,8 @@ class SettingsState extends Equatable {
   final String locale;
 
   const SettingsState({
-    this.theme = const LightAppTheme(),
-    this.locale = 'en',
+    required this.theme,
+    required this.locale,
   });
 
   SettingsState copyWith({

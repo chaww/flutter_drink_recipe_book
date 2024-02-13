@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/app_settings_repository.default.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.default.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
@@ -7,10 +8,12 @@ import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 
 class GlobalBlocProviders extends StatelessWidget {
   final Widget child;
+  final AppSettings appSettings;
 
   const GlobalBlocProviders({
     super.key,
     required this.child,
+    required this.appSettings,
   });
 
   Widget _buildMultiBlocProvider({
@@ -21,7 +24,8 @@ class GlobalBlocProviders extends StatelessWidget {
         BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(
             appSettinsRepository: context.read<AppSettinsDefaultRepository>(),
-          )..add(const SettingsInitial()),
+            appSettings: appSettings,
+          ),
         ),
         BlocProvider<MenuBloc>(
           create: (context) => MenuBloc(

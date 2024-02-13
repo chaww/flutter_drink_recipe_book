@@ -14,29 +14,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsBloc({
     required AppSettinsRepository appSettinsRepository,
+    required AppSettings appSettings,
   })  : _appSettinsRepository = appSettinsRepository,
-        super(const SettingsState()) {
+        super(SettingsState(
+          theme: appSettings.theme == 'light' ? const LightAppTheme() : const DarkAppTheme(),
+          locale: appSettings.locale,
+        )) {
     on<SettingsThemeSwitch>(_onThemeSwitch);
     on<SettingsLocaleSwitch>(_onLocaleSwitch);
-    on<SettingsInitial>(_onSettingsInitial);
-  }
-
-  Future<void> _onSettingsInitial(
-    SettingsInitial event,
-    Emitter<SettingsState> emit,
-  ) async {
-    final appSettings = await _appSettinsRepository.getAppSettings();
-    if (appSettings == null) return;
-    late AppTheme theme;
-    if (appSettings.theme == 'light') {
-      theme = const LightAppTheme();
-    } else {
-      theme = const DarkAppTheme();
-    }
-    emit(state.copyWith(
-      theme: theme,
-      locale: appSettings.locale,
-    ));
   }
 
   void _onThemeSwitch(

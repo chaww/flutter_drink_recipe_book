@@ -10,7 +10,7 @@ class DrinkRecipeBookApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locale = context.watch<SettingsBloc>().state.locale;
+    final state = context.watch<SettingsBloc>().state;
 
     return SettingsThemeSelector(
       builder: (theme) => MaterialApp(
@@ -18,7 +18,7 @@ class DrinkRecipeBookApp extends StatelessWidget {
         theme: theme.themeData,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
-        locale: Locale(locale),
+        locale: Locale(state.locale),
         title: 'Drink Recipe Book',
         home: const HomePage(),
       ),

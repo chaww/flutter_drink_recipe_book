@@ -14,7 +14,3 @@ class SettingsThemeSwitch extends SettingsEvent {
 class SettingsLocaleSwitch extends SettingsEvent {
   const SettingsLocaleSwitch();
 }
-
-class SettingsInitial extends SettingsEvent {
-  const SettingsInitial();
-}
