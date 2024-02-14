@@ -34,7 +34,7 @@
   "ingredientNameValidate": "ต้องมีชื่อวัตถุดิบ",
   "volume": "ปริมาณ",
   "unit": "หน่วย",
-  "modalCancelChangeTitle": "ข้อมูลจะไม่ถูกบันทึก!?",
+  "dialogCancelChangeTitle": "ข้อมูลจะไม่ถูกบันทึก!?",
   "dialogConfirmDeleteTitle": "ยืนยันการลบ!?",
   "dialogConfirmDeleteContent": "กรุณากดยืนยันเพื่อทำการลบ"
 }
