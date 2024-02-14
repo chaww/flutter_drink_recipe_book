@@ -18,8 +18,17 @@ class $AssetsHiddenGen {
   /// File path: assets/hidden/logo-light.png
   AssetGenImage get logoLight => const AssetGenImage('assets/hidden/logo-light.png');
 
+  /// File path: assets/hidden/menu_data.json
+  String get menuDataJson => 'assets/hidden/menu_data.json';
+
+  /// File path: assets/hidden/menu_data.tsv
+  String get menuDataTsv => 'assets/hidden/menu_data.tsv';
+
+  /// File path: assets/hidden/recipe_data.tsv
+  String get recipeData => 'assets/hidden/recipe_data.tsv';
+
   /// List of all assets
-  List<AssetGenImage> get values => [logoDark, logoLight];
+  List<dynamic> get values => [logoDark, logoLight, menuDataJson, menuDataTsv, recipeData];
 }
 
 class Assets {
