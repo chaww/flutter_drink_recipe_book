@@ -1,5 +1,6 @@
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
+// import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_storage.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
@@ -14,6 +15,7 @@ class MenuDefaultRepository extends MenuRepository {
 
   final _localImage = const LocalImage();
   final _localDataSource = LocalDataSource();
+  // final _firebase_storage = FirebaseStorageDataSource().init();
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
 
@@ -58,4 +60,17 @@ class MenuDefaultRepository extends MenuRepository {
 
   @override
   Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
+
+  void uploadImage() {}
+
+  void downloadImage() {}
+
+  void syncMenuUpdate() {
+    final currentVersion = '';
+    final lastVersion = '';
+    // menu_data_[unixtimestamp].json
+    if (currentVersion != lastVersion) {}
+  }
+
+  // void push
 }

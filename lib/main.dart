@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
+import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
 import 'package:flutter_drink_recipe_book/global_providers.dart';
 import 'package:flutter_drink_recipe_book/presenter/app.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await LocalDataSource().initialize();
   final appSettings = await _getAppSettings();
+  await FirebaseDataSource().initialize();
 
   runApp(
     GlobalBlocProviders(
