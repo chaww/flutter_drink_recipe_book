@@ -22,10 +22,33 @@ class FirebaseDataSource {
       } else {
         log('User is signed in!');
         // await FirebaseAuth.instance.signOut();
-        // final res = await uploadMenuData(MockMenu.menuList);
-        // log('[res] $res');
+        // final list = await getListImageFilename();
+        // log('$list');
       }
     });
+  }
+
+  Future<void> uploadImageFile(String filename) async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocDir.path}/$filename';
+    File file = File(filePath);
+    final isExists = await file.exists();
+    if (!isExists) return;
+
+    try {
+      final storageRef = FirebaseStorage.instance.ref();
+      final imageRef = storageRef.child('images/$filename');
+      await imageRef.putFile(file);
+    } on FirebaseException catch (e) {
+      // ...
+    }
+  }
+
+  Future<List<String>> getListImageFilename() async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child('images/');
+    final listResult = await imageRef.listAll();
+    return listResult.items.map((result) => result.name).toList();
   }
 
   Future<String> uploadMenuData(List<Menu> menuList) async {
@@ -51,6 +74,8 @@ class FirebaseDataSource {
       return '';
     }
   }
+
+  // ===
 
   Future<void> getLastMenuData() async {}
 
@@ -83,23 +108,6 @@ class FirebaseDataSource {
           break;
       }
     });
-  }
-
-  Future<void> uploadFile() async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.absolute}/file-to-upload.png';
-    File file = File(filePath);
-
-    try {
-      final storageRef = FirebaseStorage.instance.ref();
-      final mountainsRef = storageRef.child("mountains.jpg");
-      final mountainImagesRef = storageRef.child("images/mountains.jpg");
-      assert(mountainsRef.name == mountainImagesRef.name);
-      assert(mountainsRef.fullPath != mountainImagesRef.fullPath);
-      await mountainsRef.putFile(file);
-    } on FirebaseException catch (e) {
-      // ...
-    }
   }
 
   Future<void> cleanImages() async {

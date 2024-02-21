@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
-// import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_storage.dart';
+import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
@@ -15,7 +17,7 @@ class MenuDefaultRepository extends MenuRepository {
 
   final _localImage = const LocalImage();
   final _localDataSource = LocalDataSource();
-  // final _firebase_storage = FirebaseStorageDataSource().init();
+  final _firebaseDataSource = FirebaseDataSource();
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
 
@@ -61,12 +63,43 @@ class MenuDefaultRepository extends MenuRepository {
   @override
   Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
 
+  // firebase storage
+
+  Future<void> syncUpload() async {
+    // upload menu data
+    final menuHiveModels = await _localDataSource.getAllMenu();
+    final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
+    await _firebaseDataSource.uploadMenuData(menuEntities);
+
+    // upload images
+    List<String> listMenuFilename = [];
+    for (var menu in menuEntities) {
+      if (menu.imageSrc.isNotEmpty) {
+        listMenuFilename.add(menu.imageSrc);
+      }
+    }
+    final listFilenameServer = await _firebaseDataSource.getListImageFilename();
+    final menuSet = listMenuFilename.toSet();
+    final serverSet = listFilenameServer.toSet();
+    final listFilenameUpload = menuSet.difference(serverSet).toList();
+    for (var filename in listFilenameUpload) {
+      await _firebaseDataSource.uploadImageFile(filename);
+    }
+
+    // clean local images
+    final listLocalFilename = await _localImage.getListFilename();
+    final localSet = listLocalFilename.toSet();
+    final listDelete = localSet.difference(menuSet).toList();
+    for (var filename in listDelete) {
+      await _localImage.deleteFile(filename);
+    }
+    log('syncUpload complete');
+  }
+
   void syncDownload() {
     final currentVersion = '';
     final lastVersion = '';
     // menu_data_[unixtimestamp].json
     if (currentVersion != lastVersion) {}
   }
-
-  void syncUpload() {}
 }

@@ -47,4 +47,12 @@ class LocalImage {
       return source;
     }
   }
+
+  Future<List<String>> getListFilename() async {
+    final dir = await getApplicationDocumentsDirectory();
+    final file = dir.listSync();
+    return List<String>.from(file);
+  }
+
+  Future<void> deleteFile(String filename) async {}
 }
