@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 
 import 'recipe.dart';
@@ -70,4 +73,46 @@ class Menu extends Equatable {
       recipesFrappe,
     ];
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'nameTh': nameTh,
+      'nameEn': nameEn,
+      'imageSrc': imageSrc,
+      'category': category,
+      'recipesHot': recipesHot.map((x) => x.toMap()).toList(),
+      'recipesIce': recipesIce.map((x) => x.toMap()).toList(),
+      'recipesFrappe': recipesFrappe.map((x) => x.toMap()).toList(),
+    };
+  }
+
+  factory Menu.fromMap(Map<String, dynamic> map) {
+    return Menu(
+      id: map['id'] as String,
+      nameTh: map['nameTh'] as String,
+      nameEn: map['nameEn'] as String,
+      imageSrc: map['imageSrc'] as String,
+      category: map['category'] as String,
+      recipesHot: List<Recipe>.from(
+        (map['recipesHot'] as List<dynamic>).map<Recipe>(
+          (x) => Recipe.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      recipesIce: List<Recipe>.from(
+        (map['recipesIce'] as List<dynamic>).map<Recipe>(
+          (x) => Recipe.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      recipesFrappe: List<Recipe>.from(
+        (map['recipesFrappe'] as List<dynamic>).map<Recipe>(
+          (x) => Recipe.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Menu.fromJson(String source) => Menu.fromMap(json.decode(source) as Map<String, dynamic>);
 }
