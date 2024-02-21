@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FirebaseDataSource {
@@ -19,18 +22,45 @@ class FirebaseDataSource {
       } else {
         log('User is signed in!');
         // await FirebaseAuth.instance.signOut();
-        await getImage();
+        // final res = await uploadMenuData(MockMenu.menuList);
+        // log('[res] $res');
       }
     });
   }
 
+  Future<String> uploadMenuData(List<Menu> menuList) async {
+    // jsonEncode
+    final listMap = menuList.map((e) => e.toMap()).toList();
+    final jsonString = jsonEncode(listMap);
+
+    // upload
+    final storageRef = FirebaseStorage.instance.ref();
+    final timestamp = DateTime.timestamp().millisecondsSinceEpoch;
+    final filename = 'data_$timestamp.json';
+    final menuDataRef = storageRef.child('/menu_data/$filename');
+    final uploadTask = menuDataRef.putString(jsonString);
+
+    // check success
+    final taskState = await uploadTask.snapshotEvents.firstWhere(
+      (taskSnapshot) => taskSnapshot.state == TaskState.success,
+    );
+    if (taskState.state == TaskState.success) {
+      final downloadUrl = await menuDataRef.getDownloadURL();
+      return downloadUrl;
+    } else {
+      return '';
+    }
+  }
+
+  Future<void> getLastMenuData() async {}
+
   Future<void> getImage() async {
     final storageRef = FirebaseStorage.instance.ref();
-    final imageRef = storageRef.child("images/a01.png");
+    final imageRef = storageRef.child('images/a01.png');
     final appDocDir = await getApplicationDocumentsDirectory();
     final filePath = '${appDocDir.absolute.path}/images/a01.png';
     final file = File(filePath);
-    file.create(recursive: true);
+    // file.create(recursive: true);
 
     final downloadTask = imageRef.writeToFile(file);
     downloadTask.snapshotEvents.listen((taskSnapshot) {

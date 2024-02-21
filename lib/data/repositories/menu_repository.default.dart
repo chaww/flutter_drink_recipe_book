@@ -61,16 +61,12 @@ class MenuDefaultRepository extends MenuRepository {
   @override
   Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
 
-  void uploadImage() {}
-
-  void downloadImage() {}
-
-  void syncMenuUpdate() {
+  void syncDownload() {
     final currentVersion = '';
     final lastVersion = '';
     // menu_data_[unixtimestamp].json
     if (currentVersion != lastVersion) {}
   }
 
-  // void push
+  void syncUpload() {}
 }
