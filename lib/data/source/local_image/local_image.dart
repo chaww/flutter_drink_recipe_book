@@ -41,7 +41,7 @@ class LocalImage {
       final fileType = source.split('.').last;
       final file = File(source);
       final filename = const Uuid().v4();
-      final newImage = await file.copy('$dirPath/$filename.$fileType');
+      final newImage = await file.copy('$dirPath/images/$filename.$fileType');
       return newImage.path;
     } else {
       return source;
@@ -50,7 +50,8 @@ class LocalImage {
 
   Future<List<String>> getListFilename() async {
     final dir = await getApplicationDocumentsDirectory();
-    final file = dir.listSync();
+    final imageDir = Directory('$dir/images/');
+    final file = imageDir.listSync();
     return List<String>.from(file);
   }
 
