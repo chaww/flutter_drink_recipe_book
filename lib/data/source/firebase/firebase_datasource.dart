@@ -30,7 +30,7 @@ class FirebaseDataSource {
 
   Future<void> uploadImageFile(String filename) async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.path}/$filename';
+    String filePath = '${appDocDir.path}/images/$filename';
     File file = File(filePath);
     final isExists = await file.exists();
     if (!isExists) return;
