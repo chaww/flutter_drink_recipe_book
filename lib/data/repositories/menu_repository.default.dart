@@ -76,11 +76,13 @@ class MenuDefaultRepository extends MenuRepository {
     // upload menu data
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
-    await _firebaseDataSource.uploadMenuData(menuEntities);
+    final menuData =
+        menuEntities.map((menu) => menu.copyWith(imageSrc: menu.imageSrc.split('/').last)).toList();
+    await _firebaseDataSource.uploadMenuData(menuData);
 
     // upload images
     List<String> listMenuFilename = [];
-    for (var menu in menuEntities) {
+    for (var menu in menuData) {
       if (menu.imageSrc.isNotEmpty) {
         listMenuFilename.add(menu.imageSrc);
       }

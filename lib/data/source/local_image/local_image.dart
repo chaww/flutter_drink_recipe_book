@@ -50,10 +50,19 @@ class LocalImage {
 
   Future<List<String>> getListFilename() async {
     final dir = await getApplicationDocumentsDirectory();
-    final imageDir = Directory('$dir/images/');
-    final file = imageDir.listSync();
-    return List<String>.from(file);
+    final imageDir = Directory('${dir.path}/images/');
+    final files = imageDir.listSync();
+    final listFilename = files.map((e) => e.path.split('/').last).toList();
+    return listFilename;
   }
 
-  Future<void> deleteFile(String filename) async {}
+  Future<void> deleteFile(String filename) async {
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final file = File('${dir.path}/images/$filename');
+      await file.delete();
+    } catch (e) {
+      print(e);
+    }
+  }
 }
