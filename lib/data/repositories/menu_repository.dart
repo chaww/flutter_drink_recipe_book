@@ -10,4 +10,8 @@ abstract class MenuRepository {
   Future<void> deleteMenu(String id);
 
   Future<List<String>?> displayPickImageDialog();
+
+  Future<void> syncUpload();
+
+  Future<void> syncDownload();
 }

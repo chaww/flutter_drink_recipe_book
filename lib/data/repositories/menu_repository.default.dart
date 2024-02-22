@@ -72,8 +72,7 @@ class MenuDefaultRepository extends MenuRepository {
   @override
   Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
 
-  // firebase storage
-
+  @override
   Future<void> syncUpload() async {
     // upload menu data
     final menuHiveModels = await _localDataSource.getAllMenu();
@@ -112,10 +111,6 @@ class MenuDefaultRepository extends MenuRepository {
     }
   }
 
-  void syncDownload() {
-    final currentVersion = '';
-    final lastVersion = '';
-    // menu_data_[unixtimestamp].json
-    if (currentVersion != lastVersion) {}
-  }
+  @override
+  Future<void> syncDownload() async {}
 }
