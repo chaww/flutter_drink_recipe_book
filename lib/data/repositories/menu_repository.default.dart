@@ -7,12 +7,16 @@ import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_dat
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
+import 'package:flutter_drink_recipe_book/data/source/mock/mock_menu.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:uuid/uuid.dart';
 
 class MenuDefaultRepository extends MenuRepository {
   MenuDefaultRepository() {
     _updateAll();
+    // for (var menu in MockMenu.menuList) {
+    //   updateMenu(menu);
+    // }
   }
 
   final _localImage = const LocalImage();
@@ -33,6 +37,9 @@ class MenuDefaultRepository extends MenuRepository {
 
   @override
   Future<Menu> updateMenu(Menu menu) async {
+    if (menu.imageSrc.isNotEmpty) {
+      menu = menu.copyWith(imageSrc: await _localImage.moveImageToDirectory(source: menu.imageSrc));
+    }
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
     final index = menuEntities.indexWhere((e) => e.id == menu.id);

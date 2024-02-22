@@ -32,7 +32,7 @@ class LocalImage {
     return null;
   }
 
-  Future<String> moveToApplicationDocumentsDirectory({
+  Future<String> moveImageToDirectory({
     required String source,
   }) async {
     if (source.isNotEmpty && source.contains('/cache/')) {
