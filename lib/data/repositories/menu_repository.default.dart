@@ -81,7 +81,6 @@ class MenuDefaultRepository extends MenuRepository {
         menuEntities.map((menu) => menu.copyWith(imageSrc: menu.imageSrc.split('/').last)).toList();
     await _firebaseDataSource.uploadMenuData(menuData);
 
-    // upload images
     List<String> listMenuFilename = [];
     for (var menu in menuData) {
       if (menu.imageSrc.isNotEmpty) {
@@ -91,6 +90,8 @@ class MenuDefaultRepository extends MenuRepository {
     final listFilenameServer = await _firebaseDataSource.getListImageFilename();
     final menuSet = listMenuFilename.toSet();
     final serverSet = listFilenameServer.toSet();
+
+    // upload images
     final listFilenameUpload = menuSet.difference(serverSet).toList();
     for (var filename in listFilenameUpload) {
       await _firebaseDataSource.uploadImageFile(filename);
