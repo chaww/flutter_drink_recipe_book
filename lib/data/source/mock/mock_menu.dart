@@ -5,7 +5,7 @@ import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 class MockMenu {
   static final menuList = <Menu>[
     const Menu(
-      id: '1',
+      id: '03c41b99-9346-4cfd-8fcf-0f58cf665275',
       nameTh: 'อเมริกาโน่',
       nameEn: 'Americano',
       imageSrc: '',
@@ -52,7 +52,7 @@ class MockMenu {
       recipesFrappe: [],
     ),
     const Menu(
-      id: '2',
+      id: '5ef89221-158a-4e5e-8e2c-c52d68ace951',
       nameTh: 'ชาพีช',
       nameEn: 'Peach Tea',
       imageSrc: '',
