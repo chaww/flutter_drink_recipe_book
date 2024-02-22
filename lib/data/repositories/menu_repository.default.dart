@@ -17,6 +17,7 @@ class MenuDefaultRepository extends MenuRepository {
     // for (var menu in MockMenu.menuList) {
     //   updateMenu(menu);
     // }
+    syncUpload();
   }
 
   final _localImage = const LocalImage();
@@ -96,6 +97,12 @@ class MenuDefaultRepository extends MenuRepository {
       await _firebaseDataSource.uploadImageFile(filename);
     }
 
+    // clean server images
+    final listFilenameDelete = serverSet.difference(menuSet).toList();
+    for (var filename in listFilenameDelete) {
+      await _firebaseDataSource.deleteImageFile(filename);
+    }
+
     // clean local images
     final listLocalFilename = await _localImage.getListFilename();
     final localSet = listLocalFilename.toSet();
@@ -103,7 +110,6 @@ class MenuDefaultRepository extends MenuRepository {
     for (var filename in listDelete) {
       await _localImage.deleteFile(filename);
     }
-    log('syncUpload complete');
   }
 
   void syncDownload() {

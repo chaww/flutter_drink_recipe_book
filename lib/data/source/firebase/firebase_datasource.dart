@@ -28,6 +28,12 @@ class FirebaseDataSource {
     });
   }
 
+  Future<void> deleteImageFile(String filename) async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child('images/$filename');
+    await imageRef.delete();
+  }
+
   Future<void> uploadImageFile(String filename) async {
     Directory appDocDir = await getApplicationDocumentsDirectory();
     String filePath = '${appDocDir.path}/images/$filename';
