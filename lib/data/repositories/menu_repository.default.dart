@@ -53,6 +53,7 @@ class MenuDefaultRepository extends MenuRepository {
       await _localDataSource.addMenu(newMenu.toHiveModel());
     }
     _updateAll();
+    _localImage.cleanImageCache();
     return newMenu;
   }
 

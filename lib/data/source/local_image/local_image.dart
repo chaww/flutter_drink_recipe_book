@@ -61,8 +61,21 @@ class LocalImage {
       final dir = await getApplicationDocumentsDirectory();
       final file = File('${dir.path}/images/$filename');
       await file.delete();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
+  }
+
+  Future<void> cleanImageCache() async {
+    try {
+      final dir = await getApplicationCacheDirectory();
+      final files = dir.listSync();
+      final listDelete = files.where((files) {
+        final mime = lookupMimeType(files.path);
+        return mime != null && mime.startsWith('image/');
+      }).toList();
+      for (var file in listDelete) {
+        await file.delete();
+        log('Delete File : ${file.path}');
+      }
+    } catch (e) {}
   }
 }
