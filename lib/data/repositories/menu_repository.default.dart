@@ -7,7 +7,6 @@ import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_dat
 import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
-import 'package:flutter_drink_recipe_book/data/source/mock/mock_menu.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,7 +16,8 @@ class MenuDefaultRepository extends MenuRepository {
     // for (var menu in MockMenu.menuList) {
     //   updateMenu(menu);
     // }
-    syncUpload();
+    // syncDownload();
+    // syncUpload();
   }
 
   final _localImage = const LocalImage();
@@ -103,15 +103,36 @@ class MenuDefaultRepository extends MenuRepository {
       await _firebaseDataSource.deleteImageFile(filename);
     }
 
-    // clean local images
+    await _cleanLocalImagesByListMenu(menuData);
+  }
+
+  @override
+  Future<void> syncDownload() async {
+    final menuData = await _firebaseDataSource.getMenuData();
+    if (menuData == null) return;
+    for (var menu in menuData) {
+      if (menu.imageSrc.isNotEmpty) {
+        final path = await _firebaseDataSource.dowloadImageToLocal(menu.imageSrc);
+        await updateMenu(menu.copyWith(imageSrc: path));
+      } else {
+        await updateMenu(menu);
+      }
+    }
+    await _cleanLocalImagesByListMenu(menuData);
+  }
+
+  Future<void> _cleanLocalImagesByListMenu(List<Menu> listMenu) async {
+    List<String> listMenuFilename = [];
+    for (var menu in listMenu) {
+      if (menu.imageSrc.isNotEmpty) {
+        listMenuFilename.add(menu.imageSrc.split('/').last);
+      }
+    }
     final listLocalFilename = await _localImage.getListFilename();
     final localSet = listLocalFilename.toSet();
-    final listDelete = localSet.difference(menuSet).toList();
+    final listDelete = localSet.difference(listMenuFilename.toSet()).toList();
     for (var filename in listDelete) {
       await _localImage.deleteFile(filename);
     }
   }
-
-  @override
-  Future<void> syncDownload() async {}
 }

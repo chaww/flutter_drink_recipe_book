@@ -84,46 +84,36 @@ class FirebaseDataSource {
     }
   }
 
-  // ===
+  Future<List<Menu>?> getMenuData() async {
+    final storageRef = FirebaseStorage.instance.ref();
+    const filename = 'data.json';
+    final menuDataRef = storageRef.child('/menu_data/$filename');
+    final rawData = await menuDataRef.getData();
+    if (rawData != null) {
+      final stringData = utf8.decode(rawData);
+      List<dynamic> listMap = jsonDecode(stringData);
+      final menuList = listMap.map((e) => Menu.fromMap(e)).toList();
+      return menuList;
+    } else {
+      return null;
+    }
+  }
 
-  // Future<void> getLastMenuData() async {}
+  Future<String> dowloadImageToLocal(String filename) async {
+    final storageRef = FirebaseStorage.instance.ref();
+    final imageRef = storageRef.child('images/$filename');
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final filePath = '${appDocDir.path}/images/$filename';
+    final file = File(filePath);
 
-  // Future<void> getImage() async {
-  //   final storageRef = FirebaseStorage.instance.ref();
-  //   final imageRef = storageRef.child('images/a01.png');
-  //   final appDocDir = await getApplicationDocumentsDirectory();
-  //   final filePath = '${appDocDir.absolute.path}/images/a01.png';
-  //   final file = File(filePath);
-  //   // file.create(recursive: true);
-
-  //   final downloadTask = imageRef.writeToFile(file);
-  //   downloadTask.snapshotEvents.listen((taskSnapshot) {
-  //     log('${taskSnapshot.state}');
-  //     switch (taskSnapshot.state) {
-  //       case TaskState.running:
-  //         // TODO: Handle this case.
-  //         break;
-  //       case TaskState.paused:
-  //         // TODO: Handle this case.
-  //         break;
-  //       case TaskState.success:
-  //         // TODO: Handle this case.
-  //         break;
-  //       case TaskState.canceled:
-  //         // TODO: Handle this case.
-  //         break;
-  //       case TaskState.error:
-  //         // TODO: Handle this case.
-  //         break;
-  //     }
-  //   });
-  // }
-
-  // Future<void> cleanImages() async {
-  //   final storageRef = FirebaseStorage.instance.ref();
-  //   final images = await storageRef.child('images').listAll();
-  //   images.items.forEach((e) {
-  //     log('${e.name}');
-  //   });
-  // }
+    final downloadTask = imageRef.writeToFile(file);
+    final taskState = await downloadTask.snapshotEvents.firstWhere(
+      (taskSnapshot) => taskSnapshot.state == TaskState.success,
+    );
+    if (taskState.state == TaskState.success) {
+      return filePath;
+    } else {
+      return '';
+    }
+  }
 }
