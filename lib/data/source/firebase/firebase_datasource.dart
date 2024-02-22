@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
+import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FirebaseDataSource {
@@ -44,7 +45,8 @@ class FirebaseDataSource {
     try {
       final storageRef = FirebaseStorage.instance.ref();
       final imageRef = storageRef.child('images/$filename');
-      await imageRef.putFile(file);
+      final mime = lookupMimeType(file.path);
+      await imageRef.putFile(file, SettableMetadata(contentType: mime));
     } on FirebaseException catch (e) {
       // ...
     }
