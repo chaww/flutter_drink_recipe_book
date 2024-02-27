@@ -14,6 +14,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
   })  : _menuRepository = menuRepository,
         super(const MenuState()) {
     on<SubscriptionMenuList>(_onSubscriptionMenuList);
+    on<SignIn>(_onSignIn);
   }
 
   Future<void> _onSubscriptionMenuList(
@@ -26,5 +27,12 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
         return state.copyWith(menuList: menuList);
       },
     );
+  }
+
+  Future<void> _onSignIn(
+    SignIn event,
+    Emitter<MenuState> emit,
+  ) async {
+    emit(state.copyWith(isSignedIn: !state.isSignedIn));
   }
 }

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/locale/l10n.dart';
+import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_selector.dart';
 import 'package:flutter_drink_recipe_book/presenter/assets.gen.dart';
@@ -11,6 +12,8 @@ import 'package:flutter_drink_recipe_book/presenter/themes/extensions.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/locale_switcher_button.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/theme_switcher_button.dart';
+
+part 'sections/home_cloud.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -70,50 +73,52 @@ class HomePage extends StatelessWidget {
               else
                 Image(image: Assets.hidden.logoDark.provider(), width: 240),
               const SizedBox(height: 64),
-              Text(
-                context.l10n.appTitle,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              const SizedBox(height: 64),
-              Center(
-                child: Text(
-                  context.l10n.drinkCategories,
-                  style: context.typographies.headingSmall,
-                ),
-              ),
-              GridView(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  childAspectRatio: 2.58,
-                  mainAxisSpacing: 15,
-                ),
-                children: [
-                  ...categories.map(
-                    (e) => Card(
-                      clipBehavior: Clip.antiAlias,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MenuListPage.route());
-                        },
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text(
-                            e,
-                            style: context.typographies.body,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              _HomeCloud(),
+
+              // Text(
+              //   context.l10n.appTitle,
+              //   style: TextStyle(
+              //     fontSize: 24,
+              //     fontWeight: FontWeight.w500,
+              //   ),
+              // ),
+              // const SizedBox(height: 64),
+              // Center(
+              //   child: Text(
+              //     context.l10n.drinkCategories,
+              //     style: context.typographies.headingSmall,
+              //   ),
+              // ),
+              // GridView(
+              //   padding: const EdgeInsets.symmetric(vertical: 20),
+              //   shrinkWrap: true,
+              //   physics: const NeverScrollableScrollPhysics(),
+              //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //     crossAxisCount: 2,
+              //     crossAxisSpacing: 10,
+              //     childAspectRatio: 2.58,
+              //     mainAxisSpacing: 15,
+              //   ),
+              //   children: [
+              //     ...categories.map(
+              //       (e) => Card(
+              //         clipBehavior: Clip.antiAlias,
+              //         child: InkWell(
+              //           onTap: () {
+              //             Navigator.of(context).push(MenuListPage.route());
+              //           },
+              //           child: Align(
+              //             alignment: Alignment.center,
+              //             child: Text(
+              //               e,
+              //               style: context.typographies.body,
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),
