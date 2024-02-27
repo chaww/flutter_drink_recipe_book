@@ -1,13 +1,13 @@
 part of '../menu_list.dart';
 
-class _MenuListTabs extends StatefulWidget {
-  const _MenuListTabs();
+class _ListMenuTabs extends StatefulWidget {
+  const _ListMenuTabs();
 
   @override
-  State<_MenuListTabs> createState() => _MenuListTabsState();
+  State<_ListMenuTabs> createState() => _ListMenuTabsState();
 }
 
-class _MenuListTabsState extends State<_MenuListTabs> {
+class _ListMenuTabsState extends State<_ListMenuTabs> {
   @override
   Widget build(BuildContext context) {
     final categoriesText = [
@@ -69,7 +69,7 @@ class _MenuListTabsState extends State<_MenuListTabs> {
           children: <Widget>[
             ...List.generate(
               categoriesText.length,
-              (index) => _MenuListGrid(filterCategory: categoriesValue[index]),
+              (index) => _ListMenuGrid(filterCategory: categoriesValue[index]),
             ),
           ],
         ),

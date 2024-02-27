@@ -7,8 +7,8 @@ class MenuEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SubscriptionMenuList extends MenuEvent {
-  const SubscriptionMenuList();
+class SubscriptionListMenu extends MenuEvent {
+  const SubscriptionListMenu();
 }
 
 class SignIn extends MenuEvent {

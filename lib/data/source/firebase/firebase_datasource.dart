@@ -59,9 +59,9 @@ class FirebaseDataSource {
     return listResult.items.map((result) => result.name).toList();
   }
 
-  Future<String> uploadMenuData(List<Menu> menuList) async {
+  Future<String> uploadMenuData(List<Menu> listMenu) async {
     // jsonEncode
-    final listMap = menuList.map((e) => e.toMap()).toList();
+    final listMap = listMenu.map((e) => e.toMap()).toList();
     final jsonString = jsonEncode(listMap);
 
     // upload
@@ -92,8 +92,8 @@ class FirebaseDataSource {
     if (rawData != null) {
       final stringData = utf8.decode(rawData);
       List<dynamic> listMap = jsonDecode(stringData);
-      final menuList = listMap.map((e) => Menu.fromMap(e)).toList();
-      return menuList;
+      final listMenu = listMap.map((e) => Menu.fromMap(e)).toList();
+      return listMenu;
     } else {
       return null;
     }

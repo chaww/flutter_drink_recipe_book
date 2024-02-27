@@ -1,7 +1,7 @@
 part of '../menu_list.dart';
 
-class _MenuListGrid extends StatelessWidget {
-  const _MenuListGrid({
+class _ListMenuGrid extends StatelessWidget {
+  const _ListMenuGrid({
     required this.filterCategory,
   });
 
@@ -11,8 +11,8 @@ class _MenuListGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     var crossAxisCount = MediaQuery.sizeOf(context).width ~/ 160;
     if (crossAxisCount == 0) crossAxisCount = 1;
-    final menuList = context.watch<MenuBloc>().state.menuList;
-    final menuListFiltered = menuList.where(
+    final listMenu = context.watch<MenuBloc>().state.listMenu;
+    final listMenuFiltered = listMenu.where(
       (e) {
         final isAll = filterCategory.toLowerCase() == 'all';
         final filterText = filterCategory.toLowerCase();
@@ -28,7 +28,7 @@ class _MenuListGrid extends StatelessWidget {
       primary: false,
       padding: const EdgeInsets.all(4),
       children: <Widget>[
-        ...menuListFiltered.map(
+        ...listMenuFiltered.map(
           (menu) => ItemCard(
             menu: menu,
           ),

@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 class MenuDefaultRepository extends MenuRepository {
   MenuDefaultRepository() {
     _updateAll();
-    // for (var menu in MockMenu.menuList) {
+    // for (var menu in MockMenu.listMenu) {
     //   updateMenu(menu);
     // }
     // syncDownload();
@@ -34,7 +34,7 @@ class MenuDefaultRepository extends MenuRepository {
   }
 
   @override
-  Stream<List<Menu>> getMenuList() => _menuStreamController.asBroadcastStream();
+  Stream<List<Menu>> listMenuStream() => _menuStreamController.asBroadcastStream();
 
   @override
   Future<Menu> updateMenu(Menu menu) async {

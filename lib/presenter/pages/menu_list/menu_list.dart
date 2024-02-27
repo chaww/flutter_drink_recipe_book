@@ -11,17 +11,17 @@ import 'widgets/item_card.dart';
 part 'sections/menu_list_grid.dart';
 part 'sections/menu_list_tabs.dart';
 
-class MenuListPage extends StatelessWidget {
-  const MenuListPage({super.key});
+class ListMenuPage extends StatelessWidget {
+  const ListMenuPage({super.key});
 
   static Route<void> route() {
     return MaterialPageRoute(
-      builder: (context) => const MenuListPage(),
+      builder: (context) => const ListMenuPage(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return const _MenuListTabs();
+    return const _ListMenuTabs();
   }
 }

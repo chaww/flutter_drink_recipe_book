@@ -140,11 +140,11 @@ class _MenuInfoPageScaffold extends StatelessWidget {
         canPop: false,
         onPopInvoked: (didPop) async {
           if (!didPop) {
-            final menuList = context.read<MenuBloc>().state.menuList;
-            final oldMenuList = menuList.where((e) => e.id == state.menu.id).toList();
+            final listMenu = context.read<MenuBloc>().state.listMenu;
+            final oldListMenu = listMenu.where((e) => e.id == state.menu.id).toList();
             if (state.menu == Menu.createDefault()) {
               Navigator.pop(context);
-            } else if (oldMenuList.isNotEmpty && oldMenuList.first == state.menu) {
+            } else if (oldListMenu.isNotEmpty && oldListMenu.first == state.menu) {
               Navigator.pop(context);
             } else {
               await showDialog<bool>(

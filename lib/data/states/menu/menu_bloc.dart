@@ -13,18 +13,18 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
     required MenuRepository menuRepository,
   })  : _menuRepository = menuRepository,
         super(const MenuState()) {
-    on<SubscriptionMenuList>(_onSubscriptionMenuList);
+    on<SubscriptionListMenu>(_onSubscriptionListMenu);
     on<SignIn>(_onSignIn);
   }
 
-  Future<void> _onSubscriptionMenuList(
-    SubscriptionMenuList event,
+  Future<void> _onSubscriptionListMenu(
+    SubscriptionListMenu event,
     Emitter<MenuState> emit,
   ) async {
     await emit.forEach(
-      _menuRepository.getMenuList(),
-      onData: (menuList) {
-        return state.copyWith(menuList: menuList);
+      _menuRepository.listMenuStream(),
+      onData: (listMenu) {
+        return state.copyWith(listMenu: listMenu);
       },
     );
   }

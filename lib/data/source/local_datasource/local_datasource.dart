@@ -23,10 +23,10 @@ class LocalDataSource {
 
   Future<List<MenuHiveModel>> getAllMenu() async {
     final menuBox = Hive.box<MenuHiveModel>(MenuHiveModel.boxKey);
-    final menuList = List.generate(menuBox.length, (index) => menuBox.getAt(index))
+    final listMenu = List.generate(menuBox.length, (index) => menuBox.getAt(index))
         .whereType<MenuHiveModel>()
         .toList();
-    return menuList;
+    return listMenu;
   }
 
   Future<MenuHiveModel?> getMenu(String index) async {

@@ -1,25 +1,25 @@
 part of 'menu_bloc.dart';
 
 class MenuState extends Equatable {
-  final List<Menu> menuList;
+  final List<Menu> listMenu;
 
   final bool isSignedIn;
 
   const MenuState({
-    this.menuList = const [],
+    this.listMenu = const [],
     this.isSignedIn = false,
   });
 
   MenuState copyWith({
-    List<Menu>? menuList,
+    List<Menu>? listMenu,
     bool? isSignedIn,
   }) {
     return MenuState(
-      menuList: menuList ?? this.menuList,
+      listMenu: listMenu ?? this.listMenu,
       isSignedIn: isSignedIn ?? this.isSignedIn,
     );
   }
 
   @override
-  List<Object> get props => [menuList, isSignedIn, DateTime.now().microsecond];
+  List<Object> get props => [listMenu, isSignedIn, DateTime.now().microsecond];
 }

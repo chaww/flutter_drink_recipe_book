@@ -41,7 +41,7 @@ class __HomeCloudState extends State<_HomeCloud> {
           const SizedBox(height: 64),
           FilledButton(
             onPressed: () {
-              Navigator.of(context).push(MenuListPage.route());
+              Navigator.of(context).push(ListMenuPage.route());
             },
             child: const Row(
               mainAxisSize: MainAxisSize.min,

@@ -3,7 +3,7 @@ import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 
 class MockMenu {
-  static final menuList = <Menu>[
+  static final listMenu = <Menu>[
     const Menu(
       id: '03c41b99-9346-4cfd-8fcf-0f58cf665275',
       nameTh: 'อเมริกาโน่',
