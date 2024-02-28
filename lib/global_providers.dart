@@ -10,7 +10,6 @@ import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 
 class GlobalBlocProviders extends StatelessWidget {
   final Widget child;
-  // final AppSettings appSettings;
   final LocalFile localFile;
   final LocalDataSource localDataSource;
   final FirebaseDataSource firebaseDataSource;
@@ -18,7 +17,6 @@ class GlobalBlocProviders extends StatelessWidget {
   const GlobalBlocProviders({
     super.key,
     required this.child,
-    // required this.appSettings,
     required this.localFile,
     required this.localDataSource,
     required this.firebaseDataSource,
@@ -54,7 +52,6 @@ class GlobalBlocProviders extends StatelessWidget {
         BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(
             appSettinsRepository: context.read<AppSettinsDefaultRepository>(),
-            // appSettings: appSettings,
           ),
         ),
         BlocProvider<MenuBloc>(

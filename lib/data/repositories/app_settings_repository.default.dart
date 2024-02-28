@@ -13,10 +13,13 @@ class AppSettinsDefaultRepository extends AppSettinsRepository {
   final LocalDataSource _localDataSource;
 
   @override
-  Future<AppSettings?> getAppSettings() async {
+  Future<AppSettings> getAppSettings() async {
     final appSettingsModel = await _localDataSource.getAppSettings();
-    if (appSettingsModel == null) return null;
-    return appSettingsModel.toEntity();
+    if (appSettingsModel == null) {
+      return const AppSettings(theme: 'light', locale: 'th');
+    } else {
+      return appSettingsModel.toEntity();
+    }
   }
 
   @override

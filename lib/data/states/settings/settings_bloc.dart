@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
@@ -14,16 +16,27 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   SettingsBloc({
     required AppSettinsRepository appSettinsRepository,
-    // required AppSettings appSettings,
   })  : _appSettinsRepository = appSettinsRepository,
         super(SettingsState(
-          // theme: appSettings.theme == 'light' ? const LightAppTheme() : const DarkAppTheme(),
-          // locale: appSettings.locale,
-          theme: const DarkAppTheme(),
-          locale: 'th',
+          theme: const LightAppTheme(),
+          locale: 'en',
         )) {
     on<SettingsThemeSwitch>(_onThemeSwitch);
     on<SettingsLocaleSwitch>(_onLocaleSwitch);
+    on<SettingsInitialState>(_onInitialState);
+
+    add(SettingsInitialState());
+  }
+
+  Future<void> _onInitialState(
+    SettingsInitialState event,
+    Emitter<SettingsState> emit,
+  ) async {
+    final appSettings = await _appSettinsRepository.getAppSettings();
+    emit(state.copyWith(
+      theme: appSettings.theme == 'light' ? const LightAppTheme() : const DarkAppTheme(),
+      locale: appSettings.locale,
+    ));
   }
 
   void _onThemeSwitch(
