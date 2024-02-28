@@ -6,8 +6,8 @@ import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 
-class LocalImage {
-  const LocalImage();
+class LocalFile {
+  const LocalFile();
 
   Future<List<String>?> displayPickImageDialog({
     double? maxWidth = 1500,

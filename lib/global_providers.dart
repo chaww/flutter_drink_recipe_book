@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/app_settings_repository.default.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.default.dart';
+import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_file/local_file.dart';
 import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
 
 class GlobalBlocProviders extends StatelessWidget {
   final Widget child;
-  final AppSettings appSettings;
+  // final AppSettings appSettings;
+  final LocalFile localFile;
+  final LocalDataSource localDataSource;
+  final FirebaseDataSource firebaseDataSource;
 
   const GlobalBlocProviders({
     super.key,
     required this.child,
-    required this.appSettings,
+    // required this.appSettings,
+    required this.localFile,
+    required this.localDataSource,
+    required this.firebaseDataSource,
   });
+
+  Widget _buildMultiRepositoryProvider({
+    required Widget child,
+  }) {
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<MenuDefaultRepository>(
+          create: (context) => MenuDefaultRepository(
+            localDataSource: localDataSource,
+            localFile: localFile,
+            firebaseDataSource: firebaseDataSource,
+          ),
+        ),
+        RepositoryProvider<AppSettinsDefaultRepository>(
+          create: (context) => AppSettinsDefaultRepository(
+            localDataSource: localDataSource,
+          ),
+        ),
+      ],
+      child: child,
+    );
+  }
 
   Widget _buildMultiBlocProvider({
     required Widget child,
@@ -24,29 +54,13 @@ class GlobalBlocProviders extends StatelessWidget {
         BlocProvider<SettingsBloc>(
           create: (context) => SettingsBloc(
             appSettinsRepository: context.read<AppSettinsDefaultRepository>(),
-            appSettings: appSettings,
+            // appSettings: appSettings,
           ),
         ),
         BlocProvider<MenuBloc>(
           create: (context) => MenuBloc(
             menuRepository: context.read<MenuDefaultRepository>(),
           )..add(const SubscriptionListMenu()),
-        ),
-      ],
-      child: child,
-    );
-  }
-
-  Widget _buildMultiRepositoryProvider({
-    required Widget child,
-  }) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<MenuDefaultRepository>(
-          create: (context) => MenuDefaultRepository(),
-        ),
-        RepositoryProvider<AppSettinsDefaultRepository>(
-          create: (context) => AppSettinsDefaultRepository(),
         ),
       ],
       child: child,

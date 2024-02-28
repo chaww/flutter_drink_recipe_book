@@ -4,15 +4,21 @@ import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
 import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
-import 'package:flutter_drink_recipe_book/data/source/local_image/local_image.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_file/local_file.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/entity_to_local_mapper.dart';
 import 'package:flutter_drink_recipe_book/data/source/mappers/local_to_entity_mapper.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:uuid/uuid.dart';
 
 class MenuDefaultRepository extends MenuRepository {
-  MenuDefaultRepository() {
-    _updateAll();
+  MenuDefaultRepository({
+    required LocalFile localFile,
+    required LocalDataSource localDataSource,
+    required FirebaseDataSource firebaseDataSource,
+  })  : _localFile = localFile,
+        _localDataSource = localDataSource,
+        _firebaseDataSource = firebaseDataSource {
+    _sendUpdateListMenu();
     // for (var menu in MockMenu.listMenu) {
     //   updateMenu(menu);
     // }
@@ -20,13 +26,13 @@ class MenuDefaultRepository extends MenuRepository {
     // syncUpload();
   }
 
-  final _localImage = const LocalImage();
-  final _localDataSource = LocalDataSource();
-  final _firebaseDataSource = FirebaseDataSource();
+  final LocalFile _localFile;
+  final LocalDataSource _localDataSource;
+  final FirebaseDataSource _firebaseDataSource;
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
 
-  Future<void> _updateAll() async {
+  Future<void> _sendUpdateListMenu() async {
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
 
@@ -39,7 +45,7 @@ class MenuDefaultRepository extends MenuRepository {
   @override
   Future<Menu> updateMenu(Menu menu) async {
     if (menu.imageSrc.isNotEmpty) {
-      menu = menu.copyWith(imageSrc: await _localImage.moveImageToDirectory(source: menu.imageSrc));
+      menu = menu.copyWith(imageSrc: await _localFile.moveImageToDirectory(source: menu.imageSrc));
     }
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
@@ -53,8 +59,8 @@ class MenuDefaultRepository extends MenuRepository {
       if (menu.id.isEmpty) newMenu = menu.copyWith(id: const Uuid().v4());
       await _localDataSource.addMenu(newMenu.toHiveModel());
     }
-    _updateAll();
-    _localImage.cleanImageCache();
+    _sendUpdateListMenu();
+    _localFile.cleanImageCache();
     return newMenu;
   }
 
@@ -66,11 +72,11 @@ class MenuDefaultRepository extends MenuRepository {
     if (index > -1) {
       await _localDataSource.deleteMenu(index: index);
     }
-    _updateAll();
+    _sendUpdateListMenu();
   }
 
   @override
-  Future<List<String>?> displayPickImageDialog() => _localImage.displayPickImageDialog();
+  Future<List<String>?> displayPickImageDialog() => _localFile.displayPickImageDialog();
 
   @override
   Future<void> syncUpload() async {
@@ -103,7 +109,7 @@ class MenuDefaultRepository extends MenuRepository {
       await _firebaseDataSource.deleteImageFile(filename);
     }
 
-    await _cleanLocalImagesByListMenu(menuData);
+    await _cleanLocalFilesByListMenu(menuData);
   }
 
   @override
@@ -118,21 +124,21 @@ class MenuDefaultRepository extends MenuRepository {
         await updateMenu(menu);
       }
     }
-    await _cleanLocalImagesByListMenu(menuData);
+    await _cleanLocalFilesByListMenu(menuData);
   }
 
-  Future<void> _cleanLocalImagesByListMenu(List<Menu> listMenu) async {
+  Future<void> _cleanLocalFilesByListMenu(List<Menu> listMenu) async {
     List<String> listMenuFilename = [];
     for (var menu in listMenu) {
       if (menu.imageSrc.isNotEmpty) {
         listMenuFilename.add(menu.imageSrc.split('/').last);
       }
     }
-    final listLocalFilename = await _localImage.getListFilename();
+    final listLocalFilename = await _localFile.getListFilename();
     final localSet = listLocalFilename.toSet();
     final listDelete = localSet.difference(listMenuFilename.toSet()).toList();
     for (var filename in listDelete) {
-      await _localImage.deleteFile(filename);
+      await _localFile.deleteFile(filename);
     }
   }
 }
