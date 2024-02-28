@@ -15,8 +15,30 @@ import 'package:flutter_drink_recipe_book/presenter/widgets/theme_switcher_butto
 
 part 'sections/home_cloud.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late Image imageLight;
+  late Image imageDark;
+
+  @override
+  void initState() {
+    super.initState();
+    imageLight = Image(image: Assets.hidden.logoLight.provider(), width: 240);
+    imageDark = Image(image: Assets.hidden.logoDark.provider(), width: 240);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(imageLight.image, context);
+    precacheImage(imageDark.image, context);
+  }
 
   void _onThemeSwitcherPressed(BuildContext context) {
     final settingsBloc = context.read<SettingsBloc>();
@@ -68,10 +90,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 32),
-              if (context.appTheme.name == 'light')
-                Image(image: Assets.hidden.logoLight.provider(), width: 240)
-              else
-                Image(image: Assets.hidden.logoDark.provider(), width: 240),
+              if (context.appTheme.name == 'light') imageLight else imageDark,
               const SizedBox(height: 64),
               _HomeCloud(),
 
