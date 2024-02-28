@@ -1,9 +1,11 @@
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
+import 'package:flutter_drink_recipe_book/data/entities/login_remember.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/login_remember.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/recipe.dart';
 
@@ -36,4 +38,10 @@ extension AppSettingsHiveModelX on AppSettings {
   AppSettingsHiveModel toHiveModel() => AppSettingsHiveModel()
     ..locale = locale
     ..theme = theme;
+}
+
+extension LoginRememberHiveModelX on LoginRemember {
+  LoginRememberHiveModel toHiveModel() => LoginRememberHiveModel()
+    ..email = email
+    ..password = password;
 }
