@@ -20,5 +20,5 @@ class AppSettings extends Equatable {
   }
 
   @override
-  List<Object> get props => [theme, theme];
+  List<Object> get props => [theme, locale];
 }
