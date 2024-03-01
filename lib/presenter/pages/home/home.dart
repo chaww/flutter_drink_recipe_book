@@ -13,7 +13,7 @@ import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.da
 import 'package:flutter_drink_recipe_book/presenter/widgets/locale_switcher_button.dart';
 import 'package:flutter_drink_recipe_book/presenter/widgets/theme_switcher_button.dart';
 
-part 'sections/home_cloud.dart';
+part 'sections/form_login.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,14 +52,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = [
-      context.l10n.drinkCategoryAll,
-      context.l10n.drinkCategoryTea,
-      context.l10n.drinkCategoryCoffee,
-      context.l10n.drinkCategorySmoothies,
-      context.l10n.drinkCategorySoda,
-      context.l10n.drinkCategoryOthers,
-    ];
+    final settingsState = context.watch<SettingsBloc>().state;
 
     return Scaffold(
       body: SafeArea(
@@ -92,7 +85,38 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 32),
               if (context.appTheme.name == 'light') imageLight else imageDark,
               const SizedBox(height: 64),
-              _HomeCloud(),
+              if (settingsState.isAuth) ...[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.cloud_upload_outlined),
+                      label: const Text('Backup'),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.cloud_download_outlined),
+                      label: const Text('Restore'),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 64),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).push(ListMenuPage.route());
+                  },
+                  child: const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('View List Menu'),
+                      Icon(Icons.navigate_next_outlined),
+                    ],
+                  ),
+                ),
+              ] else ...[
+                _FormLogin(),
+              ],
 
               // Text(
               //   context.l10n.appTitle,
