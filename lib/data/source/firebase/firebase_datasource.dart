@@ -15,19 +15,29 @@ class FirebaseDataSource {
   Future<void> initialize() async {
     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
       if (user == null) {
-        log('User is currently signed out!');
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'aaa@a.com',
-          password: 'aaaaaa',
-        );
+        log('anonymous user');
       } else {
-        log('User is signed in!');
-        // await FirebaseAuth.instance.signOut();
-        // final list = await getListImageFilename();
-        // log('$list');
+        if (user.email == 'master@a.com') {
+          log('editor user');
+        } else if (user.email == 'aaa@a.com') {
+          log('viewer user');
+        } else {
+          log('anonymous user');
+        }
       }
     });
   }
+
+  Stream<User?> authStateChanges() => FirebaseAuth.instance.authStateChanges();
+
+  Future<UserCredential> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) =>
+      signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
   Future<void> deleteImageFile(String filename) async {
     final storageRef = FirebaseStorage.instance.ref();

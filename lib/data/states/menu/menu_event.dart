@@ -10,15 +10,3 @@ class MenuEvent extends Equatable {
 class SubscriptionListMenu extends MenuEvent {
   const SubscriptionListMenu();
 }
-
-class SignIn extends MenuEvent {
-  final String email;
-  final String password;
-  const SignIn({
-    required this.email,
-    required this.password,
-  });
-
-  @override
-  List<Object> get props => [email, password];
-}

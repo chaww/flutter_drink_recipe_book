@@ -37,6 +37,7 @@ class GlobalBlocProviders extends StatelessWidget {
         RepositoryProvider<AppSettinsDefaultRepository>(
           create: (context) => AppSettinsDefaultRepository(
             localDataSource: localDataSource,
+            firebaseDataSource: firebaseDataSource,
           ),
         ),
       ],

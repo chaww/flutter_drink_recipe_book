@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
@@ -19,11 +21,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   })  : _appSettinsRepository = appSettinsRepository,
         super(SettingsState(
           theme: const LightAppTheme(),
-          locale: 'en',
+          locale: 'th',
+          isAuth: false,
+          isEditor: false,
         )) {
     on<SettingsThemeSwitch>(_onThemeSwitch);
     on<SettingsLocaleSwitch>(_onLocaleSwitch);
     on<SettingsInitialState>(_onInitialState);
+    on<Login>(_onLogin);
 
     add(SettingsInitialState());
   }
@@ -33,9 +38,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     final appSettings = await _appSettinsRepository.getAppSettings();
+    final loginRemember = await _appSettinsRepository.getLoginRemember();
+    final email = loginRemember.email;
     emit(state.copyWith(
       theme: appSettings.theme == 'light' ? const LightAppTheme() : const DarkAppTheme(),
       locale: appSettings.locale,
+      isAuth: email.isNotEmpty,
+      isEditor: email.length > 7 && email.substring(0, 7) == 'master',
     ));
   }
 
@@ -72,5 +81,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         locale: state.locale,
       ),
     );
+  }
+
+  Future<void> _onLogin(
+    Login event,
+    Emitter<SettingsState> emit,
+  ) async {
+    // _appSettinsRepository.
+    log('message');
+    // emit(state.copyWith(isSignedIn: !state.isSignedIn));
   }
 }
