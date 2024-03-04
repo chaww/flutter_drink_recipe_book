@@ -5,8 +5,8 @@ import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.defa
 import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_file/local_file.dart';
-import 'package:flutter_drink_recipe_book/data/states/settings/settings_bloc.dart';
-import 'package:flutter_drink_recipe_book/data/states/menu/menu_bloc.dart';
+import 'package:flutter_drink_recipe_book/presenter/states/settings/settings_bloc.dart';
+import 'package:flutter_drink_recipe_book/presenter/states/menu/menu_bloc.dart';
 
 class GlobalBlocProviders extends StatelessWidget {
   final Widget child;
