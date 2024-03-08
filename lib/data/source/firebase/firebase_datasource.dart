@@ -45,13 +45,7 @@ class FirebaseDataSource {
     await imageRef.delete();
   }
 
-  Future<void> uploadImageFile(String filename) async {
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String filePath = '${appDocDir.path}/images/$filename';
-    File file = File(filePath);
-    final isExists = await file.exists();
-    if (!isExists) return;
-
+  Future<void> uploadImageFile({required File file, required String filename}) async {
     try {
       final storageRef = FirebaseStorage.instance.ref();
       final imageRef = storageRef.child('images/$filename');

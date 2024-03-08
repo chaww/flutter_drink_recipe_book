@@ -100,7 +100,10 @@ class MenuDefaultRepository extends MenuRepository {
     // upload images
     final listFilenameUpload = menuSet.difference(serverSet).toList();
     for (var filename in listFilenameUpload) {
-      await _firebaseDataSource.uploadImageFile(filename);
+      final file = await _localFile.getImageFile(filename);
+      if (file != null) {
+        await _firebaseDataSource.uploadImageFile(file: file, filename: filename);
+      }
     }
 
     // clean server images
