@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_file/local_file.dart';
-import 'package:flutter_drink_recipe_book/bloc_providers.dart';
+import 'package:flutter_drink_recipe_book/presenter/bloc_providers.dart';
 import 'package:flutter_drink_recipe_book/presenter/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
