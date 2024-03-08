@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,6 +22,9 @@ class LocalFile {
         maxHeight: maxHeight,
       );
       if (image == null) return null;
+      if (kIsWeb) {
+        log('${image.path}');
+      }
       final mediaFileList = <XFile>[image];
       final mime = lookupMimeType(mediaFileList[0].path);
       if (mime == null || mime.startsWith('image/')) {
@@ -30,6 +34,11 @@ class LocalFile {
       log('[displayPickImageDialog] Error $e');
     }
     return null;
+  }
+
+  Future<String> getImagesDirPath() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return '${dir.path}/images';
   }
 
   Future<String> moveImageToDirectory({
@@ -62,6 +71,15 @@ class LocalFile {
       final file = File('${dir.path}/images/$filename');
       await file.delete();
     } catch (e) {}
+  }
+
+  Future<File?> getImageFile(String filename) async {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String filePath = '${appDocDir.path}/images/$filename';
+    File file = File(filePath);
+    final isExists = await file.exists();
+    if (!isExists) return null;
+    return file;
   }
 
   Future<void> cleanImageCache() async {
