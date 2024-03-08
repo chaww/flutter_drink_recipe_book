@@ -88,12 +88,19 @@ class _MenuInfoImage extends StatelessWidget {
                 )
               : Container(
                   decoration: state.menu.imageSrc != ''
-                      ? BoxDecoration(
-                          image: DecorationImage(
-                            image: FileImage(File(state.menu.imageSrc)),
-                            fit: BoxFit.contain,
-                          ),
-                        )
+                      ? kIsWeb
+                          ? BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(state.menu.imageSrc),
+                                fit: BoxFit.contain,
+                              ),
+                            )
+                          : BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(File(state.menu.imageSrc)),
+                                fit: BoxFit.contain,
+                              ),
+                            )
                       : null,
                 ),
           _buildCategory(context),

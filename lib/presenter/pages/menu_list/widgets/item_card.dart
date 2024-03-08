@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/presenter/assets.gen.dart';
@@ -45,10 +46,15 @@ class ItemCard extends StatelessWidget {
                               ),
                             )
                           : Center(
-                              child: Image(
-                                image: FileImage(File(menu.imageSrc)),
-                                fit: BoxFit.contain,
-                              ),
+                              child: kIsWeb
+                                  ? Image(
+                                      image: NetworkImage(menu.imageSrc),
+                                      fit: BoxFit.contain,
+                                    )
+                                  : Image(
+                                      image: FileImage(File(menu.imageSrc)),
+                                      fit: BoxFit.contain,
+                                    ),
                             ),
                     ),
                     Spacer(),
