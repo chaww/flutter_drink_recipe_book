@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
+import 'package:flutter_drink_recipe_book/data/entities/user_data.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/app_settings_repository.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes.dart';
 import 'package:flutter_drink_recipe_book/presenter/themes/themes/themes.dark.dart';
@@ -22,7 +23,8 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         super(SettingsState(
           theme: const LightAppTheme(),
           locale: 'th',
-          isAuth: false,
+          email: '',
+          isReader: false,
           isEditor: false,
         )) {
     on<SettingsThemeSwitch>(_onThemeSwitch);
@@ -38,14 +40,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Emitter<SettingsState> emit,
   ) async {
     final appSettings = await _appSettinsRepository.getAppSettings();
-    final loginRemember = await _appSettinsRepository.getLoginRemember();
-    final email = loginRemember.email;
     emit(state.copyWith(
       theme: appSettings.theme == 'light' ? const LightAppTheme() : const DarkAppTheme(),
       locale: appSettings.locale,
-      isAuth: email.isNotEmpty,
-      isEditor: email.length > 7 && email.substring(0, 7) == 'master',
     ));
+
+    await emit.forEach(
+      _appSettinsRepository.authChanges(),
+      onData: (userData) {
+        log('$userData');
+        return state.copyWith(
+          email: userData.email,
+          isEditor: userData.isEditor,
+          isReader: userData.isReader,
+        );
+      },
+    );
   }
 
   void _onThemeSwitch(
@@ -87,8 +97,11 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     Login event,
     Emitter<SettingsState> emit,
   ) async {
-    // _appSettinsRepository.
-    log('message');
+    _appSettinsRepository.signInWithEmailAndPassword(
+      email: event.email,
+      password: event.password,
+    );
+    // log('message');
     // emit(state.copyWith(isSignedIn: !state.isSignedIn));
   }
 }

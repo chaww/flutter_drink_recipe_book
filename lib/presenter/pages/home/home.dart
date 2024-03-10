@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_drink_recipe_book/config/locale/l10n.dart';
 import 'package:flutter_drink_recipe_book/presenter/states/menu/menu_bloc.dart';
 import 'package:flutter_drink_recipe_book/presenter/states/settings/settings_bloc.dart';
 import 'package:flutter_drink_recipe_book/presenter/states/settings/settings_selector.dart';
@@ -85,7 +84,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 32),
               if (context.appTheme.name == 'light') imageLight else imageDark,
               const SizedBox(height: 64),
-              if (settingsState.isAuth) ...[
+              if (settingsState.email.isNotEmpty) ...[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

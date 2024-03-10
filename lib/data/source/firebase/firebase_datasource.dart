@@ -12,32 +12,20 @@ import 'package:path_provider/path_provider.dart';
 class FirebaseDataSource {
   FirebaseDataSource();
 
-  Future<void> initialize() async {
-    FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-      if (user == null) {
-        log('anonymous user');
-      } else {
-        if (user.email == 'master@a.com') {
-          log('editor user');
-        } else if (user.email == 'aaa@a.com') {
-          log('viewer user');
-        } else {
-          log('anonymous user');
-        }
-      }
-    });
-  }
+  Future<void> initialize() async {}
 
   Stream<User?> authStateChanges() => FirebaseAuth.instance.authStateChanges();
 
-  Future<UserCredential> signInWithEmailAndPassword({
+  Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
   }) =>
-      signInWithEmailAndPassword(
+      FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+  Future<void> signOut() => FirebaseAuth.instance.signOut();
 
   Future<void> deleteImageFile(String filename) async {
     final storageRef = FirebaseStorage.instance.ref();

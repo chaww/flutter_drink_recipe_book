@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
+import 'package:flutter_drink_recipe_book/data/entities/user_data.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
 import 'package:flutter_drink_recipe_book/data/source/firebase/firebase_datasource.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/local_datasource.dart';
@@ -18,12 +20,17 @@ class MenuDefaultRepository extends MenuRepository {
   })  : _localFile = localFile,
         _localDataSource = localDataSource,
         _firebaseDataSource = firebaseDataSource {
-    _sendUpdateListMenu();
     // for (var menu in MockMenu.listMenu) {
     //   updateMenu(menu);
     // }
     // syncDownload();
     // syncUpload();
+    initialize();
+  }
+
+  @override
+  Future<void> initialize() async {
+    await _sendUpdateListMenu();
   }
 
   final LocalFile _localFile;
@@ -32,15 +39,15 @@ class MenuDefaultRepository extends MenuRepository {
 
   final _menuStreamController = BehaviorSubject<List<Menu>>.seeded(const []);
 
+  @override
+  Stream<List<Menu>> listMenuStream() => _menuStreamController.asBroadcastStream();
+
   Future<void> _sendUpdateListMenu() async {
     final menuHiveModels = await _localDataSource.getAllMenu();
     final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
 
     _menuStreamController.add(menuEntities);
   }
-
-  @override
-  Stream<List<Menu>> listMenuStream() => _menuStreamController.asBroadcastStream();
 
   @override
   Future<Menu> updateMenu(Menu menu) async {
@@ -75,45 +82,42 @@ class MenuDefaultRepository extends MenuRepository {
     _sendUpdateListMenu();
   }
 
-  @override
-  Future<List<String>?> displayPickImageDialog() => _localFile.displayPickImageDialog();
+  // @override
+  // Future<void> syncUpload() async {
+  //   // upload menu data
+  //   final menuHiveModels = await _localDataSource.getAllMenu();
+  //   final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
+  //   final menuData =
+  //       menuEntities.map((menu) => menu.copyWith(imageSrc: menu.imageSrc.split('/').last)).toList();
+  //   await _firebaseDataSource.uploadMenuData(menuData);
 
-  @override
-  Future<void> syncUpload() async {
-    // upload menu data
-    final menuHiveModels = await _localDataSource.getAllMenu();
-    final menuEntities = menuHiveModels.map((e) => e.toEntity()).toList();
-    final menuData =
-        menuEntities.map((menu) => menu.copyWith(imageSrc: menu.imageSrc.split('/').last)).toList();
-    await _firebaseDataSource.uploadMenuData(menuData);
+  //   List<String> listMenuFilename = [];
+  //   for (var menu in menuData) {
+  //     if (menu.imageSrc.isNotEmpty) {
+  //       listMenuFilename.add(menu.imageSrc);
+  //     }
+  //   }
+  //   final listFilenameServer = await _firebaseDataSource.getListImageFilename();
+  //   final menuSet = listMenuFilename.toSet();
+  //   final serverSet = listFilenameServer.toSet();
 
-    List<String> listMenuFilename = [];
-    for (var menu in menuData) {
-      if (menu.imageSrc.isNotEmpty) {
-        listMenuFilename.add(menu.imageSrc);
-      }
-    }
-    final listFilenameServer = await _firebaseDataSource.getListImageFilename();
-    final menuSet = listMenuFilename.toSet();
-    final serverSet = listFilenameServer.toSet();
+  //   // upload images
+  //   final listFilenameUpload = menuSet.difference(serverSet).toList();
+  //   for (var filename in listFilenameUpload) {
+  //     final file = await _localFile.getImageFile(filename);
+  //     if (file != null) {
+  //       await _firebaseDataSource.uploadImageFile(file: file, filename: filename);
+  //     }
+  //   }
 
-    // upload images
-    final listFilenameUpload = menuSet.difference(serverSet).toList();
-    for (var filename in listFilenameUpload) {
-      final file = await _localFile.getImageFile(filename);
-      if (file != null) {
-        await _firebaseDataSource.uploadImageFile(file: file, filename: filename);
-      }
-    }
+  //   // clean server images
+  //   final listFilenameDelete = serverSet.difference(menuSet).toList();
+  //   for (var filename in listFilenameDelete) {
+  //     await _firebaseDataSource.deleteImageFile(filename);
+  //   }
 
-    // clean server images
-    final listFilenameDelete = serverSet.difference(menuSet).toList();
-    for (var filename in listFilenameDelete) {
-      await _firebaseDataSource.deleteImageFile(filename);
-    }
-
-    await _cleanLocalFilesByListMenu(menuData);
-  }
+  //   await _cleanLocalFilesByListMenu(menuData);
+  // }
 
   @override
   Future<void> syncDownload() async {

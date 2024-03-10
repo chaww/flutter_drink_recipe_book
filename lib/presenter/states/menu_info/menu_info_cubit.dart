@@ -6,6 +6,7 @@ import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
 import 'package:flutter_drink_recipe_book/data/repositories/menu_repository.dart';
+import 'package:flutter_drink_recipe_book/plugin/image_picker/image_picker.dart';
 import 'package:flutter_drink_recipe_book/presenter/pages/menu_info/menu_type.dart';
 
 part 'menu_info_state.dart';
@@ -55,9 +56,9 @@ class MenuInfoCubit extends Cubit<MenuInfoState> {
 
   void updateImage() async {
     log('updateImage');
-    final path = await _menuRepository.displayPickImageDialog();
-    if (path == null) return;
-    emit(state.copyWith(menu: state.menu.copyWith(imageSrc: path[0])));
+    final file = await ImagePickerPlugin.displayPickImage();
+    if (file == null) return;
+    emit(state.copyWith(menu: state.menu.copyWith(imageSrc: file.path)));
   }
 
   void deleteImage() {

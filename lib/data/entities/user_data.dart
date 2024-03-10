@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserData {
   final String email;
   final bool isReader;
@@ -21,4 +22,7 @@ class UserData {
       isEditor: isEditor ?? this.isEditor,
     );
   }
+
+  @override
+  String toString() => 'UserData(email: $email, isReader: $isReader, isEditor: $isEditor)';
 }

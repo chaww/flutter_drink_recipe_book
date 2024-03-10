@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/entities/user_data.dart';
@@ -13,7 +15,9 @@ class AppSettinsDefaultRepository extends AppSettinsRepository {
     required LocalDataSource localDataSource,
     required FirebaseDataSource firebaseDataSource,
   })  : _localDataSource = localDataSource,
-        _firebaseDataSource = firebaseDataSource;
+        _firebaseDataSource = firebaseDataSource {
+    initialize();
+  }
 
   final LocalDataSource _localDataSource;
   final FirebaseDataSource _firebaseDataSource;
