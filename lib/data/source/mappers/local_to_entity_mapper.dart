@@ -1,11 +1,11 @@
 import 'package:flutter_drink_recipe_book/data/entities/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/entities/ingredient.dart';
-import 'package:flutter_drink_recipe_book/data/entities/login_remember.dart';
 import 'package:flutter_drink_recipe_book/data/entities/menu.dart';
 import 'package:flutter_drink_recipe_book/data/entities/recipe.dart';
+import 'package:flutter_drink_recipe_book/data/entities/user_data.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/app_settings.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
-import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/login_remember.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/user_data.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/recipe.dart';
 
@@ -44,9 +44,10 @@ extension AppSettingsHiveModelX on AppSettingsHiveModel {
       );
 }
 
-extension LoginRememberHiveModelX on LoginRememberHiveModel {
-  LoginRemember toEntity() => LoginRemember(
+extension UserDataHiveModelX on UserDataHiveModel {
+  UserData toEntity() => UserData(
         email: email,
-        password: password,
+        isEditor: isEditor,
+        isReader: isReader,
       );
 }

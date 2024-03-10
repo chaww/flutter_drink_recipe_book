@@ -1,5 +1,5 @@
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/app_settings.dart';
-import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/login_remember.dart';
+import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/user_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/ingredient.dart';
 import 'package:flutter_drink_recipe_book/data/source/local_datasource/models/menu.dart';
@@ -15,13 +15,13 @@ class LocalDataSource {
     Hive.registerAdapter<RecipeHiveModel>(RecipeHiveModelAdapter());
     Hive.registerAdapter<IngredientHiveModel>(IngredientHiveModelAdapter());
     Hive.registerAdapter<AppSettingsHiveModel>(AppSettingsHiveModelAdapter());
-    Hive.registerAdapter<LoginRememberHiveModel>(LoginRememberHiveModelAdapter());
+    Hive.registerAdapter<UserDataHiveModel>(UserDataHiveModelAdapter());
 
     await Hive.openBox<MenuHiveModel>(MenuHiveModel.boxKey);
     await Hive.openBox<RecipeHiveModel>(RecipeHiveModel.boxKey);
     await Hive.openBox<IngredientHiveModel>(IngredientHiveModel.boxKey);
     await Hive.openBox<AppSettingsHiveModel>(AppSettingsHiveModel.boxKey);
-    await Hive.openBox<LoginRememberHiveModel>(LoginRememberHiveModel.boxKey);
+    await Hive.openBox<UserDataHiveModel>(UserDataHiveModel.boxKey);
   }
 
   Future<List<MenuHiveModel>> getAllMenu() async {
@@ -73,19 +73,19 @@ class LocalDataSource {
     }
   }
 
-  Future<LoginRememberHiveModel?> getLoginRemember() async {
-    final loginRemember = Hive.box<LoginRememberHiveModel>(LoginRememberHiveModel.boxKey);
-    return loginRemember.get(0);
+  Future<UserDataHiveModel?> getUserData() async {
+    final userData = Hive.box<UserDataHiveModel>(UserDataHiveModel.boxKey);
+    return userData.get(0);
   }
 
-  Future<void> updateLoginRemember({
-    required LoginRememberHiveModel loginRemember,
+  Future<void> updateUserData({
+    required UserDataHiveModel userData,
   }) async {
-    final loginRememberBox = Hive.box<LoginRememberHiveModel>(LoginRememberHiveModel.boxKey);
-    if (loginRememberBox.length == 0) {
-      loginRememberBox.add(loginRemember);
+    final userDataBox = Hive.box<UserDataHiveModel>(UserDataHiveModel.boxKey);
+    if (userDataBox.length == 0) {
+      userDataBox.add(userData);
     } else {
-      await loginRememberBox.putAt(0, loginRemember);
+      await userDataBox.putAt(0, userData);
     }
   }
 }
